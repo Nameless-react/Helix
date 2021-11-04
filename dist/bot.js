@@ -177,6 +177,7 @@ exports.client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0
         });
         setTimeout(() => {
             collector.on("collect", (reaction, user) => {
+                console.log(reaction.message.guild.members.cache.find((m) => m.id === user.id).roles.cache.has(AdminRole));
                 switch (reaction.emoji.name) {
                     case "🔒":
                         channel.permissionOverwrites.create(interaction.user.id, {
