@@ -18,15 +18,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -51,11 +42,10 @@ exports.client = new discord_js_1.Client({
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
 exports.client.on("ready", () => {
-    var _a, _b;
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
-        (_a = exports.client.application) === null || _a === void 0 ? void 0 : _a.commands.cache.set(command.default.name, command.default);
+        exports.client.application?.commands.cache.set(command.default.name, command.default);
         if (!command) {
             console.log(`The command ${command.default.name} is ❌`);
             return;
@@ -64,19 +54,18 @@ exports.client.on("ready", () => {
     }
     ;
     console.log(`${exports.client.user.username} is on`);
-    (_b = exports.client.user) === null || _b === void 0 ? void 0 : _b.setActivity("Configurarme", {
+    exports.client.user?.setActivity("Configurarme", {
         type: "PLAYING"
     });
 });
 exports.client.on("messageCreate", (msg) => {
-    var _a;
     if (msg.author.bot)
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (((_a = exports.client.application) === null || _a === void 0 ? void 0 : _a.commands.cache.get("ticket").name) === cdm) {
+        if (exports.client.application?.commands.cache.get("ticket").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
             return;
         }
@@ -102,14 +91,13 @@ exports.client.on("messageCreate", (msg) => {
     ;
 });
 exports.client.on("messageReactionAdd", (reaction, user) => {
-    var _a;
     const { name } = reaction.emoji;
-    const member = (_a = reaction.message.guild) === null || _a === void 0 ? void 0 : _a.members.cache.get(user.id);
+    const member = reaction.message.guild?.members.cache.get(user.id);
     if (reaction.message.id === "904190276246048778") {
         const MainRole = reaction.message.guild.roles.cache.find((role) => role.name === "normal").id;
         switch (name) {
             case "✅":
-                member === null || member === void 0 ? void 0 : member.roles.add(MainRole);
+                member?.roles.add(MainRole);
                 break;
             case "🥶":
                 break;
@@ -129,13 +117,12 @@ exports.client.on("guildMemberAdd", (server) => {
 exports.client.on("messageUpdate", (msg) => {
     CleanId_1.searchLink(msg);
 });
-exports.client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+exports.client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton())
         return;
     if (interaction.customId === "Open") {
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
-        const ticket = (_a = interaction.guild) === null || _a === void 0 ? void 0 : _a.channels.cache.get("904888921081663538");
+        const ticket = interaction.guild?.channels.cache.get("904888921081663538");
         const equal = ticket.children.find((m) => m.name === name);
         if (equal) {
             return interaction.reply({
@@ -143,7 +130,7 @@ exports.client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0
                 ephemeral: true
             });
         }
-        const channel = yield interaction.guild.channels.create(`Ticket: ${interaction.user.tag}`, {
+        const channel = await interaction.guild.channels.create(`Ticket: ${interaction.user.tag}`, {
             parent: "904888921081663538",
             permissionOverwrites: [
                 {
@@ -160,10 +147,10 @@ exports.client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0
             content: `We are going to stay with you in ${channel}`,
             ephemeral: true
         });
-        const MsgTicket = yield channel.send("Thank you for contacting us, wait until a member of our team join");
+        const MsgTicket = await channel.send("Thank you for contacting us, wait until a member of our team join");
         try {
-            yield MsgTicket.react("❌");
-            yield MsgTicket.react("🔒");
+            await MsgTicket.react("❌");
+            await MsgTicket.react("🔒");
         }
         catch (err) {
             channel.send("Error sending emojis");
@@ -193,5 +180,5 @@ exports.client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0
         }, 1000);
     }
     ;
-}));
+});
 exports.client.login(token);

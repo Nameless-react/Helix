@@ -52,7 +52,6 @@ const Embed = (server) => {
     Account Created: <t:${server.joinedTimestamp / 10000}:R>`);
 };
 const DMEmbed = (client) => {
-    var _a;
     let embed = {
         color: "#ee069f",
         title: "Do you need help?\nHere are some commands",
@@ -64,7 +63,7 @@ const DMEmbed = (client) => {
         },
         fields: []
     };
-    (_a = client.application) === null || _a === void 0 ? void 0 : _a.commands.cache.forEach((cmd) => {
+    client.application?.commands.cache.forEach((cmd) => {
         let field = { name: `${cmd.name}:`, value: `${cmd.description}` };
         embed.fields.push(field);
     });
@@ -100,44 +99,43 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const commands = (msg, prefix, client, cdm, args) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     const AdminRole = msg.guild.roles.cache.find((role) => role.name === "Admin").id;
     const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot").id;
     if (msg.member.roles.cache.has(BotRole) || msg.guild.ownerId === msg.author.id || msg.member.roles.cache.has(AdminRole)) {
         if (cdm === "kick") {
-            const command = (_a = client.application) === null || _a === void 0 ? void 0 : _a.commands.cache.get("kick");
+            const command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, cleanId, prefix);
         }
         else if (cdm === "ban") {
-            const command = (_b = client.application) === null || _b === void 0 ? void 0 : _b.commands.cache.get("ban");
+            const command = client.application?.commands.cache.get("ban");
             command.execute(client, msg, args, cleanId, prefix);
         }
         else if (cdm === "unban") {
-            const command = (_c = client.application) === null || _c === void 0 ? void 0 : _c.commands.cache.get("unban");
+            const command = client.application?.commands.cache.get("unban");
             command.execute(client, msg, args);
         }
         else if (cdm === "help") {
-            const command = (_d = client.application) === null || _d === void 0 ? void 0 : _d.commands.cache.get("help");
+            const command = client.application?.commands.cache.get("help");
             command.execute(client, msg, DMEmbed);
         }
         else if (cdm === "mute") {
-            const command = (_e = client.application) === null || _e === void 0 ? void 0 : _e.commands.cache.get("mute");
+            const command = client.application?.commands.cache.get("mute");
             command.execute(client, msg, args, ms_1.default);
         }
         else if (cdm === "unmute") {
-            const command = (_f = client.application) === null || _f === void 0 ? void 0 : _f.commands.cache.get("unmute");
+            const command = client.application?.commands.cache.get("unmute");
             command.execute(client, msg, args);
         }
         else if (cdm === "banlist") {
-            const command = (_g = client.application) === null || _g === void 0 ? void 0 : _g.commands.cache.get("banlist");
+            const command = client.application?.commands.cache.get("banlist");
             command.execute(client, msg, BanEmbed);
         }
         else if (cdm === "ping") {
-            const command = (_h = client.application) === null || _h === void 0 ? void 0 : _h.commands.cache.get("ping");
+            const command = client.application?.commands.cache.get("ping");
             command.execute(client, msg);
         }
         else if (cdm === "cc") {
-            const command = (_j = client.application) === null || _j === void 0 ? void 0 : _j.commands.cache.get("cc");
+            const command = client.application?.commands.cache.get("cc");
             command.execute(client, msg, args);
         }
         else {
@@ -150,9 +148,8 @@ const commands = (msg, prefix, client, cdm, args) => {
 };
 exports.commands = commands;
 const PublicCommands = (msg, prefix, client, cdm, args) => {
-    var _a;
     if (cdm === "ticket") {
-        const command = (_a = client.application) === null || _a === void 0 ? void 0 : _a.commands.cache.get("ticket");
+        const command = client.application?.commands.cache.get("ticket");
         command.execute(client, msg, exports.TickEmbed, exports.buttonTick);
     }
 };
