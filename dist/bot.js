@@ -41,6 +41,7 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
+let Mode = false;
 exports.client.on("ready", () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -65,16 +66,17 @@ exports.client.on("messageCreate", (msg) => {
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (exports.client.application?.commands.cache.get("ticket").name === cdm) {
+        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
-            return;
         }
         else {
-            CleanId_1.commands(msg, prefix, exports.client, cdm, args);
-            return;
+            Mode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, Mode);
         }
     }
     ;
+    if (Mode) {
+        CleanId_1.BadWords(msg);
+    }
     if (msg.content === "files") {
         msg.reply(`Hello${msg.author.tag}`);
         msg.channel.send({
@@ -115,7 +117,7 @@ exports.client.on("guildMemberAdd", (server) => {
     });
 });
 exports.client.on("messageUpdate", (msg) => {
-    CleanId_1.searchLink(msg);
+    CleanId_1.searchLink(msg.reactions.message);
 });
 exports.client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton())

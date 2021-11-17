@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = void 0;
+exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = void 0;
 const discord_js_1 = require("discord.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 const ms_1 = __importDefault(require("ms"));
@@ -13,10 +13,33 @@ const cleanId = (prefix, args, msg) => {
     const member = msg.guild.members.cache.get(id);
     return member;
 };
+const BadWords = (msg) => {
+    if (!msg.member) {
+        msg.delete()
+            .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
+            .catch((err) => {
+            console.log(err);
+        });
+    }
+    else if (msg.author.id !== "900182160017883197" || msg.author.id !== msg.guild.ownerId) {
+        const regex = /[se]+x[0o]?|fuck|hijo de puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch/ig;
+        let result = msg.content.match(regex);
+        if (result) {
+            msg.delete()
+                .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
+                .catch((err) => {
+                console.log(err);
+            });
+        }
+        ;
+    }
+    ;
+};
+exports.BadWords = BadWords;
 const searchLink = (msg) => {
     const MainRole = msg.guild.roles.cache.find((role) => role.name === "normal").id;
     const ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD").id;
-    if (msg.member === null) {
+    if (!msg.member) {
         msg.delete()
             .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
             .catch((err) => {
@@ -69,6 +92,20 @@ const DMEmbed = (client) => {
     });
     return embed;
 };
+const suggesEmbed = (content, author, img, msg) => {
+    return new discord_js_1.MessageEmbed()
+        .setAuthor(`${author}`, img)
+        .setColor("#00ff00")
+        .setTitle(`Id: ${msg.id}`)
+        .setDescription(`Suggestion: ${content}`);
+};
+const StatusEmbed = (content, author, img, status, reason, color) => {
+    return new discord_js_1.MessageEmbed()
+        .setAuthor(`${author}`, img)
+        .setColor(color)
+        .setDescription(`${content}\n
+                    Status:\n${status.toLocaleUpperCase}, because ${reason}`);
+};
 const BanEmbed = (list) => {
     let embed = {
         title: "Ban list",
@@ -98,7 +135,7 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const commands = (msg, prefix, client, cdm, args) => {
+const commands = (msg, prefix, client, cdm, args, Mode) => {
     const AdminRole = msg.guild.roles.cache.find((role) => role.name === "Admin").id;
     const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot").id;
     if (msg.member.roles.cache.has(BotRole) || msg.guild.ownerId === msg.author.id || msg.member.roles.cache.has(AdminRole)) {
@@ -138,6 +175,15 @@ const commands = (msg, prefix, client, cdm, args) => {
             const command = client.application?.commands.cache.get("cc");
             command.execute(client, msg, args);
         }
+        else if (cdm === "moderate") {
+            const command = client.application?.commands.cache.get("moderate");
+            const mode = command.execute(client, msg, args, Mode);
+            return mode;
+        }
+        else if (cdm === "status") {
+            const command = client.application?.commands.cache.get("status");
+            command.execute(client, msg, args, StatusEmbed);
+        }
         else {
             msg.channel.send(`The commnad "${cdm}" does not exist`);
         }
@@ -151,6 +197,10 @@ const PublicCommands = (msg, prefix, client, cdm, args) => {
     if (cdm === "ticket") {
         const command = client.application?.commands.cache.get("ticket");
         command.execute(client, msg, exports.TickEmbed, exports.buttonTick);
+    }
+    else if (cdm === "suggest") {
+        const command = client.application?.commands.cache.get("suggest");
+        command.execute(client, msg, suggesEmbed, args);
     }
 };
 exports.PublicCommands = PublicCommands;
