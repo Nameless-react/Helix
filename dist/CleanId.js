@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = void 0;
 const discord_js_1 = require("discord.js");
+const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
 const ms_1 = __importDefault(require("ms"));
 dotenv_1.default.config();
@@ -21,8 +22,8 @@ const BadWords = (msg) => {
             console.log(err);
         });
     }
-    else if (msg.author.id !== "900182160017883197" || msg.author.id !== msg.guild.ownerId) {
-        const regex = /[se]+x[0o]?|fuck|hijo de puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch/ig;
+    else if (msg.author.id !== "900182160017883197" && msg.author.id !== msg.guild.ownerId) {
+        const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick/ig;
         let result = msg.content.match(regex);
         if (result) {
             msg.delete()
@@ -96,15 +97,18 @@ const suggesEmbed = (content, author, img, msg) => {
     return new discord_js_1.MessageEmbed()
         .setAuthor(`${author}`, img)
         .setColor("#00ff00")
-        .setTitle(`Id: ${msg.id}`)
-        .setDescription(`Suggestion: ${content}`);
+        .setTitle(`Id:\n${msg.id}`)
+        .setDescription(`Suggestion:\n${builders_1.bold(content)}`);
 };
-const StatusEmbed = (content, author, img, status, reason, color) => {
+const StatusEmbed = (content, author, img, status, reason, color, id, staff) => {
     return new discord_js_1.MessageEmbed()
         .setAuthor(`${author}`, img)
         .setColor(color)
         .setDescription(`${content}\n
-                    Status:\n${status.toLocaleUpperCase}, because ${reason}`);
+                    Id:\n${builders_1.bold(id)}\n
+                    Status:\n${builders_1.bold(status.toUpperCase())}\n
+                    Because:\n${builders_1.bold(reason)}\n
+                    Staff:\n${builders_1.bold(staff)}`);
 };
 const BanEmbed = (list) => {
     let embed = {
