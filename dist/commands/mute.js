@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "mute",
-    description: "Mute for a time a member of the server",
-    execute(client, msg, args, ms) {
+    description: "Mute a member, follow the next archetype: the member and the time in secnds(s), minutes(m), hours(h) or days",
+    execute(client, msg, args, ms, MainRole, MuteRole) {
         if (args.length === 0)
             return msg.reply("Please provide an ID");
         const { id } = msg.mentions.users.first();
@@ -11,8 +11,6 @@ exports.default = {
         if (!memberMute.roles.cache.has("900476842098712626"))
             return;
         if (!memberMute.roles.cache.has("902666602598760448")) {
-            let MainRole = msg.guild.roles.cache.find((role) => role.name === "normal");
-            let MuteRole = msg.guild.roles.cache.find((role) => role.name === "mute");
             if (memberMute) {
                 if (!args[1]) {
                     memberMute.roles.remove(MainRole.id);

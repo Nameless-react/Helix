@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "ban",
-    description: "ban users from the server",
+    description: "ban users from the server, follow the next archetype: the member and the reason",
     execute(client, msg, args, cleanId, prefix) {
         if (args.length === 0)
             return msg.reply("Please provide an ID");
@@ -16,7 +16,7 @@ exports.default = {
                 reason
             })
                 .then((member) => {
-                msg.channel.send(`The user ${member} was ban, because "${reason}"`);
+                msg.channel.send(`The user ${member} has been ban, because "${reason}"`);
             }).catch((err) => msg.channel.send("I do not have permissions"));
         }
         else {

@@ -37,9 +37,7 @@ const BadWords = (msg) => {
     ;
 };
 exports.BadWords = BadWords;
-const searchLink = (msg) => {
-    const MainRole = msg.guild.roles.cache.find((role) => role.name === "normal").id;
-    const ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD").id;
+const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.name === "normal"), ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD")) => {
     if (!msg.member) {
         msg.delete()
             .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
@@ -47,7 +45,7 @@ const searchLink = (msg) => {
             console.log(err);
         });
     }
-    else if (msg.member.roles.cache.has(MainRole) || msg.member.roles.cache.has(ModRole)) {
+    else if (msg.member.roles.cache.has(MainRole.id) || msg.member.roles.cache.has(ModRole.id)) {
         if (msg.author.id !== msg.guild.ownerId) {
             const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#]+|@everyone/ig;
             let result = msg.content.match(regex);
@@ -117,7 +115,7 @@ const BanEmbed = (list) => {
         fields: []
     };
     for (let i = 0; i < list.length; ++i) {
-        let BanField = { name: `User ${list[i].username}`, value: `Id: ${list[i].id},\n Reason: ${list[i].reason}` };
+        let BanField = { name: `User ${builders_1.bold(list[i].username)}`, value: `Id: ${builders_1.bold(list[i].id)},\n Reason: ${builders_1.bold(list[i].reason)}` };
         embed.fields.push(BanField);
     }
     ;
@@ -139,10 +137,8 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const commands = (msg, prefix, client, cdm, args, Mode) => {
-    const AdminRole = msg.guild.roles.cache.find((role) => role.name === "Admin").id;
-    const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot").id;
-    if (msg.member.roles.cache.has(BotRole) || msg.guild.ownerId === msg.author.id || msg.member.roles.cache.has(AdminRole)) {
+const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole) => {
+    if (msg.member.roles.cache.has(BotRole) || msg.guild.ownerId == msg.author.id || msg.member.roles.cache.has(AdminRole)) {
         if (cdm === "kick") {
             const command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, cleanId, prefix);
@@ -161,7 +157,7 @@ const commands = (msg, prefix, client, cdm, args, Mode) => {
         }
         else if (cdm === "mute") {
             const command = client.application?.commands.cache.get("mute");
-            command.execute(client, msg, args, ms_1.default);
+            command.execute(client, msg, args, ms_1.default, MainRole, MuteRole);
         }
         else if (cdm === "unmute") {
             const command = client.application?.commands.cache.get("unmute");
@@ -181,7 +177,7 @@ const commands = (msg, prefix, client, cdm, args, Mode) => {
         }
         else if (cdm === "moderate") {
             const command = client.application?.commands.cache.get("moderate");
-            const mode = command.execute(client, msg, args, Mode);
+            const mode = command.execute(client, msg, args, Mode, AdminRole);
             return mode;
         }
         else if (cdm === "status") {

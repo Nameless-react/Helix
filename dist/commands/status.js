@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "status",
-    description: "Accept or deny a suggestion, to execute this command follow the next arquetype !status (deny or accepted) id of the suggest and a reason",
+    description: "Accept or deny a suggestion, to execute this command follow the next arquetype: (deny or accepted), id of the suggest and a reason",
     execute(client, msg, args, StatusEmbed) {
         if (args.length === 0)
             msg.reply("Data do not provide");
@@ -30,6 +30,7 @@ exports.default = {
                 .catch((err) => {
                 console.log(err);
             });
+            msg.delete();
         }
     }
 };

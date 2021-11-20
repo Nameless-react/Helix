@@ -63,14 +63,19 @@ exports.client.on("messageCreate", (msg) => {
     if (msg.author.bot)
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
-    CleanId_1.searchLink(msg);
+    const AdminRole = msg.guild.roles.cache.find((role) => role.name === "Admin");
+    const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot");
+    const MainRole = msg.guild.roles.cache.find((role) => role.name === "normal");
+    const MuteRole = msg.guild.roles.cache.find((role) => role.name === "mute");
+    const ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD");
+    CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            Mode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, Mode);
+            Mode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole);
         }
     }
     ;
