@@ -17,7 +17,9 @@ exports.default = {
                     msg.channel.send(`The id "${id}" does not exist`)
                         .then((res) => {
                         msg.delete();
-                        res.delete();
+                        setTimeout(() => {
+                            res.delete();
+                        }, 3000);
                     })
                         .catch((err) => {
                         console.log(err);
