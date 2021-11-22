@@ -19,12 +19,12 @@ exports.default = {
                         msg.delete();
                         setTimeout(() => {
                             res.delete();
-                        }, 3000);
+                        }, 2000);
+                        return;
                     })
                         .catch((err) => {
                         console.log(err);
                     });
-                    return;
                 }
                 ;
                 if (status === "deny") {
