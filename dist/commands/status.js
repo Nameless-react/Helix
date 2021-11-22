@@ -26,6 +26,7 @@ exports.default = {
                         .catch((err) => {
                         console.log(err);
                     });
+                    return;
                 }
                 ;
                 if (status === "deny") {
