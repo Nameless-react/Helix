@@ -12,10 +12,10 @@ exports.default = {
             return msg.reply(`The id "${id}" is not valid`);
         if (msg.channel.name === "sugerencias") {
             msg.channel.messages.fetch().then((res) => {
-                const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
+                const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
                 if (!message) {
-                    if (msg.content.startsWith("!cc"))
-                        return console.log("is");
+                    if (msg.author.id === "900182160017883197" || msg.author.id === msg.guild?.ownerId)
+                        return;
                     msg.delete();
                     msg.channel.send(`The id "${id}" does not exist`)
                         .catch((err) => {
