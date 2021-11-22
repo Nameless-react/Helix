@@ -20,7 +20,7 @@ exports.default = {
                 }
                 else if (status === "accepted") {
                     message.edit({
-                        embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.author.displayAvatarURL(), status, reason, "#ffff00", id, msg.author.username)]
+                        embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, reason, "#ffff00", id, msg.author.username)]
                     });
                 }
                 else {
