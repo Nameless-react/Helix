@@ -14,7 +14,7 @@ exports.default = {
             msg.channel.messages.fetch().then((res) => {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
                 if (!message)
-                    return msg.delete().then((res) => res.channel.send(`The id "${id}" does not exist`));
+                    return res.delete().then((rest) => rest.channel.send(`The id "${id}" does not exist`));
                 if (status === "deny") {
                     message.edit({
                         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, reason, "#ff0000", id, msg.author.username)]
