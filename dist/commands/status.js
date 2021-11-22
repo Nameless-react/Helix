@@ -15,7 +15,7 @@ exports.default = {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
                 if (!message) {
                     if (msg.content.startsWith("!cc"))
-                        return;
+                        return console.log("is");
                     msg.delete();
                     msg.channel.send(`The id "${id}" does not exist`)
                         .catch((err) => {
