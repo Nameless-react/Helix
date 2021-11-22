@@ -7,6 +7,9 @@
     "dev": "nodemon dist/bot.js",
     "start": "node dist/bot.js"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "keywords": [],
   "author": "Joel",
   "license": "ISC",
