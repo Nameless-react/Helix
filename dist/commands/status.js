@@ -13,8 +13,12 @@ exports.default = {
         if (msg.channel.name === "sugerencias") {
             msg.channel.messages.fetch().then((res) => {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
-                if (!message)
-                    return msg.delete().then((rest) => msg.channel.send(`The id "${id}" does not exist`));
+                if (!message) {
+                    msg.delete();
+                    msg.channel.send(`The id "${id}" does not exist`);
+                    return;
+                }
+                ;
                 if (status === "deny") {
                     message.edit({
                         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, reason, "#ff0000", id, msg.author.username)]
