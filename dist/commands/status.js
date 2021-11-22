@@ -14,8 +14,6 @@ exports.default = {
             msg.channel.messages.fetch().then((res) => {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
                 if (!message) {
-                    if (msg.author.id === "900182160017883197" || msg.author.id === msg.guild?.ownerId)
-                        return;
                     msg.delete();
                     msg.channel.send(`The id "${id}" does not exist`)
                         .catch((err) => {

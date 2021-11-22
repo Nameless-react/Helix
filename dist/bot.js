@@ -55,7 +55,7 @@ exports.client.on("ready", () => {
     }
     ;
     console.log(`${exports.client.user.username} is on`);
-    exports.client.user?.setActivity("Configurarme", {
+    exports.client.user?.setActivity("!help", {
         type: "PLAYING"
     });
 });
