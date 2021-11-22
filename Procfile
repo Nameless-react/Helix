@@ -1,1 +1,1 @@
-worker: node dist/bot.js
+Worker: node dist/bot.js
