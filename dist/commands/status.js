@@ -15,7 +15,10 @@ exports.default = {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
                 if (!message) {
                     msg.channel.send(`The id "${id}" does not exist`)
-                        .then((res) => msg.delete())
+                        .then((res) => {
+                        msg.delete();
+                        res.delete();
+                    })
                         .catch((err) => {
                         console.log(err);
                     });
