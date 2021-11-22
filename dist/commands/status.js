@@ -19,8 +19,8 @@ exports.default = {
                         msg.delete();
                         setTimeout(() => {
                             res.delete();
+                            return;
                         }, 2000);
-                        return;
                     })
                         .catch((err) => {
                         console.log(err);
