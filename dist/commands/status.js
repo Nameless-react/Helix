@@ -13,6 +13,7 @@ exports.default = {
         if (msg.channel.name === "sugerencias") {
             msg.channel.messages.fetch().then((res) => {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.username === "Helix");
+                console.log(message);
                 if (!message)
                     return msg.reply(`The "${id}" does not exist`);
                 if (status === "deny") {
