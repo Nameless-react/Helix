@@ -138,7 +138,7 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole) => {
-    if (msg.member.roles.cache.has(BotRole) || msg.guild.ownerId == msg.author.id || msg.member.roles.cache.has(AdminRole)) {
+    if (msg.member.roles.cache.has(BotRole.id) || msg.guild.ownerId == msg.author.id || msg.member.roles.cache.has(AdminRole.id)) {
         if (cdm === "kick") {
             const command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, cleanId, prefix);
