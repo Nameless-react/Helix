@@ -65,9 +65,9 @@ exports.client.on("messageCreate", (msg) => {
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => {
         let result = role.name.match(/admins?(istrator)?|administrador/gi);
-        console.log(result);
         return result;
     });
+    console.log(AdminRole);
     console.log(msg.channel.name);
     const BotRole = msg.guild.roles.cache.find((role) => {
         let result = role.name.match(/bots?|robots?|automaton/gi);
