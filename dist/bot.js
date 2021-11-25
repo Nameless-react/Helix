@@ -63,10 +63,7 @@ exports.client.on("messageCreate", (msg) => {
     if (msg.author.bot)
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
-    const AdminRole = msg.guild.roles.cache.find((role) => {
-        let result = role.name.match(/admins?(istrator)?|administrador/gi);
-        return result;
-    });
+    const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     console.log(AdminRole);
     console.log(msg.channel.name);
     const BotRole = msg.guild.roles.cache.find((role) => {
@@ -81,7 +78,9 @@ exports.client.on("messageCreate", (msg) => {
         let result = role.name.match(/mute/ig);
         return result;
     });
-    const ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD");
+    const ModRole = msg.guild.roles.cache.find((role) => {
+        let result = role.name.match(/mod|moderator|moderador/ig);
+    });
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
