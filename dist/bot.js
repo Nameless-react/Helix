@@ -63,7 +63,8 @@ exports.client.on("messageCreate", (msg) => {
     if (msg.author.bot)
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
-    const AdminRole = msg.guild.roles.cache.find((role) => role.name === "Admin");
+    const AdminRole = msg.guild.roles.cache.find((role) => role.name === /Admin(istrator)?/gi);
+    console.log(msg.channel.name);
     const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot");
     const MainRole = msg.guild.roles.cache.find((role) => role.name === "normal");
     const MuteRole = msg.guild.roles.cache.find((role) => role.name === "mute");
