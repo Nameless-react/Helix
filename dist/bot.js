@@ -66,21 +66,10 @@ exports.client.on("messageCreate", (msg) => {
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     console.log(AdminRole);
     console.log(msg.channel.name);
-    const BotRole = msg.guild.roles.cache.find((role) => {
-        let result = role.name.match(/bots?|robots?|automaton/gi);
-        return result;
-    });
-    const MainRole = msg.guild.roles.cache.find((role) => {
-        let result = role.name.match(/members?|miembros?|normal|basic/ig);
-        return result;
-    });
-    const MuteRole = msg.guild.roles.cache.find((role) => {
-        let result = role.name.match(/mute/ig);
-        return result;
-    });
-    const ModRole = msg.guild.roles.cache.find((role) => {
-        let result = role.name.match(/mod|moderator|moderador/ig);
-    });
+    const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
+    const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
+    const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
+    const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
