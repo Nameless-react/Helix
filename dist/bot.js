@@ -83,20 +83,6 @@ exports.client.on("messageCreate", (msg) => {
     if (Mode) {
         CleanId_1.BadWords(msg);
     }
-    if (msg.content === "files") {
-        msg.reply(`Hello${msg.author.tag}`);
-        msg.channel.send({
-            files: [{
-                    attachment: "../Llave.png",
-                    name: "Llave.png",
-                }, {
-                    attachment: "../Diseños/CSS.jpeg",
-                    name: "CSS.jpeg",
-                }
-            ],
-        });
-    }
-    ;
 });
 exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
@@ -130,11 +116,11 @@ exports.client.on("interactionCreate", async (interaction) => {
         return;
     if (interaction.customId === "Open") {
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
-        const ticket = interaction.guild?.channels.cache.get("904888921081663538");
+        const ticket = interaction.guild?.channels.cache.find((name) => name.name.toLocaleLowerCase() === "ticket");
         const equal = ticket.children.find((m) => m.name === name);
         if (equal) {
             return interaction.reply({
-                content: `You have a open ticket, here <#${equal.id}>`,
+                content: `You have an open ticket, here <#${equal.id}>`,
                 ephemeral: true
             });
         }
