@@ -67,7 +67,7 @@ exports.client.on("messageCreate", (msg) => {
         let result = role.name.match(/Admin(istrator)?/gi);
         return result;
     });
-    console.log(AdminRole);
+    console.log(AdminRole.id);
     console.log(msg.channel.name);
     const BotRole = msg.guild.roles.cache.find((role) => role.name === "Bot");
     const MainRole = msg.guild.roles.cache.find((role) => role.name === "normal");
