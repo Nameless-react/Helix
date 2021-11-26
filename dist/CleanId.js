@@ -187,10 +187,12 @@ const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, Mute
                 return mode;
                 break;
             default:
-                msg.reply("You do not have permissions to execute this command");
+                msg.channel.send(`The commnad "${cdm}" does not exist`);
         }
     }
-    ;
+    else {
+        msg.reply("You do not have permissions to execute this command");
+    }
 };
 exports.commands = commands;
 const PublicCommands = (msg, prefix, client, cdm, args) => {
