@@ -10,7 +10,7 @@ exports.default = {
         const reason = rest.join(" ");
         if (isNaN(parseInt(id)))
             return msg.reply(`The id "${id}" is not valid`);
-        if (msg.channel.name === "sugerencias") {
+        if (msg.channel.name.match(/sugerencias?|suggestions?/ig)) {
             msg.channel.messages.fetch().then((res) => {
                 const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
                 if (!message) {
