@@ -146,7 +146,7 @@ const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, Mute
                 command.execute(client, msg, args, cleanId, prefix);
                 break;
             case "ban":
-                command = client.application?.commands.cache.get("kick");
+                command = client.application?.commands.cache.get("ban");
                 command.execute(client, msg, args, cleanId, prefix);
                 break;
             case "unban":
