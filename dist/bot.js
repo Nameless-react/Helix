@@ -83,6 +83,7 @@ exports.client.on("messageCreate", (msg) => {
     if (Mode) {
         CleanId_1.BadWords(msg);
     }
+    ;
 });
 exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
