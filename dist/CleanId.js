@@ -161,7 +161,7 @@ const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, Mute
         }
         else if (cdm === "unmute") {
             const command = client.application?.commands.cache.get("unmute");
-            command.execute(client, msg, args);
+            command.execute(client, msg, args, MainRole, MuteRole);
         }
         else if (cdm === "banlist") {
             const command = client.application?.commands.cache.get("banlist");

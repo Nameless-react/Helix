@@ -7,7 +7,7 @@ exports.default = {
         if (args.length === 0)
             return msg.reply("No suggestion was provided");
         const content = args.join(" ");
-        const suggestions = msg.guild.channels.cache.find((channel) => channel.name.match(/sugerencias?|suggestions?/ig));
+        const suggestions = msg.guild.channels.cache.find((channel) => channel.name.match(/sugerencias?|suggestions?|suggest/ig));
         msg.delete().then((res) => {
             suggestions.send({
                 embeds: [suggesEmbed(content, msg.author.username, msg.author.displayAvatarURL(), msg)]
