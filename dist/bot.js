@@ -88,7 +88,7 @@ exports.client.on("messageCreate", (msg) => {
 exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
-    if (reaction.message.id === "904190276246048778") {
+    if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]role|selecciona[-\s]tu[-\s]rol|rol/ig)) {
         const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig)).id;
         switch (name) {
             case "✅":
