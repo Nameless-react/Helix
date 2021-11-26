@@ -139,58 +139,58 @@ const TickEmbed = (msg) => {
 exports.TickEmbed = TickEmbed;
 const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole) => {
     if (msg.member.roles.cache.has(BotRole.id) || msg.guild.ownerId == msg.author.id || msg.member.roles.cache.has(AdminRole.id)) {
-        if (cdm === "kick") {
-            const command = client.application?.commands.cache.get("kick");
-            command.execute(client, msg, args, cleanId, prefix);
-        }
-        else if (cdm === "ban") {
-            const command = client.application?.commands.cache.get("ban");
-            command.execute(client, msg, args, cleanId, prefix);
-        }
-        else if (cdm === "unban") {
-            const command = client.application?.commands.cache.get("unban");
-            command.execute(client, msg, args);
-        }
-        else if (cdm === "help") {
-            const command = client.application?.commands.cache.get("help");
-            command.execute(client, msg, DMEmbed);
-        }
-        else if (cdm === "mute") {
-            const command = client.application?.commands.cache.get("mute");
-            command.execute(client, msg, args, ms_1.default, MainRole, MuteRole);
-        }
-        else if (cdm === "unmute") {
-            const command = client.application?.commands.cache.get("unmute");
-            command.execute(client, msg, args, MainRole, MuteRole);
-        }
-        else if (cdm === "banlist") {
-            const command = client.application?.commands.cache.get("banlist");
-            command.execute(client, msg, BanEmbed);
-        }
-        else if (cdm === "ping") {
-            const command = client.application?.commands.cache.get("ping");
-            command.execute(client, msg);
-        }
-        else if (cdm === "cc") {
-            const command = client.application?.commands.cache.get("cc");
-            command.execute(client, msg, args);
-        }
-        else if (cdm === "moderate") {
-            const command = client.application?.commands.cache.get("moderate");
-            const mode = command.execute(client, msg, args, Mode, AdminRole);
-            return mode;
-        }
-        else if (cdm === "status") {
-            const command = client.application?.commands.cache.get("status");
-            command.execute(client, msg, args, StatusEmbed);
-        }
-        else {
-            msg.channel.send(`The commnad "${cdm}" does not exist`);
+        let command;
+        switch (cdm) {
+            case "kick":
+                command = client.application?.commands.cache.get("kick");
+                command.execute(client, msg, args, cleanId, prefix);
+                break;
+            case "ban":
+                command = client.application?.commands.cache.get("kick");
+                command.execute(client, msg, args, cleanId, prefix);
+                break;
+            case "unban":
+                command = client.application?.commands.cache.get("unban");
+                command.execute(client, msg, args);
+                break;
+            case "help":
+                command = client.application?.commands.cache.get("help");
+                command.execute(client, msg, DMEmbed);
+                break;
+            case "ping":
+                command = client.application?.commands.cache.get("ping");
+                command.execute(client, msg);
+                break;
+            case "mute":
+                command = client.application?.commands.cache.get("mute");
+                command.execute(client, msg, args, ms_1.default, MainRole, MuteRole);
+                break;
+            case "unmute":
+                command = client.application?.commands.cache.get("unmute");
+                command.execute(client, msg, args, MainRole, MuteRole);
+                break;
+            case "banlist":
+                command = client.application?.commands.cache.get("banlist");
+                command.execute(client, msg, BanEmbed);
+                break;
+            case "cc":
+                command = client.application?.commands.cache.get("cc");
+                command.execute(client, msg, args);
+                break;
+            case "status":
+                command = client.application?.commands.cache.get("status");
+                command.execute(client, msg, args, StatusEmbed);
+                break;
+            case "moderate":
+                command = client.application?.commands.cache.get("moderate");
+                const mode = command.execute(client, msg, args, Mode, AdminRole);
+                return mode;
+                break;
+            default:
+                msg.reply("You do not have permissions to execute this command");
         }
     }
-    else {
-        msg.reply("You do not have permissions to execute this command");
-    }
+    ;
 };
 exports.commands = commands;
 const PublicCommands = (msg, prefix, client, cdm, args) => {
