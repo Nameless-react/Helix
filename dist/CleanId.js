@@ -23,7 +23,7 @@ const BadWords = (msg) => {
         });
     }
     else if (msg.author.id !== "900182160017883197" && msg.author.id !== msg.guild.ownerId) {
-        const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick/ig;
+        const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick|milf/ig;
         let result = msg.content.match(regex);
         if (result) {
             msg.delete()
@@ -37,7 +37,7 @@ const BadWords = (msg) => {
     ;
 };
 exports.BadWords = BadWords;
-const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.name === "normal"), ModRole = msg.guild.roles.cache.find((role) => role.name === "MOD")) => {
+const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig)), ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig))) => {
     if (!msg.member) {
         msg.delete()
             .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
@@ -47,7 +47,7 @@ const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.na
     }
     else if (msg.member.roles.cache.has(MainRole.id) || msg.member.roles.cache.has(ModRole.id)) {
         if (msg.author.id !== msg.guild.ownerId) {
-            const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#]+|@everyone/ig;
+            const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
             let result = msg.content.match(regex);
             if (result) {
                 msg.delete()

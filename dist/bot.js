@@ -89,7 +89,7 @@ exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
     if (reaction.message.id === "904190276246048778") {
-        const MainRole = reaction.message.guild.roles.cache.find((role) => role.name === "normal").id;
+        const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig)).id;
         switch (name) {
             case "✅":
                 member?.roles.add(MainRole);
@@ -117,7 +117,7 @@ exports.client.on("interactionCreate", async (interaction) => {
         return;
     if (interaction.customId === "Open") {
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
-        const ticket = interaction.guild?.channels.cache.find((name) => name.name.toLocaleLowerCase() === "ticket");
+        const ticket = interaction.guild?.channels.cache.find((ticket) => ticket.name.match(/tickets?/ig));
         const equal = ticket.children.find((m) => m.name === name);
         if (equal) {
             return interaction.reply({
