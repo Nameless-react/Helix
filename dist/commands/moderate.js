@@ -13,6 +13,7 @@ exports.default = {
         }
         if (args[0] === "false") {
             msg.reply("The moderation mode is off");
+            msg.channel.setRateLimitPerUser(0);
             return Mode = false;
         }
         if (Mode === true)
