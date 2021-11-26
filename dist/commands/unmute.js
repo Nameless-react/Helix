@@ -8,7 +8,7 @@ exports.default = {
             return msg.reply("Please provide an ID");
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
-        if (memberMute.roles.cache.has(MainRole.id)) {
+        if (memberMute.roles.cache.has(MuteRole.id)) {
             if (memberMute) {
                 memberMute.roles.add(MainRole.id);
                 memberMute.roles.remove(MuteRole.id);
