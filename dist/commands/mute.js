@@ -12,22 +12,31 @@ exports.default = {
             return;
         if (!memberMute.roles.cache.has(MuteRole.id)) {
             if (memberMute) {
+                let time;
                 if (!args[1]) {
+                    time = 600000;
                     memberMute.roles.remove(MainRole.id);
                     memberMute.roles.add(MuteRole.id);
-                    msg.channel.send(`The user <@${id}> has been muted`);
+                    msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
+                    setTimeout(() => {
+                        if (memberMute.roles.cache.has(MainRole.id))
+                            return;
+                        memberMute.roles.remove(MuteRole.id);
+                        memberMute.roles.add(MainRole.id);
+                    }, time);
                     return;
                 }
                 ;
                 memberMute.roles.remove(MainRole.id);
                 memberMute.roles.add(MuteRole.id);
-                let time = ms(args[1]);
+                time = ms(args[1]);
                 if (!time) {
                     time = 600000;
                 }
+                ;
                 msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
                 setTimeout(() => {
-                    if (memberMute.roles.cache.has("900476842098712626"))
+                    if (memberMute.roles.cache.has(MainRole.id))
                         return;
                     memberMute.roles.remove(MuteRole.id);
                     memberMute.roles.add(MainRole.id);
