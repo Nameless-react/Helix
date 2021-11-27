@@ -23,7 +23,7 @@ app.get("/api/auth/discord/redirect", async (req, res) => {
             code: code.toString(),
             redirect_uri: "http://localhost:4000/api/auth/discord/redirect"
         });
-        const response = await axios_1.default.post("https://discord.com/api/v8/oauth2/token", formData.toString(), {
+        const response = await axios_1.default.post("https://discord.com/api/v8/oauth2/token", formData, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
