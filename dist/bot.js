@@ -72,10 +72,9 @@ exports.client.on("messageCreate", (msg) => {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        }).then((res) => {
-            msg.guild.channels.cache.each((channel) => console.log(channel.permissionOverwrites));
         });
     }
+    ;
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);

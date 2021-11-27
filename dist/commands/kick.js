@@ -12,7 +12,7 @@ exports.default = {
                 member.kick()
                     .then((member) => {
                     msg.channel.send(`The user ${member} was kicked`);
-                }).catch((err) => msg.channel.reply("I do not have permissions"));
+                }).catch((err) => msg.reply("I do not have permissions"));
             }
             else {
                 msg.channel.send("The user was not found");
