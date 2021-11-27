@@ -73,7 +73,7 @@ exports.client.on("messageCreate", (msg) => {
             name: "mute",
             color: "RED",
         }).then((res) => {
-            msg.guild.channels.cache.each((channel) => console.log(channel));
+            msg.guild.channels.cache.each((channel) => console.log(channel.guild.permissions));
         });
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
