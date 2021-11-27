@@ -71,6 +71,14 @@ exports.client.on("messageCreate", (msg) => {
     const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
+    if (!MuteRole) {
+        msg.guild.roles.create({
+            name: "mute",
+            color: "RED",
+        }).then((res) => {
+            msg.guild.channels.cache.each((channel) => console.log(channel));
+        });
+    }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
