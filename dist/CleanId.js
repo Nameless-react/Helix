@@ -45,7 +45,7 @@ const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.na
             console.log(err);
         });
     }
-    else if (msg.member.roles.cache.has(MainRole.id) || msg.member.roles.cache.has(ModRole.id)) {
+    else if (msg.member?.roles.cache.has(MainRole.id) || msg.member?.roles.cache.has(ModRole.id)) {
         if (msg.author.id !== msg.guild.ownerId) {
             const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
             let result = msg.content.match(regex);
@@ -188,6 +188,7 @@ const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, Mute
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);
     }
+    ;
 };
 exports.commands = commands;
 const PublicCommands = (msg, prefix, client, cdm, args) => {
