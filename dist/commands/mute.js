@@ -4,8 +4,9 @@ exports.default = {
     name: "mute",
     description: "Mute a member, follow the next archetype: the member and the time in seconds(s), minutes(m), hours(h) or days",
     execute(client, msg, args, ms, MainRole, MuteRole) {
-        if (args.length === 0)
-            return msg.reply("Please provide an ID");
+        if (msg.member?.permissions.has("KICK_MEMBER") || msg.member?.permissions.has("BAN_MEMBER"))
+            if (args.length === 0)
+                return msg.reply("Please provide an ID");
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
         if (!memberMute.roles.cache.has(MainRole.id))

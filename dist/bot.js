@@ -64,7 +64,7 @@ exports.client.on("messageCreate", (msg) => {
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
-    console.log(AdminRole);
+    console.log(AdminRole.name);
     console.log(AdminRole.id);
     exports.client.guilds.cache.each(server => console.log(server.name));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
@@ -177,5 +177,7 @@ exports.client.on("interactionCreate", async (interaction) => {
         }, 1000);
     }
     ;
+});
+exports.client.on("guildCreate", (guild) => {
 });
 exports.client.login(token);

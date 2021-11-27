@@ -5,7 +5,7 @@ exports.default = {
     description: "Turn on a mode that filter more the content of the message",
     execute(client, msg, args, Mode, AdminRole) {
         if (msg.member?.permissions.has("KICK_MEMBERS") && msg.member?.permissions.has("BAN_MEMBERS") && msg.member
-            ?.permissions.has("MANAGE_MESSAGES") || msg.member.roles.cache.has(AdminRole.id)) {
+            ?.permissions.has("MANAGE_MESSAGES") || msg.member.roles.cache.has(AdminRole.id) || msg.member?.permissions.has("MANAGE_GUILD")) {
             if (args.length === 0)
                 return msg.reply("Please write true or false to execute this command");
             if (args[0] !== "true" && args[0] !== "false") {
