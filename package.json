@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon dist/bot.js",
-    "start": "node dist/bot.js",
-    "build": "nodemon dist/Oauth2.js"
+    "start": "node dist/bot.js"
   },
   "engines": {
     "node": "16.x"
