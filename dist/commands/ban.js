@@ -24,7 +24,8 @@ exports.default = {
                 msg.channel.send("The user was not found");
             }
         }
-    }, else: {
-        msg, : .channel.send("You do not have permissions to execute this command")
+        else {
+            msg.channel.send("You do not have permissions to execute this command");
+        }
     }
 };
