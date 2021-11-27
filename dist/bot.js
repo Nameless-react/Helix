@@ -64,9 +64,6 @@ exports.client.on("messageCreate", (msg) => {
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
-    console.log(AdminRole.name);
-    console.log(AdminRole.id);
-    exports.client.guilds.cache.each(server => console.log(server.name));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
     const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
@@ -76,7 +73,7 @@ exports.client.on("messageCreate", (msg) => {
             name: "mute",
             color: "RED",
         }).then((res) => {
-            msg.guild.channels.cache.each((channel) => console.log(channel));
+            msg.guild.channels.cache.each((channel) => console.log(channel.permissions));
         });
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
@@ -187,5 +184,6 @@ exports.client.on("interactionCreate", async (interaction) => {
     ;
 });
 exports.client.on("guildCreate", (guild) => {
+    console.log(guild);
 });
 exports.client.login(token);
