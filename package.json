@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon dist/bot.js",
     "start": "node dist/bot.js",
-    "build": "nodemon dist/Oauth2.js"
+    // "build": "nodemon dist/Oauth2.js"
   },
   "engines": {
     "node": "16.x"
