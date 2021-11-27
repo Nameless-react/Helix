@@ -4,7 +4,7 @@ exports.default = {
     name: "cc",
     description: "Clears the amount of messages that we want",
     execute: async (client, msg, args) => {
-        if (msg.member.permissions.has("MANAGE_MESSAGES")) {
+        if (msg.member?.permissions.has("MANAGE_MESSAGES")) {
             let amount;
             if (args.length === 0)
                 amount = 1;

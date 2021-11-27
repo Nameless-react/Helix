@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "help",
-    description: "Show all the commands",
+    description: "Show all the commands in the dm channel",
     execute(client, msg, DMEmbed) {
-        if (msg.member.permissions.has("KICK_MEMBERS") || msg.member.permissions.has("BAN_MEMBERS") || msg.guild.ownerId === msg.author.id) {
+        if (msg.member?.permissions.has("KICK_MEMBERS") || msg.member?.permissions.has("BAN_MEMBERS") || msg.guild.ownerId === msg.author.id) {
             const id = msg.author.id;
             const user = client.users.cache.get(id);
             msg.guild.invites.create("900502275523506176", {

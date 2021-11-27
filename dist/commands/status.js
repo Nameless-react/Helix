@@ -4,8 +4,10 @@ exports.default = {
     name: "status",
     description: "Accept or deny a suggestion, to execute this command follow the next arquetype: (deny or accepted), id of the suggest and a reason",
     execute(client, msg, args, StatusEmbed) {
-        if (args.length === 0)
-            msg.reply("Data do not provide");
+        if (msg.member?.permissions.has("KICK_MEMBERS") && msg.member?.permissions.has("BAN_MEMBERS") && msg.member
+            ?.permissions.has("MANAGE_MESSAGES"))
+            if (args.length === 0)
+                msg.reply("Data do not provide");
         const [status, id, ...rest] = args;
         const reason = rest.join(" ");
         if (isNaN(parseInt(id)))
