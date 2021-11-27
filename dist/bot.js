@@ -72,7 +72,7 @@ exports.client.on("messageCreate", (msg) => {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        });
+        }).then((res) => console.log(res));
     }
     ;
     CleanId_1.searchLink(msg, MainRole, ModRole);
