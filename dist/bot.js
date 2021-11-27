@@ -66,7 +66,7 @@ exports.client.on("messageCreate", (msg) => {
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     console.log(AdminRole);
     console.log(AdminRole.id);
-    console.log(msg.channel.name);
+    exports.client.guilds.cache.each(server => console.log(server));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
     const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
