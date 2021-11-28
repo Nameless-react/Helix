@@ -184,10 +184,11 @@ exports.client.on("interactionCreate", async (interaction) => {
     ;
 });
 exports.client.on("guildCreate", async (guild) => {
-    await new schema_1.default({
+    const Data = new schema_1.default({
         _id: guild.id,
         server: guild.name,
         mode: false
-    }).save().then((res) => console.log("Data save"));
+    });
+    Data.save().then((res) => console.log("Data save"));
 });
 exports.client.login(token);
