@@ -189,6 +189,8 @@ exports.client.on("guildCreate", async (guild) => {
         server: guild.name,
         mode: false
     });
-    Data.save().then((res) => console.log("Data save"));
+    await Data.save()
+        .then((res) => console.log("Data save"))
+        .catch((err) => console.log(err));
 });
 exports.client.login(token);
