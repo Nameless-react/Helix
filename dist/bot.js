@@ -44,7 +44,7 @@ exports.client = new discord_js_1.Client({
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
 let Mode = false;
-exports.client.on("ready", () => {
+exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
@@ -53,6 +53,7 @@ exports.client.on("ready", () => {
     }
     ;
     console.log(`${exports.client.user.username} is on`);
+    await DB_1.default();
     exports.client.user?.setActivity("!help", {
         type: "PLAYING"
     });
@@ -181,21 +182,10 @@ exports.client.on("interactionCreate", async (interaction) => {
     ;
 });
 exports.client.on("guildCreate", async (guild) => {
-    await DB_1.default().then(async (mongoose) => {
-        try {
-            console.log("Connected to the database");
-            await new schema_1.default({
-                _id: guild.id,
-                server: guild.name,
-                mode: false
-            }).save();
-        }
-        catch (err) {
-            console.log(err);
-        }
-        finally {
-            mongoose.connection.close();
-        }
-    });
+    await new schema_1.default({
+        _id: guild.id,
+        server: guild.name,
+        mode: false
+    }).save();
 });
 exports.client.login(token);
