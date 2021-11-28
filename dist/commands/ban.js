@@ -4,7 +4,7 @@ exports.default = {
     name: "ban",
     description: "ban users from the server, follow the next archetype: the member and the reason",
     execute(client, msg, args, cleanId, prefix) {
-        if (msg.member.permissions.has("BAN_MEMBERS")) {
+        if (msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0)
                 return msg.reply("Please provide an ID");
             const member = cleanId(prefix, args, msg);
@@ -18,7 +18,7 @@ exports.default = {
                 })
                     .then((member) => {
                     msg.channel.send(`The user ${member} has been ban, because "${reason}"`);
-                }).catch((err) => msg.channel.send("I do not have permissions"));
+                }).catch((err) => msg.reply("I do not have permissions"));
             }
             else {
                 msg.channel.send("The user was not found");

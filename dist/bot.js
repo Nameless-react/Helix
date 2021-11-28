@@ -26,7 +26,9 @@ exports.client = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const discord_js_1 = require("discord.js");
+const DB_1 = __importDefault(require("./DB"));
 const CleanId_1 = __importStar(require("./CleanId"));
+const schema_1 = __importDefault(require("./schema"));
 dotenv_1.default.config();
 exports.client = new discord_js_1.Client({
     intents: [
@@ -47,10 +49,6 @@ exports.client.on("ready", () => {
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
         exports.client.application?.commands.cache.set(command.default.name, command.default);
-        if (!command) {
-            console.log(`The command ${command.default.name} is ❌`);
-            return;
-        }
         console.log(`The command ${command.default.name} is ✔`);
     }
     ;
@@ -72,7 +70,7 @@ exports.client.on("messageCreate", (msg) => {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        }).then((res) => console.log(res));
+        }).then((res) => msg.reply(`The role ${res.name} was created`));
     }
     ;
     CleanId_1.searchLink(msg, MainRole, ModRole);
@@ -182,7 +180,22 @@ exports.client.on("interactionCreate", async (interaction) => {
     }
     ;
 });
-exports.client.on("guildCreate", (guild) => {
-    console.log(guild);
+exports.client.on("guildCreate", async (guild) => {
+    await DB_1.default().then(async (mongoose) => {
+        try {
+            console.log("Connected to the database");
+            await new schema_1.default({
+                _id: guild.id,
+                server: guild.name,
+                mode: false
+            }).save();
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            mongoose.connection.close();
+        }
+    });
 });
 exports.client.login(token);
