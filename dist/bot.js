@@ -53,7 +53,9 @@ exports.client.on("ready", async () => {
     }
     ;
     console.log(`${exports.client.user.username} is on`);
-    await DB_1.default();
+    await DB_1.default()
+        .then(res => console.log("Database connected"))
+        .catch(err => console.log(err));
     exports.client.user?.setActivity("!help", {
         type: "PLAYING"
     });
