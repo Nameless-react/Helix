@@ -191,8 +191,7 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
             break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
-            const mode = command.execute(client, msg, args, AdminRole);
-            return mode;
+            command.execute(client, msg, args, AdminRole);
             break;
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);
