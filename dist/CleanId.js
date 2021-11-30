@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = void 0;
+exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = exports.cleanId = void 0;
 const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -14,6 +14,7 @@ const cleanId = (prefix, args, msg) => {
     const member = msg.guild.members.cache.get(id);
     return member;
 };
+exports.cleanId = cleanId;
 const BadWords = (msg) => {
     if (!msg.member) {
         msg.delete()
@@ -142,11 +143,11 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
     switch (cdm) {
         case "kick":
             command = client.application?.commands.cache.get("kick");
-            command.execute(client, msg, args, cleanId, prefix);
+            command.execute(client, msg, args, exports.cleanId, prefix);
             break;
         case "ban":
             command = client.application?.commands.cache.get("ban");
-            command.execute(client, msg, args, cleanId, prefix);
+            command.execute(client, msg, args, exports.cleanId, prefix);
             break;
         case "unban":
             command = client.application?.commands.cache.get("unban");
