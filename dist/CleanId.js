@@ -184,6 +184,10 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
             command = client.application?.commands.cache.get("lock");
             command.execute(client, msg, args);
             break;
+        case "unlock":
+            command = client.application?.commands.cache.get("unlock");
+            command.execute(client, msg, args);
+            break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
             const mode = command.execute(client, msg, args, AdminRole);
