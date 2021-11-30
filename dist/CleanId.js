@@ -137,7 +137,7 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole) => {
+const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone) => {
     let command;
     switch (cdm) {
         case "kick":
@@ -182,8 +182,12 @@ const commands = (msg, prefix, client, cdm, args, Mode, AdminRole, BotRole, Mute
             break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
-            const mode = command.execute(client, msg, args, Mode, AdminRole);
+            const mode = command.execute(client, msg, args, AdminRole);
             return mode;
+            break;
+        case "lock":
+            command = client.application?.commands.cache.get("moderate");
+            command.execute(client, msg, args);
             break;
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);

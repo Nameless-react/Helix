@@ -43,7 +43,7 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
-let Mode = false;
+let guild;
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -60,7 +60,7 @@ exports.client.on("ready", async () => {
         type: "PLAYING"
     });
 });
-exports.client.on("messageCreate", (msg) => {
+exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
@@ -69,6 +69,7 @@ exports.client.on("messageCreate", (msg) => {
     const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
+    const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
     if (!MuteRole) {
         msg.guild.roles.create({
             name: "mute",
@@ -83,11 +84,12 @@ exports.client.on("messageCreate", (msg) => {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            Mode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, Mode, AdminRole, BotRole, MuteRole, MainRole, ModRole);
+            guild = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
         }
     }
     ;
-    if (Mode) {
+    const sv = await schema_1.default.findOne({ _id: guild });
+    if (sv.mode === true) {
         CleanId_1.BadWords(msg);
     }
     ;
@@ -192,5 +194,8 @@ exports.client.on("guildCreate", async (guild) => {
     await Data.save()
         .then((res) => console.log("Data save"))
         .catch((err) => console.log(err));
+});
+exports.client.on("guildDelete", async (guild) => {
+    const sv = await schema_1.default.findOne({ _id: guild.id });
 });
 exports.client.login(token);
