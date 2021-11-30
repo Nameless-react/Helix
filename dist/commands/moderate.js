@@ -15,7 +15,7 @@ exports.default = {
             if (args[0] !== "true" && args[0] !== "false") {
                 return msg.reply(`"${args[0]}" is not a mode`);
             }
-            const sv = await schema_1.default.findById({ _id: msg.guild.id });
+            const sv = await schema_1.default.findById({ _id: msg.guild.id }).exec();
             if (sv.mode === false)
                 return msg.reply("The mode is already off");
             if (args[0] === "false") {
