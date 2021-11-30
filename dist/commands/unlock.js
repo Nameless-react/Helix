@@ -17,6 +17,6 @@ exports.default = {
             return msg.reply(`The channel ${name} does not exist`);
         if (!roles && type !== "role")
             return msg.reply(`The role ${role} does not exist`);
-        channel.permissionOverwrites.delete(roles);
+        channel.permissionOverwrites.delete(roles).then((res) => msg.reply("The channel was unlock"));
     }
 };
