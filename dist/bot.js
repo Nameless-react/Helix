@@ -88,7 +88,7 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ _id: guild });
+    const sv = await schema_1.default.findOne({ id: guild });
     if (sv.mode === null)
         return;
     if (sv.mode === true) {
