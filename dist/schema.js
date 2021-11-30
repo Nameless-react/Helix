@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const schemaModerate = new mongoose_1.default.Schema({
     _id: {
-        type: Number,
+        type: String,
         required: true
     },
     server: {
