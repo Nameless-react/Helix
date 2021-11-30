@@ -189,7 +189,7 @@ exports.client.on("interactionCreate", async (interaction) => {
 });
 exports.client.on("guildCreate", async (guild) => {
     const Data = new schema_1.default({
-        _id: guild.id,
+        id: guild.id,
         server: guild.name,
         mode: false
     });
@@ -198,6 +198,6 @@ exports.client.on("guildCreate", async (guild) => {
         .catch((err) => console.log(err));
 });
 exports.client.on("guildDelete", async (guild) => {
-    const sv = await schema_1.default.findOne({ _id: guild.id });
+    const sv = await schema_1.default.findOne({ id: guild.id });
 });
 exports.client.login(token);
