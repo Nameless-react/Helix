@@ -181,7 +181,7 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
             command.execute(client, msg, args, StatusEmbed);
             break;
         case "lock":
-            command = client.application?.commands.cache.get("moderate");
+            command = client.application?.commands.cache.get("lock");
             command.execute(client, msg, args);
             break;
         case "moderate":
