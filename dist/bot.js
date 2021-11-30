@@ -43,7 +43,7 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
-let guild;
+let guildMode;
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -84,11 +84,12 @@ exports.client.on("messageCreate", async (msg) => {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            guild = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+            guildMode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ id: guild });
+    console.log(guildMode);
+    const sv = await schema_1.default.findOne({ id: guildMode });
     if (sv === null)
         return;
     if (sv.mode === true) {
