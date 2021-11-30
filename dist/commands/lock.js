@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    name: "block",
-    description: "Block a channel to all the members, following the next name of the channel and the role",
+    name: "lock",
+    description: "lock a channel to all the members, following the next name of the channel and the role",
     execute(client, msg, args, everyone) {
         if (args.length === 0)
             return msg.reply("Please provide the data");
