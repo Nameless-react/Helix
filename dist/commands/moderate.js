@@ -15,12 +15,12 @@ exports.default = {
             if (args[0] !== "true" && args[0] !== "false") {
                 return msg.reply(`"${args[0]}" is not a mode`);
             }
-            const sv = await schema_1.default.findOne({ _id: msg.guild.id.toString() });
+            const sv = await schema_1.default.findById({ _id: msg.guild.id });
             if (sv.mode === false)
                 return msg.reply("The mode is already off");
             if (args[0] === "false") {
                 msg.reply("The moderation mode is off");
-                const sv = await schema_1.default.updateOne({ _id: msg.guild.id.toString() }, {
+                const sv = await schema_1.default.updateOne({ _id: msg.guild.id }, {
                     mode: false
                 });
                 msg.channel.setRateLimitPerUser(0);
@@ -30,7 +30,7 @@ exports.default = {
                 return msg.reply("The mode is already on");
             if (args[0] === "true") {
                 msg.reply("The moderation mode is on");
-                const sv = await schema_1.default.updateOne({ _id: msg.guild.id.toString() }, {
+                const sv = await schema_1.default.updateOne({ _id: msg.guild.id }, {
                     mode: true
                 });
                 msg.channel.setRateLimitPerUser(5);
