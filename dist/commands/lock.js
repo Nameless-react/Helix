@@ -12,6 +12,8 @@ exports.default = {
         if (!role)
             return msg.reply("Please specify for which role you want to lock the channel");
         const channel = msg.guild.channels.cache.find((channel) => channel.name === name);
+        if (!channel)
+            msg.reply(`The channel ${name} does not exist`);
         channel.permissionOverwrites.create(role, {
             SEND_MESSAGES: false,
         });
