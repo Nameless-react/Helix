@@ -88,7 +88,7 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ _id: guild });
+    const sv = await schema_1.default.findOne({ server: guild });
     if (sv === null)
         return;
     if (sv.mode === true) {
@@ -198,6 +198,6 @@ exports.client.on("guildCreate", async (guild) => {
         .catch((err) => console.log(err));
 });
 exports.client.on("guildDelete", async (guild) => {
-    const sv = await schema_1.default.findOne({ _id: guild.id });
+    const sv = await schema_1.default.findOne({ server: guild.name });
 });
 exports.client.login(token);

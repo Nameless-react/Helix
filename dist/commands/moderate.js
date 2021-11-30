@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "moderate",
@@ -24,7 +23,7 @@ exports.default = {
                     mode: false
                 });
                 msg.channel.setRateLimitPerUser(0);
-                return msg.guild.id;
+                return msg.guild.name;
             }
             if (sv.mode === true)
                 return msg.reply("The mode is already on");
@@ -34,7 +33,7 @@ exports.default = {
                     mode: true
                 });
                 msg.channel.setRateLimitPerUser(5);
-                return msg.guild.id;
+                return msg.guild.name;
             }
             ;
         }
