@@ -180,14 +180,14 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
             command = client.application?.commands.cache.get("status");
             command.execute(client, msg, args, StatusEmbed);
             break;
+        case "lock":
+            command = client.application?.commands.cache.get("moderate");
+            command.execute(client, msg, args);
+            break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
             const mode = command.execute(client, msg, args, AdminRole);
             return mode;
-            break;
-        case "lock":
-            command = client.application?.commands.cache.get("moderate");
-            command.execute(client, msg, args);
             break;
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);
