@@ -7,10 +7,15 @@ exports.default = {
         if (args.length === 0)
             return msg.reply("Please provide the data");
         const [name, type, role] = args;
-        if (!name)
-            return msg.reply("Please specify which channel you want to lock");
-        if (!role)
-            return msg.reply("Please specify for which role you want to lock the channel");
+        if (!name) {
+            return msg.reply("Please specify which channel you want to unlock");
+        }
+        else if (!type) {
+            return msg.reply("Please specify if is a role or a member");
+        }
+        else if (!role) {
+            return msg.reply("Please specify for which role you want to unlock the channel");
+        }
         const channel = msg.guild.channels.cache.find((channel) => channel.name === name);
         const roles = msg.guild.roles.cache.find((r) => r.name === role);
         if (!channel)
