@@ -17,15 +17,17 @@ exports.default = {
         else if (!roleMember) {
             return msg.reply("Please specify for which role you want to unlock the channel");
         }
+        ;
+        let roles;
         const channel = msg.guild.channels.cache.find((channel) => channel.name === name);
-        const roles = msg.guild.roles.cache.find((r) => r.name === roleMember);
+        roles = msg.guild.roles.cache.find((r) => r.name === roleMember);
         if (!channel)
             return msg.reply(`The channel ${name} does not exist`);
         if (!roles && type === "role") {
             return msg.reply(`The role ${roleMember} does not exist`);
         }
         else if (!roles && type === "member") {
-            const roles = CleanId_1.cleanId("!", args, msg);
+            roles = CleanId_1.cleanId("!", args, msg);
         }
         channel.permissionOverwrites.delete(roles).then((res) => msg.reply("The channel was unlock"));
     }
