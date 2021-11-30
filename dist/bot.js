@@ -88,8 +88,7 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    console.log(guildMode);
-    const sv = await schema_1.default.findOne({ id: String(guildMode) });
+    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     if (sv === null)
         return;
     if (sv.mode === true) {
