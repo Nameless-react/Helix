@@ -88,8 +88,8 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ server: guild });
-    if (sv === null)
+    const sv = await schema_1.default.findOne({ _id: guild });
+    if (sv.mode === null)
         return;
     if (sv.mode === true) {
         CleanId_1.BadWords(msg);
@@ -198,6 +198,6 @@ exports.client.on("guildCreate", async (guild) => {
         .catch((err) => console.log(err));
 });
 exports.client.on("guildDelete", async (guild) => {
-    const sv = await schema_1.default.findOne({ server: guild.name });
+    const sv = await schema_1.default.findOne({ _id: guild.id });
 });
 exports.client.login(token);
