@@ -17,6 +17,6 @@ exports.default = {
             msg.reply(`The channel ${name} does not exist`);
         channel.permissionOverwrites.create(roles, {
             SEND_MESSAGES: false,
-        });
+        }).then((res) => msg.reply("The channel was block"));
     }
 };
