@@ -43,7 +43,6 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
-let guildMode;
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -84,11 +83,11 @@ exports.client.on("messageCreate", async (msg) => {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            guildMode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+            CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+    const sv = await schema_1.default.findOne({ _id: String(msg.guild.id) });
     if (sv === null)
         return;
     if (sv.mode === true) {
@@ -189,15 +188,15 @@ exports.client.on("interactionCreate", async (interaction) => {
 });
 exports.client.on("guildCreate", async (guild) => {
     const Data = new schema_1.default({
-        id: guild.id,
+        _id: guild.id,
         server: guild.name,
         mode: false
     });
     await Data.save()
-        .then((res) => console.log("Data save"))
+        .then((res) => console.log("Data saved"))
         .catch((err) => console.log(err));
 });
 exports.client.on("guildDelete", async (guild) => {
-    const sv = await schema_1.default.findOne({ id: guild.id });
+    const sv = await schema_1.default.findOneAndDelete({ _id: guild.id }).then((res) => console.log("Data deleted"));
 });
 exports.client.login(token);
