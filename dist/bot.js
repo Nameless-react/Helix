@@ -136,7 +136,7 @@ exports.client.on("interactionCreate", async (interaction) => {
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
         ticket = interaction.guild?.channels.cache.find((ticket) => ticket.name.match(/tickets?/ig));
         if (!ticket) {
-            ticket = await interaction.guild?.channels.create("ticket", {
+            ticket = await interaction.guild.channels.create("ticket", {
                 type: "GUILD_CATEGORY"
             });
         }
