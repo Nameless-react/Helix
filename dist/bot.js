@@ -80,11 +80,11 @@ exports.client.on("messageCreate", async (msg) => {
     ;
     if (!MainRole) {
         user?.send("Please write the name of the main role of the server");
-        console.log(user?.dmChannel);
         const filter = (m) => m.user.id !== "900182160017883197";
-        const roleMessage = user?.dmChannel?.awaitMessages({
+        const roleMessage = user?.dmChannel?.createMessageCollector({
             filter
-        }).then((res) => console.log(res.dmChannel.messages));
+        });
+        roleMessage?.on("collect", m => console.log(`The user ${m.author.username} said ${m.content}`));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
