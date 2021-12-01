@@ -80,7 +80,7 @@ exports.client.on("messageCreate", async (msg) => {
     ;
     if (!MainRole) {
         user?.send("Please write the name of the main role of the server");
-        MainRole = msg.guild.roles.cache.find((role) => role.name === user?.lastMessage);
+        MainRole = msg.guild.roles.cache.find((role) => role.name === user?.lastMessage.content);
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
