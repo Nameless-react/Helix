@@ -66,7 +66,7 @@ exports.client.on("messageCreate", async (msg) => {
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
-    let MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
+    let MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
@@ -78,13 +78,8 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
-    if (!MainRole) {
-        await user?.send("Please write the name of the main role of the server");
-        const filter = (m) => m.author.id !== "900182160017883197";
-        const roleMessage = user?.dmChannel?.awaitMessages({
-            filter
-        }).then((res) => console.log(res));
-    }
+    user?.send("RIJGOTGJITUJGOIJYH");
+    console.log(user?.dmChannel?.lastMessage);
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
