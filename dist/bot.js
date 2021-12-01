@@ -84,7 +84,7 @@ exports.client.on("messageCreate", async (msg) => {
         const filter = (m) => m.user.id !== "900182160017883197";
         const roleMessage = user?.dmChannel?.awaitMessages({
             filter
-        }).then((res) => console.log(res));
+        }).then((res) => console.log(res.dmChannel.messages));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
