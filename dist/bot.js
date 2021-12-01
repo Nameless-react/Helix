@@ -82,9 +82,9 @@ exports.client.on("messageCreate", async (msg) => {
         await user?.send("Please write the name of the main role of the server");
         console.log(user?.dmChannel);
         const filter = (m) => m.user.id !== "900182160017883197";
-        const roleMessage = user?.dmChannel?.awaitMessages({
+        const roleMessage = user?.awaitMessages({
             filter
-        }).then((res) => console.log(res));
+        }).then((res) => console.log(res.messages));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
