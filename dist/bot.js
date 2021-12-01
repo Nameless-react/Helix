@@ -79,7 +79,10 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
     user?.send("RIJGOTGJITUJGOIJYH");
-    console.log(user?.dmChannel?.lastMessage);
+    if (msg.channel.type === "DM") {
+        console.log("dm");
+        console.log(user?.dmChannel?.lastMessage);
+    }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
