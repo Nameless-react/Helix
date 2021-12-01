@@ -84,7 +84,7 @@ exports.client.on("messageCreate", async (msg) => {
         const roleMessage = user?.dmChannel?.createMessageCollector({
             filter
         });
-        roleMessage?.on("collect", m => console.log(`The user ${m.author.username} said ${m.content}`));
+        roleMessage.on("collect", m => console.log(`The user ${m.author.username} said ${m.content}`));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
