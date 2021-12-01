@@ -81,7 +81,8 @@ exports.client.on("messageCreate", async (msg) => {
     if (!MainRole) {
         await user?.send("Please write the name of the main role of the server");
         console.log(user?.dmChannel);
-        MainRole = await msg.guild.roles.cache.find((role) => role.name === user?.dmChannel?.lastMessage?.content && user?.dmChannel?.lastMessage?.author.id !== "900182160017883197");
+        MainRole = await msg.guild.roles.cache.find((role) => role.name === user?.dmChannel?.lastMessage?.content && user?.dmChannel?.id !== "900182160017883197");
+        console.log(msg.guild.roles.cache.find((role) => role.name === user?.dmChannel?.lastMessage?.content && user?.dmChannel?.id !== "900182160017883197"));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
