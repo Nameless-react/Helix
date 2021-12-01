@@ -88,7 +88,7 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
     const sv = await schema_1.default.findOne({ _id: String(msg.guild.id) });
-    if (sv.mode === null)
+    if (sv?.mode === null)
         return;
     if (sv.mode === true) {
         CleanId_1.BadWords(msg);
