@@ -70,17 +70,17 @@ exports.client.on("messageCreate", async (msg) => {
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
+    const user = exports.client.users.cache.get(msg.guild.ownerId);
     if (!MuteRole) {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        }).then((res) => msg.guild.ownerId.reply(`The role ${res.name} was created`));
+        }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
     if (!MainRole) {
-        const Owner = msg.guild.ownerId;
-        Owner.send("Please write the name of the main role of the server");
-        MainRole = msg.guild.roles.cache.find((role) => role.name === Owner.lastMessage);
+        user?.send("Please write the name of the main role of the server");
+        MainRole = msg.guild.roles.cache.find((role) => role.name === user?.lastMessage);
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
