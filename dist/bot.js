@@ -74,7 +74,7 @@ exports.client.on("messageCreate", async (msg) => {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        }).then((res) => msg.reply(`The role ${res.name} was created`));
+        }).then((res) => msg.guild.ownerId.reply(`The role ${res.name} was created`));
     }
     ;
     if (!MainRole) {
