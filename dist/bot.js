@@ -79,10 +79,10 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
     if (!MainRole) {
-        await user?.send("Please write the name of the main role of the server");
+        user?.send("Please write the name of the main role of the server");
         console.log(user?.dmChannel);
         const filter = (m) => m.user.id !== "900182160017883197";
-        const roleMessage = user?.awaitMessages({
+        const roleMessage = user?.dmChannel?.awaitMessages({
             filter
         }).then((res) => console.log(res.messages));
     }
