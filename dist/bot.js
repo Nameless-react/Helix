@@ -79,7 +79,7 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
     if (!MainRole) {
-        user?.send("Please write the name of the main role of the server");
+        await user?.send("Please write the name of the main role of the server");
         console.log(user?.dmChannel);
         MainRole = await msg.guild.roles.cache.find((role) => role.name === user?.dmChannel?.lastMessage?.content && user?.dmChannel?.lastMessage?.author.id !== "900182160017883197");
     }
