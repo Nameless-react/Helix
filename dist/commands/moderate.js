@@ -17,17 +17,17 @@ exports.default = {
             }
             if (args[0] === "false") {
                 msg.reply("The moderation mode is off");
-                const sv = await schema_1.default.updateOne({ _id: String(msg.guild.id) }, {
+                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     mode: false
                 });
                 msg.channel.setRateLimitPerUser(0);
             }
-            const sv = await schema_1.default.findOne({ _id: String(msg.guild.id) });
+            const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
             if (sv.mode === true)
                 return msg.reply("The mode is already on");
             if (args[0] === "true") {
                 msg.reply("The moderation mode is on");
-                const sv = await schema_1.default.updateOne({ _id: String(msg.guild.id) }, {
+                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     mode: true
                 });
                 msg.channel.setRateLimitPerUser(5);

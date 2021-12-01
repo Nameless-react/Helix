@@ -43,6 +43,7 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
+let guildMode;
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -65,7 +66,7 @@ exports.client.on("messageCreate", async (msg) => {
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
-    const MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
+    let MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
@@ -76,6 +77,11 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => msg.reply(`The role ${res.name} was created`));
     }
     ;
+    if (!MainRole) {
+        const Owner = msg.guild.ownerId;
+        Owner.send("Please write the name of the main role of the server");
+        MainRole = msg.guild.roles.cache.find((role) => role.name === Owner.lastMessage);
+    }
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
@@ -83,12 +89,12 @@ exports.client.on("messageCreate", async (msg) => {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+            guildMode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ _id: String(msg.guild.id) });
-    if (sv?.mode === null)
+    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+    if (sv === null)
         return;
     if (sv.mode === true) {
         CleanId_1.BadWords(msg);
@@ -126,8 +132,15 @@ exports.client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton())
         return;
     if (interaction.customId === "Open") {
+        let ticket;
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
-        const ticket = interaction.guild?.channels.cache.find((ticket) => ticket.name.match(/tickets?/ig));
+        ticket = interaction.guild?.channels.cache.find((ticket) => ticket.name.match(/tickets?/ig));
+        if (!ticket) {
+            ticket = await interaction.guild?.channels.create("ticket", {
+                type: "GUILD_CATEGORY"
+            });
+        }
+        ;
         const equal = ticket.children.find((m) => m.name === name);
         if (equal) {
             return interaction.reply({
@@ -136,7 +149,7 @@ exports.client.on("interactionCreate", async (interaction) => {
             });
         }
         const channel = await interaction.guild.channels.create(`Ticket: ${interaction.user.tag}`, {
-            parent: "904888921081663538",
+            parent: ticket?.id,
             permissionOverwrites: [
                 {
                     id: interaction.guildId,
@@ -162,7 +175,7 @@ exports.client.on("interactionCreate", async (interaction) => {
             throw err;
         }
         ;
-        const AdminRole = interaction.guild.roles.cache.find((role) => role.name === "Admin").id;
+        const AdminRole = interaction.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi)).id;
         const filter = ((reaction, user) => reaction.message.guild.members.cache.find((m) => m.id === user.id).roles.cache.has(AdminRole));
         const collector = MsgTicket.createReactionCollector({
             filter
@@ -177,7 +190,7 @@ exports.client.on("interactionCreate", async (interaction) => {
                         break;
                     case "❌":
                         channel.send("Deleting this channel in 5 seconds");
-                        setTimeout(() => channel.delete(), 5000);
+                        setTimeout(() => channel?.delete(), 5000);
                         break;
                 }
                 ;
@@ -188,7 +201,7 @@ exports.client.on("interactionCreate", async (interaction) => {
 });
 exports.client.on("guildCreate", async (guild) => {
     const Data = new schema_1.default({
-        _id: guild.id,
+        id: guild.id,
         server: guild.name,
         mode: false
     });
@@ -197,6 +210,6 @@ exports.client.on("guildCreate", async (guild) => {
         .catch((err) => console.log(err));
 });
 exports.client.on("guildDelete", async (guild) => {
-    const sv = await schema_1.default.findOneAndDelete({ _id: guild.id }).then((res) => console.log("Data deleted"));
+    const sv = await schema_1.default.findOne({ id: String(guild.id) }).then((res) => console.log("Data deleted"));
 });
 exports.client.login(token);
