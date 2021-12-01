@@ -46,7 +46,7 @@ const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.na
             console.log(err);
         });
     }
-    else if (msg.member?.roles.cache.has(MainRole.id) || msg.member?.roles.cache.has(ModRole.id)) {
+    else if (msg.member?.roles.cache.has(MainRole?.id) || msg.member?.roles.cache.has(ModRole?.id) || !msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) {
         if (msg.author.id !== msg.guild.ownerId) {
             const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
             let result = msg.content.match(regex);
