@@ -67,6 +67,7 @@ exports.client.on("messageCreate", async (msg) => {
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
+    MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const user = exports.client.users.cache.get(msg.guild.ownerId);
@@ -77,19 +78,12 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
-    if (!MainRole && msg.content.startsWith("!main")) {
-        msg.channel.send("You can configure the main role typing: !main [name of the role]");
-        const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (msg.guild.ownerId === msg.author.id && msg.content.startsWith("!main")) {
-            const command = exports.client.application?.commands.cache.get("main");
-            MainRole = command.execute(exports.client, msg, args);
-        }
-        ;
+    if (!MainRole) {
+        msg.guild.roles.create({
+            name: "member",
+            color: "BLUE",
+        }).then((res) => user?.send(`The role ${res.name} was created`));
     }
-    else {
-        MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
-    }
-    console.log(MainRole);
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix) && !msg.content.startsWith("!main")) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
