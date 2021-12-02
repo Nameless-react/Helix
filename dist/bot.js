@@ -91,7 +91,7 @@ exports.client.on("messageCreate", async (msg) => {
     }
     console.log(MainRole);
     CleanId_1.searchLink(msg, MainRole, ModRole);
-    if (msg.content.startsWith(prefix)) {
+    if (msg.content.startsWith(prefix) && !msg.content.startsWith("!main")) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
