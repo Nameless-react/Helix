@@ -80,7 +80,7 @@ exports.client.on("messageCreate", async (msg) => {
             user?.send(`The role ${res.name} was created`);
             msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(res.id, {
                 SEND_MESSAGES: false,
-                SEND_EMOJIS: false
+                ADD_REACTIONS: false
             }));
             msg.guild.roles.setPositions([{
                     role: res.id,
