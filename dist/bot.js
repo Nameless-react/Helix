@@ -64,10 +64,8 @@ exports.client.on("messageCreate", async (msg) => {
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MainRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.main);
     const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.mute);
-    if (!MuteRole || !MainRole) {
-        msg.channel.send("Please set the main or the mute role to use the commands of the bot");
-    }
-    ;
+    if (!MuteRole || !MainRole)
+        return msg.channel.send("Please set the main or the mute role to use the commands of the bot");
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     CleanId_1.searchLink(msg);
     if (!MuteRole) {
