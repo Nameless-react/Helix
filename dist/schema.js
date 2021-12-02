@@ -20,6 +20,10 @@ const schemaModerate = new mongoose_1.default.Schema({
     prefix: {
         type: String,
         required: true
+    },
+    roles: {
+        main: String,
+        mute: String
     }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);

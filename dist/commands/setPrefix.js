@@ -15,6 +15,7 @@ exports.default = {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 prefix: args[0]
             });
+            msg.reply("Prefix updated");
         }
         else {
             msg.reply("You do not have permissions to change the prefix");

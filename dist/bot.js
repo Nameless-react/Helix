@@ -58,42 +58,21 @@ exports.client.on("ready", async () => {
         type: "PLAYING"
     });
 });
-let MainRole;
 exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-    const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
-    MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
-    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
-    const user = exports.client.users.cache.get(msg.guild.ownerId);
-    CleanId_1.searchLink(msg);
-    if (!MuteRole) {
-        msg.guild.roles.create({
-            name: "mute",
-            color: "RED",
-        }).then((res) => {
-            user?.send(`The role ${res.name} was created`);
-            msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(res.id, {
-                SEND_MESSAGES: false,
-                ADD_REACTIONS: false,
-                MUTE_MEMBERS: false,
-                SEND_MESSAGES_IN_THREADS: false,
-                READ_MESSAGE_HISTORY: false
-            }));
-            msg.guild.roles.setPositions([{
-                    role: res.id,
-                    position: -1
-                }]);
-        });
+    const MainRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.main);
+    const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.mute);
+    if (!MuteRole || !MainRole) {
+        msg.channel.send("Please set the main or the mute role to use the commands of the bot");
     }
     ;
-    if (!MainRole) {
-        msg.guild.roles.create({
-            name: "member",
-            color: "BLUE",
-        }).then((res) => user?.send(`The role ${res.name} was created`));
+    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
+    CleanId_1.searchLink(msg);
+    if (!MuteRole) {
     }
+    ;
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
