@@ -79,6 +79,7 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
     user?.send("RIJGOTGJITUJGOIJYH");
+    console.log(msg.channel.type);
     if (msg.channel.type === "DM") {
         console.log("dm");
         console.log(user?.dmChannel?.lastMessage);
