@@ -71,12 +71,13 @@ exports.client.on("messageCreate", async (msg) => {
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const user = exports.client.users.cache.get(msg.guild.ownerId);
+    console.log(MuteRole);
     if (!MuteRole) {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
         }).then((res) => user?.send(`The role ${res.name} was created`));
-        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole.id, {
+        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole, {
             SEND_MESSAGES: false,
             SEND_EMOGIS: false
         }));
