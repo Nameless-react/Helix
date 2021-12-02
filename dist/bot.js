@@ -43,7 +43,6 @@ exports.client = new discord_js_1.Client({
 });
 const token = process.env.DISCORD_BOT_TOKEN;
 const prefix = "!";
-let guildMode;
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -78,23 +77,24 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
-    user?.send("RIJGOTGJITUJGOIJYH");
-    console.log(msg.channel.type);
-    if (msg.channel.type === "DM") {
-        console.log("dm");
-        console.log(user?.dmChannel?.lastMessage);
-    }
-    CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
+        if (!MainRole) {
+            msg.channel.send("You can configure the main rol typing: !main [name of the role]");
+            if (msg.guild.ownerId === msg.author.id && cdm === "main") {
+                const command = exports.client.application?.commands.cache.get("main");
+                MainRole = command.execute(exports.client, msg, args);
+            }
+        }
+        else if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
-            guildMode = CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+            CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
         }
     }
     ;
+    CleanId_1.searchLink(msg, MainRole, ModRole);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     if (sv === null)
         return;
