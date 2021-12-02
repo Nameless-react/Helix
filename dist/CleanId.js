@@ -141,6 +141,10 @@ exports.TickEmbed = TickEmbed;
 const commands = (msg, prefix, client, cdm, args, MuteRole, MainRole) => {
     let command;
     switch (cdm) {
+        case "setprefix":
+            command = client.application?.commands.cache.get("setprefix");
+            command.execute(client, msg, args);
+            break;
         case "kick":
             command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, exports.cleanId, prefix);
