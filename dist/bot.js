@@ -79,6 +79,7 @@ exports.client.on("messageCreate", async (msg) => {
     ;
     if (!MainRole && msg.content.startsWith("!main")) {
         msg.channel.send("You can configure the main role typing: !main [name of the role]");
+        const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
         if (msg.guild.ownerId === msg.author.id && msg.content.startsWith("!main")) {
             const command = exports.client.application?.commands.cache.get("main");
             MainRole = command.execute(exports.client, msg, args);
