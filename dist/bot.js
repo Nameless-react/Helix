@@ -76,7 +76,7 @@ exports.client.on("messageCreate", async (msg) => {
             name: "mute",
             color: "RED",
         }).then((res) => user?.send(`The role ${res.name} was created`));
-        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole, {
+        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole.id, {
             SEND_MESSAGES: false,
             SEND_EMOGIS: false
         }));
