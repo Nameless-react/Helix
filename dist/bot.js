@@ -76,40 +76,43 @@ exports.client.on("messageCreate", async (msg) => {
         msg.guild.roles.create({
             name: "mute",
             color: "RED",
-        }).then((res) => user?.send(`The role ${res.name} was created`));
-        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole, {
+        }).then((res) => {
+            user?.send(`The role ${res.name} was created`);
+        });
+        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(res.id, {
             SEND_MESSAGES: false,
             SEND_EMOGIS: false
         }));
         msg.guild.roles.setPositions([{
-                role: MuteRole.id,
+                role: res.id,
                 position: -1
             }]);
     }
     ;
-    if (!MainRole) {
-        msg.guild.roles.create({
-            name: "member",
-            color: "BLUE",
-        }).then((res) => user?.send(`The role ${res.name} was created`));
-    }
-    CleanId_1.searchLink(msg, MainRole, ModRole);
-    if (msg.content.startsWith(prefix)) {
-        const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
-            CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
-        }
-        else {
-            CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
-        }
-    }
-    ;
-    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-    if (sv.mode === true) {
-        CleanId_1.BadWords(msg);
-    }
-    ;
 });
+if (!MainRole) {
+    msg.guild.roles.create({
+        name: "member",
+        color: "BLUE",
+    }).then((res) => user?.send(`The role ${res.name} was created`));
+}
+CleanId_1.searchLink(msg, MainRole, ModRole);
+if (msg.content.startsWith(prefix)) {
+    const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
+    if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
+        CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
+    }
+    else {
+        CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+    }
+}
+;
+const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+if (sv.mode === true) {
+    CleanId_1.BadWords(msg);
+}
+;
+;
 exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
