@@ -38,7 +38,7 @@ const BadWords = (msg) => {
     ;
 };
 exports.BadWords = BadWords;
-const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig)), ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig))) => {
+const searchLink = (msg) => {
     if (!msg.member) {
         msg.delete()
             .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
@@ -46,7 +46,7 @@ const searchLink = (msg, MainRole = msg.guild.roles.cache.find((role) => role.na
             console.log(err);
         });
     }
-    else if (msg.member?.roles.cache.has(MainRole?.id) || msg.member?.roles.cache.has(ModRole?.id) || !msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) {
+    else if (!msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) {
         if (msg.author.id !== msg.guild.ownerId) {
             const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
             let result = msg.content.match(regex);
@@ -138,7 +138,7 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone) => {
+const commands = (msg, prefix, client, cdm, args, MuteRole, MainRole) => {
     let command;
     switch (cdm) {
         case "kick":
@@ -183,15 +183,15 @@ const commands = (msg, prefix, client, cdm, args, AdminRole, BotRole, MuteRole, 
             break;
         case "lock":
             command = client.application?.commands.cache.get("lock");
-            command.execute(client, msg, args);
+            command.execute(client, msg, args, exports.cleanId);
             break;
         case "unlock":
             command = client.application?.commands.cache.get("unlock");
-            command.execute(client, msg, args);
+            command.execute(client, msg, args, exports.cleanId);
             break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
-            command.execute(client, msg, args, AdminRole);
+            command.execute(client, msg, args);
             break;
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);

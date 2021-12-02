@@ -42,7 +42,6 @@ exports.client = new discord_js_1.Client({
     partials: ["MESSAGE", "REACTION"]
 });
 const token = process.env.DISCORD_BOT_TOKEN;
-const prefix = "!";
 exports.client.on("ready", async () => {
     const commandFiles = fs_1.default.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
@@ -63,15 +62,12 @@ let MainRole;
 exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
-    const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
-    const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
+    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
-    const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
-    const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const user = exports.client.users.cache.get(msg.guild.ownerId);
-    console.log(MuteRole);
+    CleanId_1.searchLink(msg);
     if (!MuteRole) {
         msg.guild.roles.create({
             name: "mute",
@@ -80,7 +76,10 @@ exports.client.on("messageCreate", async (msg) => {
             user?.send(`The role ${res.name} was created`);
             msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(res.id, {
                 SEND_MESSAGES: false,
-                ADD_REACTIONS: false
+                ADD_REACTIONS: false,
+                MUTE_MEMBERS: false,
+                SEND_MESSAGES_IN_THREADS: false,
+                READ_MESSAGE_HISTORY: false
             }));
             msg.guild.roles.setPositions([{
                     role: res.id,
@@ -95,18 +94,16 @@ exports.client.on("messageCreate", async (msg) => {
             color: "BLUE",
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
-    CleanId_1.searchLink(msg, MainRole, ModRole);
-    if (msg.content.startsWith(prefix)) {
-        const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
+    if (msg.content.startsWith(sv.prefix)) {
+        const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
-            CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
+            CleanId_1.PublicCommands(msg, sv.prefix, exports.client, cdm, args);
         }
         else {
-            CleanId_1.commands(msg, prefix, exports.client, cdm, args, AdminRole, BotRole, MuteRole, MainRole, ModRole, everyone);
+            CleanId_1.commands(msg, sv.prefix, exports.client, cdm, args, MuteRole, MainRole);
         }
     }
     ;
-    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     if (sv.mode === true) {
         CleanId_1.BadWords(msg);
     }
@@ -186,7 +183,6 @@ exports.client.on("interactionCreate", async (interaction) => {
             throw err;
         }
         ;
-        const AdminRole = interaction.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi)).id;
         const filter = ((reaction, user) => reaction.message.guild.members.cache.find((m) => m.id === user.id).permissions.any(["BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD"]));
         const collector = MsgTicket.createReactionCollector({
             filter
@@ -214,7 +210,8 @@ exports.client.on("guildCreate", async (guild) => {
     const Data = new schema_1.default({
         id: guild.id,
         server: guild.name,
-        mode: false
+        mode: false,
+        prefix: "!"
     });
     await Data.save()
         .then((res) => console.log("Data saved"))

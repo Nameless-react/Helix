@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CleanId_1 = require("../CleanId");
 exports.default = {
     name: "unlock",
     description: "Unlock the channel you want, following the next name of the channel, the type (member or role) and the role",
-    execute(client, msg, args) {
+    execute(client, msg, args, cleanId) {
         if (msg.member.permissions.has("MANAGE_CHANNELS")) {
             if (args.length === 0)
                 return msg.reply("Please provide the data");
@@ -28,7 +27,7 @@ exports.default = {
                 return msg.reply(`The role ${roleMember} does not exist`);
             }
             else if (!roles && type === "member") {
-                roles = CleanId_1.cleanId("!", args, msg);
+                roles = cleanId("!", args, msg);
             }
             channel.permissionOverwrites.delete(roles).then((res) => msg.reply("The channel was unlock"));
         }

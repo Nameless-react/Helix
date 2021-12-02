@@ -8,8 +8,8 @@ const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "moderate",
     description: "Turn on a mode that filter more the content of the message",
-    execute: async (client, msg, args, AdminRole) => {
-        if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"]) || msg.member.roles.cache.has(AdminRole.id) || msg.member?.permissions.has("MANAGE_GUILD")) {
+    execute: async (client, msg, args) => {
+        if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"]) || msg.member?.permissions.has("MANAGE_GUILD")) {
             if (args.length === 0)
                 return msg.reply("Please write true or false to execute this command");
             if (args[0] !== "true" && args[0] !== "false") {

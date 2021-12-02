@@ -16,6 +16,10 @@ const schemaModerate = new mongoose_1.default.Schema({
     mode: {
         type: Boolean,
         required: true
+    },
+    prefix: {
+        type: String,
+        required: true
     }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);
