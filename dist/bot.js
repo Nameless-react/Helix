@@ -77,7 +77,7 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
-    if (!MainRole && msg.startsWith("!main")) {
+    if (!MainRole && msg.content.startsWith("!main")) {
         msg.channel.send("You can configure the main role typing: !main [name of the role]");
         if (msg.guild.ownerId === msg.author.id && msg.content.startsWith("!main")) {
             const command = exports.client.application?.commands.cache.get("main");
