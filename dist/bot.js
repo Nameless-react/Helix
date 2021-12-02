@@ -80,6 +80,10 @@ exports.client.on("messageCreate", async (msg) => {
             SEND_MESSAGES: false,
             SEND_EMOGIS: false
         }));
+        msg.guild.roles.setPositions([{
+                role: MuteRole.id,
+                position: -1
+            }]);
     }
     ;
     if (!MainRole) {
