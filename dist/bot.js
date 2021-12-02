@@ -59,16 +59,16 @@ exports.client.on("ready", async () => {
         type: "PLAYING"
     });
 });
+let MainRole;
 exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
-    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const AdminRole = msg.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi));
     const BotRole = msg.guild.roles.cache.find((role) => role.name.match(/bots?|robots?|automaton/gi));
-    let MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
     const MuteRole = msg.guild.roles.cache.find((role) => role.name.match(/mutes?/ig));
     const ModRole = msg.guild.roles.cache.find((role) => role.name.match(/mod|moderator|moderador/ig));
     const everyone = msg.guild.roles.cache.find((role) => role.name === "@everyone");
+    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const user = exports.client.users.cache.get(msg.guild.ownerId);
     if (!MuteRole) {
         msg.guild.roles.create({
@@ -77,15 +77,18 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
-    if (!MainRole) {
-        msg.channel.send("You can configure the main rol typing: !main [name of the role]");
+    if (!MainRole && msg.startsWith("!main")) {
+        msg.channel.send("You can configure the main role typing: !main [name of the role]");
         if (msg.guild.ownerId === msg.author.id && msg.content.startsWith("!main")) {
             const command = exports.client.application?.commands.cache.get("main");
             MainRole = command.execute(exports.client, msg, args);
         }
         ;
     }
-    ;
+    else {
+        MainRole = msg.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig));
+    }
+    console.log(MainRole);
     CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
