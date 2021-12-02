@@ -76,6 +76,10 @@ exports.client.on("messageCreate", async (msg) => {
             name: "mute",
             color: "RED",
         }).then((res) => user?.send(`The role ${res.name} was created`));
+        msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(MuteRole, {
+            SEND_MESSAGES: false,
+            SEND_EMOGIS: false
+        }));
     }
     ;
     if (!MainRole) {
@@ -85,7 +89,7 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     CleanId_1.searchLink(msg, MainRole, ModRole);
-    if (msg.content.startsWith(prefix) && !msg.content.startsWith("!main")) {
+    if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
@@ -104,8 +108,8 @@ exports.client.on("messageCreate", async (msg) => {
 exports.client.on("messageReactionAdd", (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
-    if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]role|selecciona[-\s]tu[-\s]rol|rol/ig)) {
-        const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic/ig)).id;
+    if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
+        const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig)).id;
         switch (name) {
             case "✅":
                 member?.roles.add(MainRole);
@@ -176,7 +180,7 @@ exports.client.on("interactionCreate", async (interaction) => {
         }
         ;
         const AdminRole = interaction.guild.roles.cache.find((role) => role.name.match(/admins?(istrator)?|administrador/gi)).id;
-        const filter = ((reaction, user) => reaction.message.guild.members.cache.find((m) => m.id === user.id).roles.cache.has(AdminRole));
+        const filter = ((reaction, user) => reaction.message.guild.members.cache.find((m) => m.id === user.id).permissions.any(["BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD"]));
         const collector = MsgTicket.createReactionCollector({
             filter
         });
