@@ -77,16 +77,19 @@ exports.client.on("messageCreate", async (msg) => {
         }).then((res) => user?.send(`The role ${res.name} was created`));
     }
     ;
+    if (!MainRole) {
+        msg.channel.send("You can configure the main rol typing: !main [name of the role]");
+        if (msg.guild.ownerId === msg.author.id && msg.content.startsWith("!main")) {
+            const command = exports.client.application?.commands.cache.get("main");
+            MainRole = command.execute(exports.client, msg, args);
+        }
+        ;
+    }
+    ;
+    CleanId_1.searchLink(msg, MainRole, ModRole);
     if (msg.content.startsWith(prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/);
-        if (!MainRole) {
-            msg.channel.send("You can configure the main rol typing: !main [name of the role]");
-            if (msg.guild.ownerId === msg.author.id && cdm === "main") {
-                const command = exports.client.application?.commands.cache.get("main");
-                MainRole = command.execute(exports.client, msg, args);
-            }
-        }
-        else if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
+        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, prefix, exports.client, cdm, args);
         }
         else {
@@ -94,10 +97,7 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    CleanId_1.searchLink(msg, MainRole, ModRole);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-    if (sv === null)
-        return;
     if (sv.mode === true) {
         CleanId_1.BadWords(msg);
     }
