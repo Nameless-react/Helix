@@ -25,13 +25,14 @@ const schemaModerate = new mongoose_1.default.Schema({
         type: Number,
         required: true
     },
-    roles: {
-        main: {
-            type: String
-        },
-        mute: {
-            type: String
-        }
+    roles: { required: true },
+}, {
+    main: {
+        type: String
+    },
+    mute: {
+        type: String
     }
 });
+;
 exports.default = mongoose_1.default.model("moderate", schemaModerate);
