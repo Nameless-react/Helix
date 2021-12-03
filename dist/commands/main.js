@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
-    name: "main",
-    description: "Set the main role of the guild or create it. To create the role, write: create, the name of the role and the color you want",
+    name: "mains",
+    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want",
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
         if (msg.author.id === msg.guild.ownerId) {
-            const [role, name, color] = args;
-            if (role === "create") {
+            if (args[0] === "create") {
+                const [, name, color] = args;
                 if (!name || !color)
                     return msg.reply("Please write the name and the color for the role");
                 const user = client.users.cache.get(msg.guild.ownerId);
@@ -23,9 +23,10 @@ exports.default = {
                 }).then((res) => user?.send(`The role ${res.name} was created`));
             }
             else {
+                const [role, ...rest] = args;
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     roles: {
-                        main: role
+                        main: rest
                     }
                 });
                 msg.reply("Role seted");

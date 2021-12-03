@@ -221,8 +221,8 @@ const configCommands = (msg, client, args, cdm) => {
             command = client.application?.commands.cache.get("setprefix");
             command.execute(client, msg, args);
             break;
-        case "main":
-            command = client.application?.commands.cache.get("main");
+        case "mains":
+            command = client.application?.commands.cache.get("mains");
             command.execute(client, msg, args);
             break;
         case "muteRole":
