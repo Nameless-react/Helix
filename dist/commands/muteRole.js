@@ -34,13 +34,14 @@ exports.default = {
                 });
             }
             else {
-                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    roles: {
-                        mute: role
-                    }
-                });
+                const sv = await schema_1.default.findeOne({ id: String(msg.guild.id) });
+                sv.roles = {
+                    mute: role
+                };
+                sv.save();
                 msg.reply("Role seted");
             }
+            ;
         }
         else {
             msg.reply("You do not have permissions to set the mute role");

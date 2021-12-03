@@ -23,11 +23,11 @@ exports.default = {
                 }).then((res) => user?.send(`The role ${res.name} was created`));
             }
             else {
-                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    roles: {
-                        main: role
-                    }
-                });
+                const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+                sv.roles = {
+                    main: roles
+                };
+                sv.save();
                 msg.reply("Role seted");
             }
         }
