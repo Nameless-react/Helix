@@ -71,6 +71,9 @@ exports.client.on("messageCreate", async (msg) => {
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
             CleanId_1.PublicCommands(msg, sv.prefix, exports.client, cdm, args);
         }
+        else if (exports.client.application?.commands.cache.get("muteRole").name === cdm || exports.client.application?.commands.cache.get("main").name === cdm || exports.client.application?.commands.cache.get("setprefix").name === cdm) {
+            CleanId_1.configCommands(msg, exports.client, args, cdm);
+        }
         else {
             CleanId_1.commands(msg, sv.prefix, exports.client, cdm, args, MuteRole, MainRole);
         }
@@ -183,7 +186,8 @@ exports.client.on("guildCreate", async (guild) => {
         id: guild.id,
         server: guild.name,
         mode: false,
-        prefix: "!"
+        prefix: "!",
+        membersCount: guild.memberCount
     });
     await Data.save()
         .then((res) => console.log("Data saved"))

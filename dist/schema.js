@@ -21,6 +21,10 @@ const schemaModerate = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
+    membersCount: {
+        type: Number,
+        required: true
+    },
     roles: {
         main: String,
         mute: String
