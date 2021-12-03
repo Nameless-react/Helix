@@ -34,7 +34,7 @@ exports.default = {
                 });
             }
             else {
-                const sv = await schema_1.default.findeOne({ id: String(msg.guild.id) });
+                const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 sv.roles = {
                     mute: role
                 };
