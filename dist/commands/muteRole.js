@@ -38,7 +38,8 @@ exports.default = {
                     roles: {
                         mute: role
                     }
-                });
+                }, { new: true });
+                msg.reply("Role seted");
             }
         }
         else {
