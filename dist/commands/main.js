@@ -25,7 +25,7 @@ exports.default = {
             else {
                 const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 sv.roles = {
-                    main: roles
+                    main: role
                 };
                 sv.save();
                 msg.reply("Role seted");
