@@ -149,6 +149,10 @@ const commands = (msg, prefix, client, cdm, args, MuteRole, MainRole) => {
             command = client.application?.commands.cache.get("main");
             command.execute(client, msg, args);
             break;
+        case "mauteRole":
+            command = client.application?.commands.cache.get("muteRole");
+            command.execute(client, msg, args);
+            break;
         case "kick":
             command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, exports.cleanId, prefix);

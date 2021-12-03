@@ -61,16 +61,13 @@ exports.client.on("ready", async () => {
 exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
+    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MainRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.main);
     const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.mute);
-    if (!MuteRole || !MainRole)
+    if (!MuteRole || !MainRole && msg.content.startsWith("!main") || msg.content.startsWith("!muteRole"))
         return msg.channel.send("Please set the main or the mute role to use the commands of the bot");
-    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     CleanId_1.searchLink(msg);
-    if (!MuteRole) {
-    }
-    ;
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm) {
