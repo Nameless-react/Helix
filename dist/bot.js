@@ -65,7 +65,7 @@ exports.client.on("messageCreate", async (msg) => {
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MainRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.main);
     const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.mute);
-    if (!MuteRole || !MainRole && msg.content.startsWith("!main") || msg.content.startsWith("!muteRole"))
+    if (!MuteRole || !MainRole && !msg.content.startsWith("!main") || !msg.content.startsWith("!muteRole"))
         return msg.channel.send("Please set the main or the mute role to use the commands of the bot");
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(sv.prefix)) {
