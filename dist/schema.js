@@ -27,12 +27,10 @@ const schemaModerate = new mongoose_1.default.Schema({
     },
     roles: {
         main: {
-            required: true,
             type: String,
             default: undefined
         },
         mute: {
-            required: true,
             type: String,
             default: undefined
         }
