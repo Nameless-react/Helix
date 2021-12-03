@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebHook = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = exports.cleanId = void 0;
+exports.WebHook = exports.configCommands = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = exports.cleanId = void 0;
 const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -139,20 +139,12 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const commands = (msg, prefix, client, cdm, args, MuteRole, MainRole) => {
+    if (!MainRole && !msg.content.startsWith("!main"))
+        return msg.channel.send("Please set the main to use the commands of the bot");
+    if (!MuteRole && !msg.content.startsWith("!muteRole"))
+        return msg.channel.send("Please set the mute role to use the commands of the bot");
     let command;
     switch (cdm) {
-        case "setprefix":
-            command = client.application?.commands.cache.get("setprefix");
-            command.execute(client, msg, args);
-            break;
-        case "main":
-            command = client.application?.commands.cache.get("main");
-            command.execute(client, msg, args);
-            break;
-        case "muteRole":
-            command = client.application?.commands.cache.get("muteRole");
-            command.execute(client, msg, args);
-            break;
         case "kick":
             command = client.application?.commands.cache.get("kick");
             command.execute(client, msg, args, exports.cleanId, prefix);
@@ -222,6 +214,24 @@ const PublicCommands = (msg, prefix, client, cdm, args) => {
     }
 };
 exports.PublicCommands = PublicCommands;
+const configCommands = (msg, client, args, cdm) => {
+    let command;
+    switch (cdm) {
+        case "setprefix":
+            command = client.application?.commands.cache.get("setprefix");
+            command.execute(client, msg, args);
+            break;
+        case "main":
+            command = client.application?.commands.cache.get("main");
+            command.execute(client, msg, args);
+            break;
+        case "muteRole":
+            command = client.application?.commands.cache.get("muteRole");
+            command.execute(client, msg, args);
+            break;
+    }
+};
+exports.configCommands = configCommands;
 exports.WebHook = new discord_js_1.WebhookClient({
     id: process.env.WEBHOOK_ID,
     token: process.env.WEBHOOK_TOKEN,
