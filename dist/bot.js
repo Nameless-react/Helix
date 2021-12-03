@@ -189,8 +189,8 @@ exports.client.on("guildCreate", async (guild) => {
         prefix: "!",
         membersCount: guild.memberCount,
         roles: {
-            main: undefined,
-            mute: undefined
+            main: "none",
+            mute: "none"
         }
     });
     await Data.save()
