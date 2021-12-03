@@ -27,7 +27,7 @@ exports.default = {
                     roles: {
                         main: role
                     }
-                }, { new: true });
+                });
                 msg.reply("Role seted");
             }
         }
