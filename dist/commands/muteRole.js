@@ -34,11 +34,13 @@ exports.default = {
                 });
             }
             else {
+                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     roles: {
-                        mute: role
+                        main: bsv.roles.main,
+                        mute: role,
                     }
-                }, { new: true });
+                });
                 msg.reply("Role seted");
             }
             ;
