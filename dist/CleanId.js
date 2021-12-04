@@ -223,11 +223,11 @@ const configCommands = (msg, client, args, cdm) => {
             break;
         case "mains":
             command = client.application?.commands.cache.get("mains");
-            command.execute(client, msg, args);
+            command.execute(client, msg, args, exports.cleanId);
             break;
         case "muteRole":
             command = client.application?.commands.cache.get("muteRole");
-            command.execute(client, msg, args);
+            command.execute(client, msg, args, exports.cleanId);
             break;
     }
 };

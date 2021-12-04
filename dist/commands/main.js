@@ -7,8 +7,8 @@ require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "mains",
-    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want",
-    execute: async (client, msg, args) => {
+    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want. Before the names of the roles write @",
+    execute: async (client, msg, args, cleanId) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
         if (msg.author.id === msg.guild.ownerId) {
@@ -21,6 +21,14 @@ exports.default = {
                     name,
                     color,
                 }).then((res) => user?.send(`The role ${res.name} was created`));
+                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                    roles: {
+                        main: name,
+                        mute: bsv.roles.mute
+                    }
+                });
+                msg.reply("Role(s) seted");
             }
             else {
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
@@ -34,7 +42,7 @@ exports.default = {
             }
         }
         else {
-            msg.reply("You do not have permissions to set the main role");
+            msg.reply("You do not have permissions to set the main(s) role");
         }
         ;
     }

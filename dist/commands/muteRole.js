@@ -7,8 +7,8 @@ require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "muteRole",
-    description: "Set the mute role of the guild or create it. To create the role, write: create, ",
-    execute: async (client, msg, args) => {
+    description: "Set the mute role of the guild or create it. To create the role, write: create, the name and the color you want. Before the names of the roles write @ ",
+    execute: async (client, msg, args, cleanId) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
         if (msg.author.id === msg.guild.ownerId) {
@@ -32,6 +32,14 @@ exports.default = {
                             position: -1
                         }]);
                 });
+                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                    roles: {
+                        main: bsv.roles.main,
+                        mute: name,
+                    }
+                });
+                msg.reply("Role seted");
             }
             else {
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
