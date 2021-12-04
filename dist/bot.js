@@ -63,9 +63,9 @@ exports.client.on("messageCreate", async (msg) => {
         return;
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-    const MainRole = msg.guild.roles.cache.find((role) => role.name === sv?.roles?.main);
-    const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv?.roles?.mute);
-    console.log(msg.member.roles.cache.get(msg.author.id));
+    const MainRole = sv.roles.main.forEach((data) => msg.guild.roles.cache.find((role) => role.name === data));
+    console.log(MainRole);
+    const MuteRole = msg.guild.roles.cache.find((role) => role.name === sv.roles.mute);
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
