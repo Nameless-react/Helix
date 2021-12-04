@@ -20,21 +20,25 @@ exports.default = {
                 msg.guild.roles.create({
                     name,
                     color,
-                }).then((res) => user?.send(`The role ${res.name} was created`));
-                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    roles: {
-                        main: name,
-                        mute: bsv.roles.mute
-                    }
+                }).then(async (res) => {
+                    user?.send(`The role ${res.name} was created`);
+                    const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+                    const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                        roles: {
+                            main: res.id,
+                            mute: bsv.roles.mute
+                        }
+                    });
                 });
                 msg.reply("Role(s) seted");
             }
             else {
+                console.log(msg.mentions.each((mention) => mention.id));
+                const roles = args.forEach((id) => cleanId("!", id, msg));
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     roles: {
-                        main: args,
+                        main: roles,
                         mute: bsv.roles.mute
                     }
                 });
