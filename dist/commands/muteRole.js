@@ -42,7 +42,7 @@ exports.default = {
                 msg.reply("Role seted");
             }
             else {
-                const { id } = msg.mention.roles.first();
+                const { id } = msg.mentions.roles.first();
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     roles: {
