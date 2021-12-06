@@ -33,8 +33,10 @@ exports.default = {
                 msg.reply("Role(s) seted");
             }
             else {
-                console.log(msg.mentions.roles.each((mention) => mention.id));
-                const roles = args.forEach((id) => cleanId("!", id, msg));
+                let roles = [];
+                msg.mentions.roles.each((mention) => {
+                    roles.push(mention.id);
+                });
                 console.log(roles);
                 console.log(args);
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
@@ -45,6 +47,7 @@ exports.default = {
                     }
                 });
                 msg.reply("Role(s) seted");
+                roles = [];
             }
         }
         else {

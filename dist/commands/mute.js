@@ -22,6 +22,8 @@ exports.default = {
                 let time;
                 if (!args[1]) {
                     time = 600000;
+                    const hasRole = sv.roles.main.forEach((data) => memberMute.roles.cache.find((role) => role.id === data));
+                    console.log(hasRole);
                     memberMute.roles.remove(MainRole.id);
                     memberMute.roles.add(MuteRole.id);
                     msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
