@@ -7,7 +7,6 @@ exports.WebHook = exports.configCommands = exports.PublicCommands = exports.comm
 const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
-const schema_1 = __importDefault(require("./schema"));
 const ms_1 = __importDefault(require("ms"));
 dotenv_1.default.config();
 const cleanId = (prefix, args, msg) => {
@@ -139,8 +138,7 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const commands = async (msg, prefix, client, cdm, args, MuteRole) => {
-    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
     if (!sv.roles.main && !msg.content.startsWith("!main"))
         return msg.channel.send("Please set the main to use the commands of the bot");
     if (!sv.roles.mute && !msg.content.startsWith("!muteRole"))

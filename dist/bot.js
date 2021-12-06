@@ -74,7 +74,7 @@ exports.client.on("messageCreate", async (msg) => {
             CleanId_1.configCommands(msg, exports.client, args, cdm);
         }
         else {
-            CleanId_1.commands(msg, sv.prefix, exports.client, cdm, args, MuteRole);
+            CleanId_1.commands(msg, sv.prefix, exports.client, cdm, args, MuteRole, sv);
         }
     }
     ;
