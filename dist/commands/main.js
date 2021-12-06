@@ -38,11 +38,10 @@ exports.default = {
                     roles.push(mention.id);
                 });
                 console.log(roles);
-                console.log(args);
                 const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     roles: {
-                        main: args,
+                        main: roles,
                         mute: bsv.roles.mute
                     }
                 });
