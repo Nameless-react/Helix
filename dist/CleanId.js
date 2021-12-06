@@ -140,7 +140,7 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const commands = async (msg, prefix, client, cdm, args, MuteRole) => {
-    const sv = await schema_1.default.findOne({ id: String(msg.guil.id) });
+    const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     if (!sv.roles.main && !msg.content.startsWith("!main"))
         return msg.channel.send("Please set the main to use the commands of the bot");
     if (!sv.roles.mute && !msg.content.startsWith("!muteRole"))
