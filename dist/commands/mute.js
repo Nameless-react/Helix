@@ -15,6 +15,8 @@ exports.default = {
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
         const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+        const hasRole = sv.roles.main.forEach((data) => memberMute.roles.cache.find((role) => role.id === data));
+        console.log(hasRole);
         if (!memberMute.roles.cache.hasAny(sv.roles.main))
             return;
         if (!memberMute.roles.cache.has(MuteRole.id)) {
@@ -22,8 +24,6 @@ exports.default = {
                 let time;
                 if (!args[1]) {
                     time = 600000;
-                    const hasRole = sv.roles.main.forEach((data) => memberMute.roles.cache.find((role) => role.id === data));
-                    console.log(hasRole);
                     memberMute.roles.remove(MainRole.id);
                     memberMute.roles.add(MuteRole.id);
                     msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
