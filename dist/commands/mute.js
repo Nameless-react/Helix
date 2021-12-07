@@ -20,8 +20,8 @@ exports.default = {
             if (role && role.id !== MuteRole.id)
                 MainRole.push(role.id);
         });
-        console.log(!memberMute.roles.cache.hasAny(sv.roles.main));
-        if (!memberMute.roles.cache.hasAny(sv.roles.main))
+        console.log(!memberMute.roles.cache.hasAny(...sv.roles.main));
+        if (!memberMute.roles.cache.hasAny(...sv.roles.main))
             return;
         if (!memberMute.roles.cache.has(MuteRole.id)) {
             if (memberMute) {
