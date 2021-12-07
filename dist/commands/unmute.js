@@ -7,14 +7,13 @@ const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "unmute",
     description: "Unmute a member of the server",
-    execute: async (client, msg, args, MuteRole) => {
+    execute: async (client, msg, args, MuteRole, MainRole) => {
         if (msg.member?.permissions.has("KICK_MEMBERS") || msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0)
                 return msg.reply("Please provide an ID");
             const { id } = msg.mentions.users.first();
             let memberMute = msg.guild.members.cache.get(id);
             const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-            let MainRole = [];
             sv.roles.main.forEach((data) => {
                 let role = memberMute.roles.cache.find((role) => role.id === data && role.id !== MuteRole.id);
                 if (role)
@@ -23,7 +22,7 @@ exports.default = {
             if (memberMute.roles.cache.has(MuteRole.id)) {
                 if (memberMute) {
                     memberMute.roles.add(MainRole[0]);
-                    memberMute.roles.remove(MuteRole[0]);
+                    memberMute.roles.remove(MuteRole.id);
                     msg.channel.send(`The user <@${id}> has been unmuted`);
                 }
             }

@@ -144,6 +144,7 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
     if (sv.roles.mute === "none" && !msg.content.startsWith("!muteRole"))
         return msg.channel.send("Please set the mute role to use the commands of the bot");
     let command;
+    let MainRole = [];
     switch (cdm) {
         case "kick":
             command = client.application?.commands.cache.get("kick");
@@ -167,11 +168,11 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             break;
         case "mute":
             command = client.application?.commands.cache.get("mute");
-            command.execute(client, msg, args, ms_1.default, MuteRole);
+            command.execute(client, msg, args, ms_1.default, MuteRole, MainRole);
             break;
         case "unmute":
             command = client.application?.commands.cache.get("unmute");
-            command.execute(client, msg, args, MuteRole);
+            command.execute(client, msg, args, MuteRole, MainRole);
             break;
         case "banlist":
             command = client.application?.commands.cache.get("banlist");
