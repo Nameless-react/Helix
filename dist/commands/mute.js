@@ -15,7 +15,7 @@ exports.default = {
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
         const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-        let hasRoles;
+        let hasRoles = [];
         sv.roles.main.forEach((data) => {
             let role = memberMute.roles.cache.find((role) => role.id === data);
             hasRoles.push(role);
