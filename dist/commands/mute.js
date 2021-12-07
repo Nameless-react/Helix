@@ -15,8 +15,12 @@ exports.default = {
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
         const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
-        const hasRole = sv.roles.main.forEach((data) => memberMute.roles.cache.find((role) => role.id === data));
-        console.log(hasRole);
+        let hasRoles;
+        sv.roles.main.forEach((data) => {
+            let role = memberMute.roles.cache.find((role) => role.id === data);
+            hasRoles.push(role);
+        });
+        console.log(hasRoles);
         if (!memberMute.roles.cache.hasAny(sv.roles.main))
             return;
         if (!memberMute.roles.cache.has(MuteRole.id)) {
