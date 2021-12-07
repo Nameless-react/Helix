@@ -139,9 +139,9 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
-    if (!sv.roles.main && !msg.content.startsWith("!main"))
+    if (sv.roles.main === "none" && !msg.content.startsWith("!main"))
         return msg.channel.send("Please set the main to use the commands of the bot");
-    if (!sv.roles.mute && !msg.content.startsWith("!muteRole"))
+    if (sv.roles.mute === "none" && !msg.content.startsWith("!muteRole"))
         return msg.channel.send("Please set the mute role to use the commands of the bot");
     let command;
     switch (cdm) {
