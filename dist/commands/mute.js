@@ -17,11 +17,11 @@ exports.default = {
         let MainRole = [];
         sv.roles.main.forEach((data) => {
             let role = memberMute.roles.cache.get(data);
-            if (role)
+            if (role && role.id !== MuteRole.id)
                 MainRole.push(role.id);
         });
         console.log(!memberMute.roles.cache.has(sv.roles.main));
-        if (memberMute.roles.cache.hasAny([sv.roles.main]))
+        if (!memberMute.roles.cache.has(sv.roles.main))
             return;
         if (!memberMute.roles.cache.has(MuteRole.id)) {
             if (memberMute) {
