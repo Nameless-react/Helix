@@ -64,7 +64,6 @@ exports.client.on("messageCreate", async (msg) => {
     console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MuteRole = msg.guild.roles.cache.get(sv.roles.mute);
-    console.log(MuteRole);
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
