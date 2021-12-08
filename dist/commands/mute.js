@@ -26,10 +26,8 @@ exports.default = {
                 let time;
                 if (!args[1]) {
                     time = 600000;
-                    console.log(memberMute.roles.cache.entries());
                     memberMute.roles.remove(MainRole[0]);
                     memberMute.roles.add(MuteRole.id);
-                    console.log(memberMute.roles.cache.entries());
                     msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
                     setTimeout(() => {
                         if (memberMute.roles.cache.has(MainRole[0]))

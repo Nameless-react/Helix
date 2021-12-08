@@ -21,6 +21,7 @@ exports.default = {
             });
             if (memberMute.roles.cache.has(MuteRole.id)) {
                 if (memberMute) {
+                    console.log(memberMute.roles.cache.entries());
                     memberMute.roles.add(MainRole[0]);
                     memberMute.roles.remove(MuteRole.id);
                     msg.channel.send(`The user <@${id}> has been unmuted`);
