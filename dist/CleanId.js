@@ -147,13 +147,18 @@ const ProfileEmbed = (member) => {
     });
     const string = roles.join("\n");
     const user = member.user.fetch();
-    let activities = member.presence?.activities;
+    let activities = member.presence?.activities[0]?.name;
+    let status = member.presence?.status;
     if (!activities)
         activities = "Doing Nothing";
+    if (roles.length === 0)
+        roles = ["No roles"];
+    if (!status)
+        status = "Offline";
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${member.presence?.status}` }, { name: "Presence:", value: `${member.presence?.activities[0]?.name}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
         .setColor(user?.hexAccentColor);
     return embed;
 };
