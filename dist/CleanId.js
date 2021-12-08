@@ -138,6 +138,16 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
+const ProfileEmbed = (member) => {
+    return new discord_js_1.MessageEmbed();
+    let roles = [];
+    member.roles.cache.each((role) => {
+        roles.push(`<@${role.id}>\n`);
+    })
+        .setTitle("Profile")
+        .setAuthor(`<@${member.user.id}>`, member.user.displayAvatarURL())
+        .setFields({ name: "Id", value: member.id, inline: true }, { name: "Roles", value: roles, inline: true }, { name: "Presence", value: member.presence, inline: true }, { name: "Time in guild", value: member.joinedTimestamp, inline: true }, { name: "Avatar", value: member.avatar, inline: true });
+};
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
     if (sv.roles.main === "none" && !msg.content.startsWith("!main"))
         return msg.channel.send("Please set the main to use the commands of the bot");
@@ -211,6 +221,10 @@ const PublicCommands = (msg, prefix, client, cdm, args) => {
     else if (cdm === "suggest") {
         const command = client.application?.commands.cache.get("suggest");
         command.execute(client, msg, suggesEmbed, args);
+    }
+    else if (cdm === "profile") {
+        const command = client.application?.commands.cache.get("profile");
+        command.execute(client, msg, ProfileEmbed, args);
     }
 };
 exports.PublicCommands = PublicCommands;
