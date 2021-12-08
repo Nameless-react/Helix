@@ -145,7 +145,8 @@ const ProfileEmbed = (member) => {
             return;
         roles.push(`<@&${role.id}>`);
     });
-    const user = member.user.fetch();
+    const user = member.user.fetch(member.user.id);
+    console.log(user);
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
     if (!activities)
