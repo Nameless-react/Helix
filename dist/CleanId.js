@@ -145,7 +145,6 @@ const ProfileEmbed = (member) => {
             return;
         roles.push(`<@&${role.id}>`);
     });
-    const string = roles.join("\n");
     const user = member.user.fetch();
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
@@ -153,6 +152,7 @@ const ProfileEmbed = (member) => {
         activities = "Doing Nothing";
     if (roles.length === 0)
         roles = ["No roles"];
+    const string = roles.join("\n");
     if (!status)
         status = "Offline";
     const embed = new discord_js_1.MessageEmbed()
