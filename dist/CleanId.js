@@ -141,15 +141,25 @@ exports.TickEmbed = TickEmbed;
 const ProfileEmbed = (member) => {
     let roles = [];
     member.roles.cache.each((role) => {
-        roles.push(`<@&${role.id}>\n`);
+        roles.push(`<@&${role.id}>`);
     });
-    const string = roles.join(",");
-    const embed = new discord_js_1.MessageEmbed()
-        .setTitle("Profile:")
-        .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}`, inline: true }, { name: "Roles:", value: `${string}`, inline: true }, { name: "Presence:", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / 1000 * 60 * 60 * 24}`, inline: true }, { name: "Status:", value: `${member.presence.status}`, inline: true })
-        .setColor("DARK_NAVY");
-    return embed;
+    const string = roles.join("\n");
+    if (!member.presence.activities) {
+        const embed = new discord_js_1.MessageEmbed()
+            .setTitle("Profile:")
+            .setAuthor(member.user.username, member.user.displayAvatarURL())
+            .addFields({ name: "Id:", value: `${member.user.id}`, inline: true }, { name: "Presence:", value: `Doing nothing`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}`, inline: true }, { name: "Status:", value: `${member.presence.status}`, inline: true }, { name: "Roles:", value: `${string}`, inline: true })
+            .setColor("DARK_NAVY");
+        return embed;
+    }
+    else {
+        const embed = new discord_js_1.MessageEmbed()
+            .setTitle("Profile:")
+            .setAuthor(member.user.username, member.user.displayAvatarURL())
+            .addFields({ name: "Id:", value: `${member.user.id}`, inline: true }, { name: "Presence:", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}`, inline: true }, { name: "Status:", value: `${member.presence.status}`, inline: true }, { name: "Roles:", value: `${string}`, inline: true })
+            .setColor("DARK_NAVY");
+        return embed;
+    }
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
     if (sv.roles.main === "none" && !msg.content.startsWith("!main"))
