@@ -14,7 +14,6 @@ exports.default = {
             const member = msg.guild.members.cache.get(id);
             console.log(member.user.id);
             console.log(member.joinedTimestamp);
-            console.log(member.presence.activities);
             console.log(member.presence.status);
             msg.channel.send({
                 embeds: [ProfileEmbed(member)]
