@@ -146,7 +146,7 @@ const ProfileEmbed = (member) => {
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile")
         .setAuthor(`<@!${member.user.id}>`, member.user.displayAvatarURL())
-        .addFields({ name: "Id", value: `${member.id}`, inline: true }, { name: "Roles", value: `${roles}`, inline: true }, { name: "Presence", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild", value: `${member.joinedTimestamp / 1000}`, inline: true }, { name: "Status", value: `${member.presence.status}`, inline: true });
+        .addFields({ name: "Id", value: `${member.id}`, inline: true }, { name: "Roles", value: `${roles.join(",")}`, inline: true }, { name: "Presence", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild", value: `${member.joinedTimestamp / 1000}`, inline: true }, { name: "Status", value: `${member.presence.status}`, inline: true });
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
