@@ -147,11 +147,10 @@ const ProfileEmbed = (member) => {
     });
     const string = roles.join("\n");
     const user = member.user.fetch();
-    let { activities, status } = member.presence;
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${member.presence?.status}` }, { name: "Presence:", value: `${member.presence?.activities.name}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${member.presence?.status}` }, { name: "Presence:", value: `${member.presence?.activities[0].name}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
         .setColor(user?.hexAccentColor);
     return embed;
 };
