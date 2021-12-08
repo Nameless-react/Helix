@@ -151,7 +151,7 @@ const ProfileEmbed = (member) => {
         .setTitle("Profile:")
         .setAuthor(member.user.tag, member.user.displayAvatarURL())
         .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${member.presence?.status}` }, { name: "Presence:", value: `${member.presence?.activities}` }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
-        .setColor(user?.hexAccentColor);
+        .setColor(`${user?.hexAccentColor}`);
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
