@@ -139,14 +139,15 @@ const TickEmbed = (msg) => {
 };
 exports.TickEmbed = TickEmbed;
 const ProfileEmbed = (member) => {
-    return new discord_js_1.MessageEmbed();
     let roles = [];
     member.roles.cache.each((role) => {
         roles.push(`<@${role.id}>\n`);
-    })
+    });
+    const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile")
         .setAuthor(`<@${member.user.id}>`, member.user.displayAvatarURL())
-        .setFields({ name: "Id", value: member.id, inline: true }, { name: "Roles", value: roles, inline: true }, { name: "Presence", value: member.presence, inline: true }, { name: "Time in guild", value: member.joinedTimestamp, inline: true }, { name: "Avatar", value: member.avatar, inline: true });
+        .addFields({ name: "Id", value: member.id, inline: true }, { name: "Roles", value: roles, inline: true }, { name: "Presence", value: member.presence, inline: true }, { name: "Time in guild", value: member.joinedTimestamp, inline: true }, { name: "Avatar", value: member.avatar, inline: true });
+    return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
     if (sv.roles.main === "none" && !msg.content.startsWith("!main"))
