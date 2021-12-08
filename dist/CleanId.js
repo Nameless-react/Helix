@@ -146,11 +146,12 @@ const ProfileEmbed = (member) => {
         roles.push(`<@&${role.id}>`);
     });
     const string = roles.join("\n");
+    const user = member.user.fetch();
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
-        .setAuthor(member.user.username, member.user.displayAvatarURL())
+        .setAuthor(member.user.tag, member.user.displayAvatarURL())
         .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${member.presence?.status}` }, { name: "Presence:", value: `${member.presence?.activities}` }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
-        .setColor("DARK_NAVY");
+        .setColor(user.hexAccentColor);
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
