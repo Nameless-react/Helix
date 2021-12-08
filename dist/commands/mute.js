@@ -7,12 +7,13 @@ const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "mute",
     description: "Mute a member, follow the next archetype: the member and the time in seconds(s), minutes(m), hours(h) or days",
-    execute: async (client, msg, args, ms, MuteRole, MainRole) => {
+    execute: async (client, msg, args, ms, MuteRole) => {
         if (msg.member?.permissions.has("KICK_MEMBER") || msg.member?.permissions.has("BAN_MEMBER"))
             if (args.length === 0)
                 return msg.reply("Please provide an ID");
         const { id } = msg.mentions.users.first();
         let memberMute = msg.guild.members.cache.get(id);
+        let MainRole = [];
         const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
         sv.roles.main.forEach((data) => {
             let role = memberMute.roles.cache.get(data);
