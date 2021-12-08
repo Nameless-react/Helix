@@ -12,6 +12,7 @@ exports.default = {
         else {
             const { id } = msg.mentions.users.first();
             const member = msg.guild.members.cache.get(id);
+            console.log(member);
             msg.channel.send({
                 embeds: [ProfileEmbed(member)]
             });
