@@ -144,8 +144,8 @@ const ProfileEmbed = (member) => {
         roles.push(`<@&${role.id}>\n`);
     });
     const embed = new discord_js_1.MessageEmbed()
-        .setTitle("Profile")
-        .setAuthor(`<@!${member.user.id}>`, member.user.displayAvatarURL())
+        .setTitle("Profile:")
+        .setAuthor(`<@&${member.user.id}>`, member.user.displayAvatarURL())
         .addFields({ name: "Id", value: `${member.id}`, inline: true }, { name: "Roles", value: `${roles.join(",")}`, inline: true }, { name: "Presence", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild", value: `${member.joinedTimestamp / 1000}`, inline: true }, { name: "Status", value: `${member.presence.status}`, inline: true });
     return embed;
 };
