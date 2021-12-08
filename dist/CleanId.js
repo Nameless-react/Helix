@@ -147,7 +147,7 @@ const ProfileEmbed = (member) => {
     });
     const string = roles.join("\n");
     const user = member.user.fetch();
-    let activities = member.presence.activities;
+    let activities = member.presence?.activities;
     if (!activities)
         activities = "Doing Nothing";
     const embed = new discord_js_1.MessageEmbed()
