@@ -15,7 +15,7 @@ exports.default = {
             console.log(member.user.id);
             console.log(member.joinedTimestamp);
             console.log(member.presence?.status);
-            console.log(member.presence?.activities[0].name);
+            console.log(member.presence?.activities[0]?.name);
             console.log(member);
             msg.channel.send({
                 embeds: [ProfileEmbed(member)]
