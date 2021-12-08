@@ -147,6 +147,9 @@ const ProfileEmbed = (member) => {
     });
     const string = roles.join("\n");
     const user = member.user.fetch();
+    let { activities } = member.presence;
+    if (!activities)
+        activities = "Doing Nothing";
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
