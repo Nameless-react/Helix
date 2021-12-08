@@ -141,12 +141,12 @@ exports.TickEmbed = TickEmbed;
 const ProfileEmbed = (member) => {
     let roles = [];
     member.roles.cache.each((role) => {
-        roles.push(`<@${role.id}>\n`);
+        roles.push(`<@&${role.id}>\n`);
     });
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile")
-        .setAuthor(`<@${member.user.id}>`, member.user.displayAvatarURL())
-        .addFields({ name: "Id", value: `${member.id}`, inline: true }, { name: "Roles", value: `${roles}`, inline: true }, { name: "Presence", value: `${member.presence}`, inline: true }, { name: "Time in guild", value: `${member.joinedTimestamp}`, inline: true }, { name: "Avatar", value: `${member.avatar}`, inline: true });
+        .setAuthor(`<@!${member.user.id}>`, member.user.displayAvatarURL())
+        .addFields({ name: "Id", value: `${member.id}`, inline: true }, { name: "Roles", value: `${roles}`, inline: true }, { name: "Presence", value: `${member.presence.activities}`, inline: true }, { name: "Time in guild", value: `${member.joinedTimestamp}`, inline: true }, { name: "Status", value: `${member.presence.status / 1000}`, inline: true });
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
