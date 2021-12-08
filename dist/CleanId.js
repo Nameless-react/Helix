@@ -146,8 +146,7 @@ const ProfileEmbed = (member) => {
         roles.push(`<@&${role.id}>`);
     });
     let color;
-    const user = member.user.fetch((res) => console.log(res));
-    console.log(user);
+    member.user.fetch((res) => console.log(res));
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
     if (!activities)
@@ -160,8 +159,7 @@ const ProfileEmbed = (member) => {
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` })
-        .setColor(user?.hexAccentColor);
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedTimestamp / (1000 * 60 * 60 * 24)}` }, { name: "Roles:", value: `${string}` });
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
