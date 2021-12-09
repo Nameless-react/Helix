@@ -83,10 +83,11 @@ exports.client.on("messageCreate", async (msg) => {
     }
     ;
 });
-exports.client.on("messageReactionAdd", (reaction, user) => {
+exports.client.on("messageReactionAdd", async (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
     if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
+        const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
         const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig)).id;
         switch (name) {
             case "✅":
