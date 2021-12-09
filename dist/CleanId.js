@@ -147,7 +147,7 @@ const ProfileEmbed = (member, msg) => {
     });
     let color;
     msg.guild.members.fetch(member.user.id)
-        .then((res) => console.log(res));
+        .then((res) => console.log(res.displayHexColor));
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
     if (!activities)
