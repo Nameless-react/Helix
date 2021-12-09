@@ -138,7 +138,7 @@ const TickEmbed = (msg) => {
         .setColor("WHITE");
 };
 exports.TickEmbed = TickEmbed;
-const ProfileEmbed = (member) => {
+const ProfileEmbed = (member, msg) => {
     let roles = [];
     member.roles.cache.each((role) => {
         if (role.name === "@everyone")
@@ -146,7 +146,8 @@ const ProfileEmbed = (member) => {
         roles.push(`<@&${role.id}>`);
     });
     let color;
-    member.fetch((res) => console.log(res));
+    msg.guild.members.fetch(member.user.id)
+        .then((res) => console.log(res));
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
     if (!activities)

@@ -6,14 +6,14 @@ exports.default = {
     execute(client, msg, ProfileEmbed, args) {
         if (args.length === 0) {
             msg.channel.send({
-                embeds: [ProfileEmbed(msg.member)]
+                embeds: [ProfileEmbed(msg.member, msg)]
             });
         }
         else {
             const { id } = msg.mentions.users.first();
             const member = msg.guild.members.cache.get(id);
             msg.channel.send({
-                embeds: [ProfileEmbed(member)]
+                embeds: [ProfileEmbed(member, msg)]
             });
         }
     }
