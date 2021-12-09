@@ -8,6 +8,7 @@ const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
 const ms_1 = __importDefault(require("ms"));
+const moment_1 = __importDefault(require("moment"));
 dotenv_1.default.config();
 const cleanId = (prefix, args, msg) => {
     const [id, ...rest] = args[0].substring(prefix.length + 2).split(">");
@@ -160,7 +161,7 @@ const ProfileEmbed = (member, msg) => {
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${member.joinedAt}` }, { name: "Roles:", value: `${string}` })
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}` }, { name: "Roles:", value: `${string}` })
         .setColor(color);
     return embed;
 };
