@@ -88,17 +88,16 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
     const member = reaction.message.guild?.members.cache.get(user.id);
     if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
         const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
-        const MainRole = reaction.message.guild.roles.cache.find((role) => role.name.match(/members?|miembros?|normal|basic|novatos?|rookies?/ig)).id;
-        switch (name) {
-            case "✅":
-                member?.roles.add(MainRole);
-                break;
-            case "🥶":
-                break;
-            case "👌":
-                break;
-        }
-        ;
+        const emojis = ["❌", "🏓", "✅"];
+        sv.roles.main.forEach((role) => {
+            emojis.forEach((emoji) => {
+                switch (name) {
+                    case emoji:
+                        member?.roles.add(role);
+                        break;
+                }
+            });
+        });
     }
     ;
 });
