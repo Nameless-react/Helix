@@ -161,7 +161,7 @@ const ProfileEmbed = (member, msg) => {
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}` }, { name: "Roles:", value: `${string}` })
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}**-**` }, { name: "Account created:", value: `${moment_1.default(member.createdAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.createdAt).startOf("day").fromNow()}**-**` }, { name: "Roles:", value: `${string}` })
         .setColor(color);
     return embed;
 };
@@ -211,6 +211,10 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
         case "status":
             command = client.application?.commands.cache.get("status");
             command.execute(client, msg, args, StatusEmbed);
+            break;
+        case "autoRole":
+            command = client.application?.commands.cache.get("autoRole");
+            command.execute(client, msg, args);
             break;
         case "lock":
             command = client.application?.commands.cache.get("lock");

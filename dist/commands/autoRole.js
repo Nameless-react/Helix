@@ -18,5 +18,6 @@ exports.default = {
                 emojis: [args[1]]
             }
         });
+        msg.reply("AutoRole set");
     }
 };

@@ -29,5 +29,8 @@ const schemaModerate = new mongoose_1.default.Schema({
         main: mongoose_1.default.Schema.Types.Mixed,
         mute: String
     },
+    autoRole: {
+        type: Object
+    }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);
