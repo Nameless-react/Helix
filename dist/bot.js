@@ -92,6 +92,7 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
             switch (name) {
                 case sv.autoRole.emojis[i]:
                     member?.roles.add(sv.autoRole.roles[i]);
+                    console.log("Added");
                     break;
             }
         }
