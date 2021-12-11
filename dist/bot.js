@@ -89,20 +89,26 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
     if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
         const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
         for (let i = 0; i < sv.autoRole.roles.length; i++) {
-            console.log(i);
             switch (name) {
                 case sv.autoRole.emojis[i]:
                     member?.roles.add(sv.autoRole.roles[i]);
-                    console.log("Added");
             }
         }
     }
     ;
 });
-exports.client.on("guildMemberAdd", (server) => {
-    const embed = CleanId_1.default(server);
+exports.client.on("guildMemberAdd", async (servers) => {
+    const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
+        membersCount: servers.guild.memberCount
+    });
+    const embed = CleanId_1.default(servers);
     CleanId_1.WebHook.send({
         embeds: [embed]
+    });
+});
+exports.client.on("guildMemberRemove", async (servers) => {
+    const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
+        membersCount: servers.guild.memberCount
     });
 });
 exports.client.on("messageUpdate", (msg) => {

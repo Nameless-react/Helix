@@ -13,7 +13,7 @@ exports.default = {
         if (!msg.mentions)
             return msg.reply("Please provide a valid role");
         const { id } = msg.mentions.roles.first();
-        const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+        const sv = await schema_1.default.insert({ id: String(msg.guild.id) }, {
             autoRole: {
                 roles: [id],
                 emojis: [args[1]]
