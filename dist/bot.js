@@ -88,7 +88,7 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
     const member = reaction.message.guild?.members.cache.get(user.id);
     if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
         const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
-        for (let i = 0; i > sv.autoRole.roles.length; i++) {
+        for (let i = 0; i < sv.autoRole.roles.length; i++) {
             console.log(i);
             switch (name) {
                 case sv.autoRole.emojis[i]:
