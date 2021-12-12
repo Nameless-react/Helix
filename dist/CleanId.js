@@ -146,7 +146,7 @@ const ProfileEmbed = (member, msg) => {
             return;
         roles.push(`<@&${role.id}>`);
     });
-    const target = msg.mentions.user.first() || msg.author;
+    const target = msg.mentions.users.first() || msg.author;
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
     if (roles.length === 0)
