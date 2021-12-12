@@ -155,6 +155,7 @@ const ProfileEmbed = (member, msg) => {
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
+        .setThumbnail(target.displayAvatarURL({ dynamic: true }))
         .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status || "Offline"}` }, { name: "Presence:", value: `${activities || "Doing Nothing"}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}**-**` }, { name: "Account created:", value: `${moment_1.default(target.createdAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(target.createdAt).startOf("day").fromNow()}**-**` }, { name: "Roles:", value: `${string}` })
         .setColor("NOT_QUITE_BLACK");
     return embed;

@@ -16,18 +16,15 @@ exports.default = {
         const [query, , emoji] = args;
         if (query === "add") {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                autoRole: {
-                    $push: { roles: id, emojis: emoji },
-                }
+                $push: { "autoRole.roles": id, "autoRole.emojis": emoji }
             });
+            msg.reply("AutoRole set");
         }
         else if (query === "delete") {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                autoRole: {
-                    $pull: { roles: id, emojis: emoji },
-                }
+                $pull: { "autoRole.roles": id, "autoRole.emojis": emoji }
             });
+            msg.reply("AutoRole set");
         }
-        msg.reply("AutoRole set");
     }
 };
