@@ -242,6 +242,10 @@ const PublicCommands = (msg, prefix, client, cdm, args) => {
         const command = client.application?.commands.cache.get("profile");
         command.execute(client, msg, ProfileEmbed, args);
     }
+    else if (cdm === "8ball") {
+        const command = client.application?.commands.cache.get("8ball");
+        command.execute(client, msg, args);
+    }
 };
 exports.PublicCommands = PublicCommands;
 const configCommands = (msg, client, args, cdm) => {

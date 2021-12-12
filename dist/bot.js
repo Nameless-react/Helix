@@ -67,7 +67,7 @@ exports.client.on("messageCreate", async (msg) => {
     CleanId_1.searchLink(msg);
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
-        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm || exports.client.application?.commands.cache.get("profile").name === cdm) {
+        if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm | exports.client.application?.commands.cache.get("profile").name === cdm || exports.client.application?.commands.cache.get("8ball").name === cdm) {
             CleanId_1.PublicCommands(msg, sv.prefix, exports.client, cdm, args);
         }
         else if (exports.client.application?.commands.cache.get("muteRole").name === cdm || exports.client.application?.commands.cache.get("mains").name === cdm || exports.client.application?.commands.cache.get("setprefix").name === cdm) {
@@ -93,7 +93,7 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
                 case sv.autoRole.emojis[i]:
                     member?.roles.add(sv.autoRole.roles[i])
                         .catch((err) => {
-                        msg.reply("I do not have permissions");
+                        reaction.message.reply("I do not have permissions").then((res) => res.delete());
                         console.log(err);
                     });
             }
