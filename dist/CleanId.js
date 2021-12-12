@@ -146,23 +146,17 @@ const ProfileEmbed = (member, msg) => {
             return;
         roles.push(`<@&${role.id}>`);
     });
-    let color;
-    msg.guild.members.fetch(member.user.id)
-        .then((res) => color = res.displayHexColor);
+    const target = msg.mentions.user.firts() || msg.author;
     let activities = member.presence?.activities[0]?.name;
     let status = member.presence?.status;
-    if (!activities)
-        activities = "Doing Nothing";
     if (roles.length === 0)
         roles = ["No roles"];
     const string = roles.join("\n");
-    if (!status)
-        status = "Offline";
     const embed = new discord_js_1.MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
-        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status}` }, { name: "Presence:", value: `${activities}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}**-**` }, { name: "Account created:", value: `${moment_1.default(member.createdAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.createdAt).startOf("day").fromNow()}**-**` }, { name: "Roles:", value: `${string}` })
-        .setColor(color);
+        .addFields({ name: "Id:", value: `${member.user.id}` }, { name: "Status:", value: `${status || "Offline"}` }, { name: "Presence:", value: `${activities || "Doing Nothing"}`, inline: true }, { name: "Time in guild:", value: `${moment_1.default(member.joinedAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(member.joinedAt).startOf("day").fromNow()}**-**` }, { name: "Account created:", value: `${moment_1.default(target.createdAt).format("MMMM Do YYYY, h:mm:ss a")}\n**-**${moment_1.default(target.createdAt).startOf("day").fromNow()}**-**` }, { name: "Roles:", value: `${string}` })
+        .setColor("NOT_QUITE_BLACK");
     return embed;
 };
 const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
