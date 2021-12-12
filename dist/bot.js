@@ -91,7 +91,11 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
         for (let i = 0; i < sv.autoRole.roles.length; i++) {
             switch (name) {
                 case sv.autoRole.emojis[i]:
-                    member?.roles.add(sv.autoRole.roles[i]);
+                    member?.roles.add(sv.autoRole.roles[i])
+                        .catch((err) => {
+                        msg.reply("I do not have permissions");
+                        console.log(err);
+                    });
             }
         }
     }

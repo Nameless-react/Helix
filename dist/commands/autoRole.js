@@ -18,13 +18,13 @@ exports.default = {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 $push: { "autoRole.roles": id, "autoRole.emojis": emoji }
             });
-            msg.reply("AutoRole set");
+            msg.reply("AutoRole added");
         }
         else if (query === "delete") {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 $pull: { "autoRole.roles": id, "autoRole.emojis": emoji }
             });
-            msg.reply("AutoRole set");
+            msg.reply("AutoRole deleted");
         }
     }
 };
