@@ -13,12 +13,21 @@ exports.default = {
         if (!msg.mentions)
             return msg.reply("Please provide a valid role");
         const { id } = msg.mentions.roles.first();
-        const sv = await schema_1.default.insert({ id: String(msg.guild.id) }, {
-            autoRole: {
-                roles: [id],
-                emojis: [args[1]]
-            }
-        });
+        const [query, , emoji] = args;
+        if (query === "add") {
+            const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                autoRole: {
+                    $push: { roles: id, emojis: emoji },
+                }
+            });
+        }
+        else if (query === "delete") {
+            const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                autoRole: {
+                    $pull: { roles: id, emojis: emoji },
+                }
+            });
+        }
         msg.reply("AutoRole set");
     }
 };

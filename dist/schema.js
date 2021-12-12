@@ -30,7 +30,8 @@ const schemaModerate = new mongoose_1.default.Schema({
         mute: String
     },
     autoRole: {
-        type: Object
+        roles: { type: Array },
+        emojis: { type: Array }
     }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);

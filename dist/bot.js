@@ -194,6 +194,10 @@ exports.client.on("guildCreate", async (guild) => {
         roles: {
             main: "none",
             mute: "none"
+        },
+        autoRole: {
+            emojis: [],
+            roles: []
         }
     });
     await Data.save()
