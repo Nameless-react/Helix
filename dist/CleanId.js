@@ -7,6 +7,7 @@ exports.WebHook = exports.configCommands = exports.PublicCommands = exports.comm
 const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
+const schema_1 = __importDefault(require("./schema"));
 const ms_1 = __importDefault(require("ms"));
 const moment_1 = __importDefault(require("moment"));
 dotenv_1.default.config();
@@ -16,7 +17,7 @@ const cleanId = (prefix, args, msg) => {
     return member;
 };
 exports.cleanId = cleanId;
-const BadWords = (msg) => {
+const BadWords = async (msg) => {
     if (!msg.member) {
         msg.delete()
             .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
@@ -27,6 +28,9 @@ const BadWords = (msg) => {
     else if (msg.author.id !== "900182160017883197" && msg.author.id !== msg.guild.ownerId) {
         const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick|milf/ig;
         let result = msg.content.match(regex);
+        const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
+        let words = new RegExp(sv.censoredWord.join("|")).test(msg.content);
+        console.log(words);
         if (result) {
             msg.delete()
                 .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
