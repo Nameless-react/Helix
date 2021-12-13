@@ -11,8 +11,8 @@ exports.default = {
         if (args.length === 0)
             return msg.reply("Please provide the data");
         const [query, word] = args;
-        if (query == "add") {
-            const sv = schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+        if (query === "add") {
+            const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 $push: {
                     censoredWord: word
                 }
@@ -20,7 +20,7 @@ exports.default = {
             msg.reply("Word added");
         }
         else if (query === "delete") {
-            const sv = schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+            const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 $pull: {
                     censoredWord: word
                 }
