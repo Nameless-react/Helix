@@ -184,7 +184,7 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             command.execute(client, msg, args);
             break;
         case "censoredWord ":
-            command = client.application?.commands.cache.get("censoredWord ");
+            command = client.application?.commands.cache.get("censoredWord");
             command.execute(client, msg, args);
             break;
         case "crole":
