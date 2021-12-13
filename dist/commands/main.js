@@ -36,7 +36,7 @@ exports.default = {
                 });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $push: {
-                        "roles.main": roles
+                        "roles.main": { $each: roles }
                     }
                 });
                 msg.reply("Role(s) seted");
@@ -49,7 +49,7 @@ exports.default = {
                 });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $pull: {
-                        "roles.main": roles
+                        "roles.main": { $each: roles }
                     }
                 });
             }
