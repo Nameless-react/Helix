@@ -78,7 +78,7 @@ exports.client.on("messageCreate", async (msg) => {
         }
     }
     ;
-    if (sv.mode === true) {
+    if (sv.mode) {
         CleanId_1.BadWords(msg);
     }
     ;
@@ -87,8 +87,7 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
     const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
-    const channel = reaction.message.guild.channels.cache.find((channel) => channel.name === sv.channelRole);
-    if (channel) {
+    if (reaction.message.channel.name === sv.channelRole) {
         for (let i = 0; i < sv.autoRole.roles.length; i++) {
             switch (name) {
                 case sv.autoRole.emojis[i]:

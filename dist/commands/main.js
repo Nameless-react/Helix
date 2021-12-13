@@ -36,7 +36,7 @@ exports.default = {
                 });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $set: {
-                        "roles.main": res.id
+                        "roles.main": roles
                     }
                 });
                 msg.reply("Role(s) seted");
