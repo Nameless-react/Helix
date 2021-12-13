@@ -10,9 +10,9 @@ exports.default = {
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
-        const sv = schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+        const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
             $set: {
-                channelRole: args[0]
+                "channelRole": args[0]
             }
         });
         msg.reply("Channel seted");

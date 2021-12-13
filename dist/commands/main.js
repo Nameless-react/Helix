@@ -7,7 +7,7 @@ const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "mains",
     description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want. Before the names of the roles write @",
-    execute: async (client, msg, args, cleanId) => {
+    execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
         if (msg.author.id === msg.guild.ownerId) {
@@ -21,11 +21,9 @@ exports.default = {
                     color,
                 }).then(async (res) => {
                     user?.send(`The role ${res.name} was created`);
-                    const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                     const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                        roles: {
-                            main: res.id,
-                            mute: bsv.roles.mute
+                        $set: {
+                            "roles.main": res.id
                         }
                     });
                 });
@@ -36,12 +34,9 @@ exports.default = {
                 msg.mentions.roles.each((mention) => {
                     roles.push(mention.id);
                 });
-                console.log(roles);
-                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    roles: {
-                        main: roles,
-                        mute: bsv.roles.mute
+                    $set: {
+                        "roles.main": res.id
                     }
                 });
                 msg.reply("Role(s) seted");

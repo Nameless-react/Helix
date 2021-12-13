@@ -31,11 +31,9 @@ exports.default = {
                             role: res.id,
                             position: -1
                         }]);
-                    const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                     const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                        roles: {
-                            main: bsv.roles.main,
-                            mute: res.id,
+                        $set: {
+                            "roles.main": res.id
                         }
                     });
                 });
@@ -43,11 +41,9 @@ exports.default = {
             }
             else {
                 const { id } = msg.mentions.roles.first();
-                const bsv = await schema_1.default.findOne({ id: String(msg.guild.id) });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    roles: {
-                        main: bsv.roles.main,
-                        mute: id,
+                    $set: {
+                        "roles.mute": id
                     }
                 });
                 msg.reply("Role seted");
