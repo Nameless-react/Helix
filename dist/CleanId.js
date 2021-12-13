@@ -183,6 +183,14 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             command = client.application?.commands.cache.get("unban");
             command.execute(client, msg, args);
             break;
+        case "censoredWord ":
+            command = client.application?.commands.cache.get("censoredWord ");
+            command.execute(client, msg, args);
+            break;
+        case "crole":
+            command = client.application?.commands.cache.get("crole");
+            command.execute(client, msg, args);
+            break;
         case "help":
             command = client.application?.commands.cache.get("help");
             command.execute(client, msg, DMEmbed);
