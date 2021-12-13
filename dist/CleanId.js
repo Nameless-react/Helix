@@ -30,8 +30,7 @@ const BadWords = async (msg) => {
         let result = msg.content.match(regex);
         const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
         let words = new RegExp(sv.censoredWord.join("|")).test(msg.content);
-        console.log(words);
-        if (result) {
+        if (result || words) {
             msg.delete()
                 .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
                 .catch((err) => {
