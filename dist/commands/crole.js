@@ -10,6 +10,9 @@ exports.default = {
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
+        const channel = msg.guild.channels.cache.find((channel) => channel.name === args[0]);
+        if (!channel)
+            return msg.reply("The channel does not exist");
         const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
             $set: {
                 "channelRole": args[0]

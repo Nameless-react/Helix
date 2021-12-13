@@ -103,11 +103,6 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
         }
         ;
     }
-    else {
-        reaction.message.channel.send("The assigned channel do not exist").then((res) => setTimeout(() => {
-            res.delete();
-        }, 3000));
-    }
 });
 exports.client.on("guildMemberAdd", async (servers) => {
     const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
