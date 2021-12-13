@@ -26,7 +26,7 @@ const schemaModerate = new mongoose_1.default.Schema({
         required: true
     },
     roles: {
-        main: mongoose_1.default.Schema.Types.Mixed,
+        main: Array,
         mute: String
     },
     autoRole: {

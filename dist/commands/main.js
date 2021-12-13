@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "mains",
-    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want. Before the names of the roles write @",
+    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want in hexadecimal. Before the names of the roles write @",
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");
@@ -22,25 +22,36 @@ exports.default = {
                 }).then(async (res) => {
                     user?.send(`The role ${res.name} was created`);
                     const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                        $set: {
+                        $push: {
                             "roles.main": res.id
                         }
                     });
                 });
                 msg.reply("Role(s) seted");
             }
-            else {
+            else if (args[0] === "add") {
                 let roles = [];
                 msg.mentions.roles.each((mention) => {
                     roles.push(mention.id);
                 });
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
-                    $set: {
+                    $push: {
                         "roles.main": roles
                     }
                 });
                 msg.reply("Role(s) seted");
                 roles = [];
+            }
+            else if (args[0] === "delete") {
+                let roles = [];
+                msg.mentions.roles.each((mention) => {
+                    roles.push(mention.id);
+                });
+                const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
+                    $pull: {
+                        "roles.main": roles
+                    }
+                });
             }
         }
         else {

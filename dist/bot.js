@@ -103,6 +103,7 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
         }
         ;
     }
+    ;
 });
 exports.client.on("guildMemberAdd", async (servers) => {
     const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
@@ -199,7 +200,7 @@ exports.client.on("guildCreate", async (guild) => {
         prefix: "!",
         membersCount: guild.memberCount,
         roles: {
-            main: "none",
+            main: [],
             mute: "none"
         },
         autoRole: {
