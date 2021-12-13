@@ -86,20 +86,29 @@ exports.client.on("messageCreate", async (msg) => {
 exports.client.on("messageReactionAdd", async (reaction, user) => {
     const { name } = reaction.emoji;
     const member = reaction.message.guild?.members.cache.get(user.id);
-    if (reaction.message.channel.name.match(/verification|verificacion|roles?|select[-\s]+your[-\s]roles?|selecciona[-\s]tu[-\s]rol|rol/ig)) {
-        const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
+    const sv = await schema_1.default.findOne({ id: reaction.message.guild.id });
+    const channel = reaction.message.guild.channels.cache.find((channel) => channel.name === sv.channelRole);
+    if (channel) {
         for (let i = 0; i < sv.autoRole.roles.length; i++) {
             switch (name) {
                 case sv.autoRole.emojis[i]:
                     member?.roles.add(sv.autoRole.roles[i])
                         .catch((err) => {
-                        reaction.message.reply("I do not have permissions").then((res) => res.delete());
+                        reaction.message.channel.send("I do not have permissions").then((res) => setTimeout(() => {
+                            res.delete();
+                        }, 3000));
                         console.log(err);
                     });
             }
+            ;
         }
+        ;
     }
-    ;
+    else {
+        reaction.message.channel.send("The assigned channel do not exist").then((res) => setTimeout(() => {
+            res.delete();
+        }, 3000));
+    }
 });
 exports.client.on("guildMemberAdd", async (servers) => {
     const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
@@ -202,7 +211,8 @@ exports.client.on("guildCreate", async (guild) => {
         autoRole: {
             emojis: [],
             roles: []
-        }
+        },
+        censoredWord: []
     });
     await Data.save()
         .then((res) => console.log("Data saved"))

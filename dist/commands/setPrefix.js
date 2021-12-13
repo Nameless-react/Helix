@@ -9,7 +9,7 @@ exports.default = {
     description: "Change the predetermined prefix to anyone you want",
     execute: async (client, msg, args) => {
         if (args.length === 0)
-            return msg.reply("Please provide data");
+            return msg.reply("Please provide the new prefix");
         if (msg.author.id === msg.guild.ownerId) {
             const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                 prefix: args[0]

@@ -32,6 +32,13 @@ const schemaModerate = new mongoose_1.default.Schema({
     autoRole: {
         roles: { type: Array },
         emojis: { type: Array }
+    },
+    channelRole: {
+        type: String
+    },
+    censoredWord: {
+        type: Array,
+        required: true
     }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);
