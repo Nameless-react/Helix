@@ -15,5 +15,6 @@ exports.default = {
                 channelRole: args[0]
             }
         });
+        msg.reply("Channel seted");
     }
 };
