@@ -17,6 +17,7 @@ exports.default = {
         if (!img) {
             channel.createWebhook(name)
                 .then(async (res) => {
+                console.log(res.token);
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $set: {
                         "webHook": res
