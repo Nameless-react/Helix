@@ -39,6 +39,9 @@ const schemaModerate = new mongoose_1.default.Schema({
     censoredWord: {
         type: Array,
         required: true
+    },
+    webHook: {
+        type: Object,
     }
 });
 exports.default = mongoose_1.default.model("moderate", schemaModerate);
