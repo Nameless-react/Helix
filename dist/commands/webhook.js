@@ -18,7 +18,7 @@ exports.default = {
                 console.log(res);
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $set: {
-                        webHook: res.id
+                        "webHook": res.id
                     }
                 });
                 msg.reply("Webhook created");
@@ -32,7 +32,7 @@ exports.default = {
             }).then(async (res) => {
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $set: {
-                        webHook: res.id
+                        "webHook": res.id
                     }
                 });
                 msg.reply("Webhook created");
