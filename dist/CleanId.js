@@ -278,8 +278,11 @@ const configCommands = (msg, client, args, cdm) => {
     }
 };
 exports.configCommands = configCommands;
-exports.WebHook = new discord_js_1.WebhookClient({
-    id: process.env.WEBHOOK_ID,
-    token: process.env.WEBHOOK_TOKEN,
-});
+const WebHook = (id, token) => {
+    return new discord_js_1.WebhookClient({
+        id,
+        token,
+    });
+};
+exports.WebHook = WebHook;
 exports.default = Embed;
