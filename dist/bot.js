@@ -105,16 +105,18 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
     ;
 });
 exports.client.on("guildMemberAdd", async (servers) => {
-    const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
+    const sv = await schema_1.default.updateOne({ id: String(servers.guild.id) }, {
         membersCount: servers.guild.memberCount
     });
+    const bsv = await schema_1.default.findOne({ id: String(servers.guild.id) });
     const embed = CleanId_1.default(servers);
-    CleanId_1.WebHook.send({
+    const Web = CleanId_1.WebHook(bsv.webHook.id, bsv.webHook.token);
+    Web.send({
         embeds: [embed]
     });
 });
 exports.client.on("guildMemberRemove", async (servers) => {
-    const sv = await schema_1.default.updateOne({ id: servers.guild.id }, {
+    const sv = await schema_1.default.updateOne({ id: String(servers.guild.id) }, {
         membersCount: servers.guild.memberCount
     });
 });
