@@ -23,7 +23,7 @@ exports.default = {
                 });
                 msg.reply("Webhook created");
             });
-            channel.fetchWebHooks()
+            channel.fetchWebhooks()
                 .then((res) => console.log(res));
         }
         else {
