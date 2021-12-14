@@ -11,8 +11,8 @@ exports.default = {
         if (args.length === 0)
             return msg.reply("Please provide the data");
         const [nameChannel, name, img] = args;
+        const channel = msg.guild.channels.cache.find((channel) => channel.name === nameChannel);
         if (!img) {
-            const channel = msg.guild.channels.cache.find((channel) => channel.name === nameChannel);
             channel.createWebhook(name)
                 .then(async (res) => {
                 console.log(res);
@@ -21,10 +21,10 @@ exports.default = {
                         webHook: res.id
                     }
                 });
+                msg.reply("Webhook created");
             });
         }
         else {
-            const channel = msg.guild.channels.find((channel) => channel.name === nameChannel);
             channel.createWebhook(name, {
                 avatar: img
             }).then(async (res) => {
@@ -33,6 +33,7 @@ exports.default = {
                         webHook: res.id
                     }
                 });
+                msg.reply("Webhook created");
             });
         }
     }
