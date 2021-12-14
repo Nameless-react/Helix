@@ -222,6 +222,10 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             command = client.application?.commands.cache.get("autoRole");
             command.execute(client, msg, args);
             break;
+        case "webHook":
+            command = client.application?.commands.cache.get("webHook");
+            command.execute(client, msg, args);
+            break;
         case "lock":
             command = client.application?.commands.cache.get("lock");
             command.execute(client, msg, args, exports.cleanId);
