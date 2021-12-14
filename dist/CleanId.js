@@ -71,12 +71,9 @@ exports.searchLink = searchLink;
 const Embed = (server) => {
     return new discord_js_1.MessageEmbed()
         .setColor("#ff00ff")
-        .setTitle("Welcome")
-        .setURL("https://discordjs.guide/popular-topics/embeds.html#using-the-embed-constructor")
+        .setTitle(`Welcome to ${server.guild.name}`)
         .setThumbnail(server.user.avatarURL({ dynamic: true, size: 512 }))
-        .setAuthor(server.user.username, server.displayAvatarURL({ dynamic: true, size: 300 }))
-        .setDescription(`Welcome ${server.user.username} to the ${server.guild.name}!\n
-    Account Created: <t:${server.joinedTimestamp / 10000}:R>`);
+        .setAuthor(server.user.username, server.displayAvatarURL({ dynamic: true, size: 300 }));
 };
 const DMEmbed = (client) => {
     let embed = {
