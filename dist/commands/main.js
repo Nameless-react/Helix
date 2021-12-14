@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "mains",
-    description: "Set the mains roles of the guild or create it. To create the role, write: create, the name of the role and the color you want in hexadecimal. Before the names of the roles write @",
+    description: "Set the main(s) roles of the guild or create it. To create the role, write: create, the name of the role and the color you want in hexadecimal. Before the names of the roles write @",
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");

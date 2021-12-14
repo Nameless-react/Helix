@@ -7,7 +7,7 @@ require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "muteRole",
-    description: "Set the mute role of the guild or create it. To create the role, write: create, the name and the color you want in hexadecimal. Before the names of the roles write @ ",
+    description: "Set the mute role of the guild or create it. To create the role, write: create, the name and the color you want in hexadecimal. Before the name of the role write @ ",
     execute: async (client, msg, args, cleanId) => {
         if (args.length === 0)
             return msg.reply("Please provide data");

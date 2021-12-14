@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "kick",
-    description: "Kick a member of the server",
+    description: "Kick a member from the server",
     execute(client, msg, args, cleanId, prefix) {
         if (msg.member.permissions.has("KICK_MEMBERS")) {
             if (args.length === 0)

@@ -7,7 +7,7 @@ require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "moderate",
-    description: "Turn on a mode that filter more the content of the message",
+    description: "Turn on a mode that filter more the content of the message, the content will be filter when the user type a word that you previously added to the list and some predetermine words that we added(only in english and spanish)",
     execute: async (client, msg, args) => {
         if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"]) || msg.member?.permissions.has("MANAGE_GUILD")) {
             if (args.length === 0)

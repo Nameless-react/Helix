@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "status",
-    description: "Accept or deny a suggestion, to execute this command follow the next arquetype: (deny or accepted), id of the suggest and a reason",
+    description: "Accept or deny a suggestion, to execute this command follow the next: deny or accepted, the id of the suggest and the reason",
     execute(client, msg, args, StatusEmbed) {
         if (msg.member?.permissions.has("KICK_MEMBERS") && msg.member?.permissions.has("BAN_MEMBERS") && msg.member
             ?.permissions.has("MANAGE_MESSAGES")) {

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "crole",
-    description: "Assign the channel for the roles",
+    description: "Assign a channel for the auto role",
     execute: async (client, msg, args) => {
         if (args.length === 0)
             return msg.reply("Please provide data");

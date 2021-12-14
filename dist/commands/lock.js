@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "lock",
-    description: "lock a channel to all the members, following the next name of the channel, the type (member or role) and the role",
+    description: "lock a channel to a certain member(s) or role(s), following the next name of the channel, the type (member or role) and the role",
     execute(client, msg, args, cleanId) {
         if (msg.member.permissions.has("MANAGE_CHANNELS")) {
             if (args.length === 0)

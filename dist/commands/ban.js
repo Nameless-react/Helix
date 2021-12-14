@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "ban",
-    description: "ban users from the server, follow the next archetype: the member and the reason",
+    description: "Ban users from the server, follow the next: the member and the reason",
     execute(client, msg, args, cleanId, prefix) {
         if (msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0)

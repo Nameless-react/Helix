@@ -61,7 +61,6 @@ exports.client.on("ready", async () => {
 exports.client.on("messageCreate", async (msg) => {
     if (msg.author.bot)
         return;
-    console.log(`The user ${msg.author.tag} sent a message saying ${msg.content}`);
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MuteRole = msg.guild.roles.cache.get(sv.roles.mute);
     CleanId_1.searchLink(msg);
