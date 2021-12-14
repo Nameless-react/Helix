@@ -12,7 +12,7 @@ exports.default = {
             return msg.reply("Please provide the data");
         const [nameChannel, name, img] = args;
         if (!img) {
-            const channel = msg.guild.channels.find((channel) => channel.name === nameChannel);
+            const channel = msg.guild.channels.cache.find((channel) => channel.name === nameChannel);
             channel.createWebhook(name)
                 .then(async (res) => {
                 console.log(res);
