@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "unmute",
-    description: "Unmute a member of the server",
+    description: "Unmute a member of the server, note: when you execute this commnad before the time you set in the mute command end, the member will receive a random role of the mains roles.",
     execute: async (client, msg, args, MuteRole) => {
         if (msg.member?.permissions.has("KICK_MEMBERS") || msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0)
