@@ -21,10 +21,10 @@ exports.default = {
                         webHook: res.id
                     }
                 });
-                channel.fetchWebHooks()
-                    .then((res) => console.log(res));
                 msg.reply("Webhook created");
             });
+            channel.fetchWebHooks()
+                .then((res) => console.log(res));
         }
         else {
             channel.createWebhook(name, {
@@ -34,4 +34,9 @@ exports.default = {
                     $set: {
                         webHook: res.id
                     }
-           
+                });
+                msg.reply("Webhook created");
+            });
+        }
+    }
+};
