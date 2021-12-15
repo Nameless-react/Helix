@@ -20,7 +20,7 @@ exports.default = {
                 console.log(res.token);
                 const sv = await schema_1.default.updateOne({ id: String(msg.guild.id) }, {
                     $set: {
-                        "webHook": res,
+                        "webHook.id": res.id,
                         "webHook.token": res.token
                     }
                 });
