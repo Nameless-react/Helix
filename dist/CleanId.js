@@ -70,7 +70,7 @@ const searchLink = (msg) => {
 exports.searchLink = searchLink;
 const WelcomeEmbed = (server) => {
     return new discord_js_1.MessageEmbed()
-        .setColor("#ff00ff")
+        .setColor("#00ff00")
         .setTitle(`Welcome to ${server.guild.name}`)
         .setThumbnail(server.user.avatarURL({ dynamic: true, size: 512 }))
         .setAuthor(server.user.username, server.displayAvatarURL({ dynamic: true, size: 300 }));
