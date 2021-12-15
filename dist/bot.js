@@ -109,10 +109,9 @@ exports.client.on("guildMemberAdd", async (servers) => {
         membersCount: servers.guild.memberCount
     });
     const bsv = await schema_1.default.findOne({ id: String(servers.guild.id) });
-    const embed = CleanId_1.default(servers);
     const Web = CleanId_1.WebHook(bsv.webHook.id, bsv.webHook.token);
     Web.send({
-        embeds: [embed]
+        embeds: [CleanId_1.default(servers)]
     });
 });
 exports.client.on("guildMemberRemove", async (servers) => {

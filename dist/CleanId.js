@@ -68,7 +68,7 @@ const searchLink = (msg) => {
     ;
 };
 exports.searchLink = searchLink;
-const Embed = (server) => {
+const WelcomeEmbed = (server) => {
     return new discord_js_1.MessageEmbed()
         .setColor("#ff00ff")
         .setTitle(`Welcome to ${server.guild.name}`)
@@ -285,4 +285,4 @@ const WebHook = (id, token) => {
     });
 };
 exports.WebHook = WebHook;
-exports.default = Embed;
+exports.default = WelcomeEmbed;
