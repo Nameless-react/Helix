@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebHook = exports.configCommands = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = exports.cleanId = void 0;
+exports.WebHook = exports.configCommands = exports.PublicCommands = exports.commands = exports.TickEmbed = exports.buttonTick = exports.searchLink = exports.BadWords = void 0;
 const discord_js_1 = require("discord.js");
 const builders_1 = require("@discordjs/builders");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -11,12 +11,6 @@ const schema_1 = __importDefault(require("./schema"));
 const ms_1 = __importDefault(require("ms"));
 const moment_1 = __importDefault(require("moment"));
 dotenv_1.default.config();
-const cleanId = (prefix, args, msg) => {
-    const [id, ...rest] = args[0].substring(prefix.length + 2).split(">");
-    const member = msg.guild.members.cache.get(id);
-    return member;
-};
-exports.cleanId = cleanId;
 const BadWords = async (msg) => {
     if (!msg.member) {
         msg.delete()
@@ -160,20 +154,20 @@ const ProfileEmbed = (member, msg) => {
         .setColor("NOT_QUITE_BLACK");
     return embed;
 };
-const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
+const commands = async (msg, client, cdm, args, MuteRole, sv) => {
     if (sv.roles.main === [] && !msg.content.startsWith("!mains"))
-        return msg.channel.send("Please set the main to use the commands of the bot");
+        return msg.channel.send("Please set the main(s) role(s) with !mains [name of the role(s)], to use the commands of the bot");
     if (sv.roles.mute === "none" && !msg.content.startsWith("!muteRole"))
-        return msg.channel.send("Please set the mute role to use the commands of the bot");
+        return msg.channel.send("Please set the mute role with !muteRole [name of the role], to use the commands of the bot");
     let command;
     switch (cdm) {
         case "kick":
             command = client.application?.commands.cache.get("kick");
-            command.execute(client, msg, args, exports.cleanId, prefix);
+            command.execute(client, msg, args);
             break;
         case "ban":
             command = client.application?.commands.cache.get("ban");
-            command.execute(client, msg, args, exports.cleanId, prefix);
+            command.execute(client, msg, args);
             break;
         case "unban":
             command = client.application?.commands.cache.get("unban");
@@ -221,11 +215,11 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             break;
         case "lock":
             command = client.application?.commands.cache.get("lock");
-            command.execute(client, msg, args, exports.cleanId);
+            command.execute(client, msg, args);
             break;
         case "unlock":
             command = client.application?.commands.cache.get("unlock");
-            command.execute(client, msg, args, exports.cleanId);
+            command.execute(client, msg, args);
             break;
         case "moderate":
             command = client.application?.commands.cache.get("moderate");
@@ -273,7 +267,7 @@ const configCommands = (msg, client, args, cdm) => {
             break;
         case "muteRole":
             command = client.application?.commands.cache.get("muteRole");
-            command.execute(client, msg, args, exports.cleanId);
+            command.execute(client, msg, args);
             break;
         case "webHook":
             command = client.application?.commands.cache.get("webHook");

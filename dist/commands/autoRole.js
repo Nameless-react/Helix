@@ -11,8 +11,8 @@ exports.default = {
         if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"]) || msg.member?.permissions.has("MANAGE_GUILD")) {
             if (args.length === 0)
                 return msg.reply("Please provide data");
-            if (!msg.mentions)
-                return msg.reply("Please provide a valid role");
+            if (!msg.mentions.roles.first())
+                return msg.reply("Please before the name of the role use @");
             const { id } = msg.mentions.roles.first();
             const [query, , emoji] = args;
             if (query === "add") {

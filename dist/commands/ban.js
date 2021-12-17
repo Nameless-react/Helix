@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "ban",
     description: "Ban users from the server, follow the next: the member and the reason",
-    execute(client, msg, args, cleanId, prefix) {
+    execute(client, msg, args) {
         if (msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0)
-                return msg.reply("Please provide an ID");
-            const member = cleanId(prefix, args, msg);
+                return msg.reply("Please provide a member");
+            const { id } = msg.mentions.users.first();
+            const member = msg.guild.members.cache.get(id);
             const [, ...cause] = args;
             let reason = cause.join(" ");
             if (!reason)

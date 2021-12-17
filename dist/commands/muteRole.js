@@ -11,6 +11,8 @@ exports.default = {
         if (msg.author.id === msg.guild.ownerId) {
             if (args.length === 0)
                 return msg.reply("Please provide data");
+            if (!msg.mentions.roles.first())
+                return msg.reply("Please before the name of the role use @");
             const [role, name, color] = args;
             if (role === "create") {
                 const user = client.users.cache.get(msg.guild.ownerId);

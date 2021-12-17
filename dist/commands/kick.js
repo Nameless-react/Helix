@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: "kick",
     description: "Kick a member from the server",
-    execute(client, msg, args, cleanId, prefix) {
+    execute(client, msg, args) {
         if (msg.member.permissions.has("KICK_MEMBERS")) {
             if (args.length === 0)
                 return msg.reply("Please provide an ID");
-            const member = cleanId(prefix, args, msg);
+            const { id } = msg.mentions.users.first();
+            const member = msg.guild.members.cache.get(id);
             if (member) {
                 member.kick()
                     .then((member) => {
