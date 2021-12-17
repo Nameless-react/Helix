@@ -219,10 +219,6 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             command = client.application?.commands.cache.get("autoRole");
             command.execute(client, msg, args);
             break;
-        case "webHook":
-            command = client.application?.commands.cache.get("webHook");
-            command.execute(client, msg, args);
-            break;
         case "lock":
             command = client.application?.commands.cache.get("lock");
             command.execute(client, msg, args, exports.cleanId);
@@ -235,13 +231,17 @@ const commands = async (msg, prefix, client, cdm, args, MuteRole, sv) => {
             command = client.application?.commands.cache.get("moderate");
             command.execute(client, msg, args);
             break;
+        case "links":
+            command = client.application?.commands.cache.get("links");
+            command.execute(client, msg, args);
+            break;
         default:
             msg.channel.send(`The commnad "${cdm}" does not exist`);
     }
     ;
 };
 exports.commands = commands;
-const PublicCommands = (msg, prefix, client, cdm, args) => {
+const PublicCommands = (msg, client, cdm, args) => {
     if (cdm === "ticket") {
         const command = client.application?.commands.cache.get("ticket");
         command.execute(client, msg, exports.TickEmbed, exports.buttonTick);
@@ -274,6 +274,10 @@ const configCommands = (msg, client, args, cdm) => {
         case "muteRole":
             command = client.application?.commands.cache.get("muteRole");
             command.execute(client, msg, args, exports.cleanId);
+            break;
+        case "webHook":
+            command = client.application?.commands.cache.get("webHook");
+            command.execute(client, msg, args);
             break;
     }
 };

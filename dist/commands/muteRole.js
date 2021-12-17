@@ -3,15 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("../DB");
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "muteRole",
     description: "Set the mute role of the guild or create it. To create the role, write: create, the name and the color you want in hexadecimal. Before the name of the role write @ ",
-    execute: async (client, msg, args, cleanId) => {
-        if (args.length === 0)
-            return msg.reply("Please provide data");
+    execute: async (client, msg, args) => {
         if (msg.author.id === msg.guild.ownerId) {
+            if (args.length === 0)
+                return msg.reply("Please provide data");
             const [role, name, color] = args;
             if (role === "create") {
                 const user = client.users.cache.get(msg.guild.ownerId);

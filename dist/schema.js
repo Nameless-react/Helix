@@ -17,6 +17,10 @@ const schemaModerate = new mongoose_1.default.Schema({
         type: Boolean,
         required: true
     },
+    links: {
+        type: Boolean,
+        require: true
+    },
     prefix: {
         type: String,
         required: true

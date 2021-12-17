@@ -63,13 +63,16 @@ exports.client.on("messageCreate", async (msg) => {
         return;
     const sv = await schema_1.default.findOne({ id: String(msg.guild.id) });
     const MuteRole = msg.guild.roles.cache.get(sv.roles.mute);
-    CleanId_1.searchLink(msg);
+    if (sv.links) {
+        CleanId_1.searchLink(msg);
+    }
+    ;
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
         if (exports.client.application?.commands.cache.get("ticket").name === cdm || exports.client.application?.commands.cache.get("suggest").name === cdm || exports.client.application?.commands.cache.get("profile").name === cdm || exports.client.application?.commands.cache.get("8ball").name === cdm) {
-            CleanId_1.PublicCommands(msg, sv.prefix, exports.client, cdm, args);
+            CleanId_1.PublicCommands(msg, exports.client, cdm, args);
         }
-        else if (exports.client.application?.commands.cache.get("muteRole").name === cdm || exports.client.application?.commands.cache.get("mains").name === cdm || exports.client.application?.commands.cache.get("setprefix").name === cdm) {
+        else if (exports.client.application?.commands.cache.get("muteRole").name === cdm || exports.client.application?.commands.cache.get("mains").name === cdm || exports.client.application?.commands.cache.get("setprefix").name === cdm || exports.client.application?.commands.cache.get("webHook").name === cdm) {
             CleanId_1.configCommands(msg, exports.client, args, cdm);
         }
         else {
@@ -109,10 +112,15 @@ exports.client.on("guildMemberAdd", async (servers) => {
         membersCount: servers.guild.memberCount
     });
     const bsv = await schema_1.default.findOne({ id: String(servers.guild.id) });
-    const Web = CleanId_1.WebHook(bsv.webHook.id, bsv.webHook.token);
-    Web.send({
-        embeds: [CleanId_1.default(servers)]
-    });
+    if (bsv.webHook.id && bsv.webHook.token) {
+        const Web = CleanId_1.WebHook(bsv.webHook.id, bsv.webHook.token);
+        Web.send({
+            embeds: [CleanId_1.default(servers)]
+        });
+    }
+    else {
+        return;
+    }
 });
 exports.client.on("guildMemberRemove", async (servers) => {
     const sv = await schema_1.default.updateOne({ id: String(servers.guild.id) }, {
@@ -197,6 +205,7 @@ exports.client.on("guildCreate", async (guild) => {
         id: guild.id,
         server: guild.name,
         mode: false,
+        links: false,
         prefix: "!",
         membersCount: guild.memberCount,
         roles: {
