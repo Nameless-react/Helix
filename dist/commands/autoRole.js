@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("../schema"));
 exports.default = {
     name: "autoRole",
-    description: "Give a role to the user when he or she react with an emoji, to specify which role and which emoji, follow the next steps: before the name of the role write the @ and the emoji you want for",
+    description: "Give a role to the user when he or she react with an emoji, to specify which role and which emoji, follow the next steps: write if you want to delete or add a new autoRole, next before the name of the role write the @ and the emoji you want for",
     execute: async (client, msg, args) => {
         if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"]) || msg.member?.permissions.has("MANAGE_GUILD")) {
             if (args.length === 0)

@@ -98,7 +98,6 @@ exports.client.on("messageReactionAdd", async (reaction, user) => {
                         reaction.message.channel.send("I do not have permissions").then((res) => setTimeout(() => {
                             res.delete();
                         }, 3000));
-                        console.log(err);
                     });
             }
             ;
