@@ -15,7 +15,7 @@
   "author": "Joel",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/builders": "^0.8.2",
+    "@discordjs/builders": "0.8.2",
     "axios": "^0.24.0",
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
