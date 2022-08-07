@@ -22,7 +22,7 @@ export default {
                 const { id } = msg.mentions.users.first();
                 roles = msg.guild.members.cache.get(id);
             }
-            channel.permissionOverwrites.delete(roles).then((res) => msg.reply("The channel was unlock"))
+            channel.permissionOverwrites.delete(roles).then(res => msg.reply("The channel was unlock"))
         } else {
             msg.reply("Only the administrators can execute this command");
         }
