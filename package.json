@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon dist/bot.js",
-    "start": "node dist/bot.js"
+    "dev": "nodemon bot.js",
+    "start": "node bot.js"
   },
   "keywords": [],
   "author": "Joel",
