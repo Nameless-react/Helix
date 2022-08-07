@@ -1,5 +1,5 @@
 import { MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
-import { bold } from "@discordjs/builders";
+const { bold } = require("discord.js")
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
