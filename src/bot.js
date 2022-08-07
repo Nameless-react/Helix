@@ -24,12 +24,12 @@ export const client = new Client({
 const token = process.env.DISCORD_BOT_TOKEN;
 
 client.on("ready", async () => {
-    const commandFiles = fs.readdirSync("src/commands").filter((file) => file.endsWith(".js"))
+    const commandFiles = fs.readdirSync("src/commands").filter(file => file.endsWith(".js"))
 
     for (const file of commandFiles) { 
-        const command = require(`./commands/${file}`);
-        client.application?.commands.cache.set(command.default.name, command.default);
-        console.log(`The command ${command.default.name} is ✔`)
+        const { default: command } = await import(`./commands/${file}`);
+        client.application?.commands.cache.set(command.name, command);
+        console.log(`The command ${command.name} is ✔`)
     };
 
 
