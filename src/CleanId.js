@@ -252,10 +252,10 @@ export const commands = async (msg, client, cdm, args, MuteRole, sv) => {
 
 export const PublicCommands = (msg, client, cdm, args) => {
     const commands = {
-        "ticket": () => cHandler("ticket")?.execute(client, msg, TickEmbed, buttonTick),
-        "suggest": () => cHandler("suggest")?.execute(client, msg, suggesEmbed, args),
-        "profile": () => cHandler("profile")?.execute(client, msg, ProfileEmbed, args),
-        "8ball": () => cHandler("8ball")?.execute(client, msg, args),
+        "ticket": async () => await cHandler("ticket")?.execute(client, msg, TickEmbed, buttonTick),
+        "suggest": async () => await cHandler("suggest")?.execute(client, msg, suggesEmbed, args),
+        "profile": async () => await cHandler("profile")?.execute(client, msg, ProfileEmbed, args),
+        "8ball": async () => await cHandler("8ball").execute(client, msg, args),
     }
 
     commands[cdm]();
