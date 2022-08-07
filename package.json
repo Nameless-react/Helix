@@ -7,9 +7,6 @@
     "dev": "nodemon src/bot.js",
     "start": "node src/bot.js"
   },
-  "engines": {
-    "node": "16.x"
-  },
   "type": "module",
   "keywords": [],
   "author": "Joel",
