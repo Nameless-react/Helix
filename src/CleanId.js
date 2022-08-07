@@ -1,5 +1,4 @@
 import { MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
-const { bold } = require("discord.js")
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
@@ -95,7 +94,7 @@ const suggesEmbed = (content, author, img, msg) => {
     .setAuthor(`${author}`, img)
     .setColor("#00ff00")
     .setTitle(`Id:\n${msg.id}`)
-    .setDescription(`Suggestion:\n${bold(content)}`)
+    .setDescription(`Suggestion:\n${content}`)
 }
 
 const StatusEmbed = (content, author, img, status, reason, color, id, staff) => {
@@ -103,10 +102,10 @@ const StatusEmbed = (content, author, img, status, reason, color, id, staff) => 
     .setAuthor(`${author}`, img)
     .setColor(color)
     .setDescription(`${content}\n
-                    Id:\n${bold(id)}\n
-                    Status:\n${bold(status.toUpperCase())}\n
-                    Because:\n${bold(reason)}\n
-                    Staff:\n${bold(staff)}`)
+                    Id:\n${id}\n
+                    Status:\n${status.toUpperCase()}\n
+                    Because:\n${sreason}\n
+                    Staff:\n${staff}`)
 }
 
 const BanEmbed = (list) => {
@@ -116,7 +115,7 @@ const BanEmbed = (list) => {
         fields: []
     };
     for (let i = 0; i < list.length; ++i) {
-        let BanField = { name: `User ${bold(list[i].username)}`, value: `Id: ${bold(list[i].id)},\n Reason: ${bold(list[i].reason)}`};
+        let BanField = { name: `User ${list[i].username}`, value: `Id: ${list[i].id},\n Reason: ${list[i].reason}`};
         embed.fields.push(BanField)
     };
     return embed
