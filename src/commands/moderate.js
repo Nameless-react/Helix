@@ -1,4 +1,4 @@
-import server from "../schema"
+import server from "../schema.js"
 export default {
     name: "moderate",
     description: "Turn on a mode that filter more the content of the message, the content will be filter when the user type a word that you previously added to the list and some predetermine words that we added(only in english and spanish)",
