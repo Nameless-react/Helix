@@ -252,10 +252,10 @@ export const commands = async (msg, client, cdm, args, MuteRole, sv) => {
 
 export const PublicCommands = (msg, client, cdm, args) => {
     const commands = {
-        "ticket": async () => await cHandler("ticket")?.execute(client, msg, TickEmbed, buttonTick),
-        "suggest": async () => await cHandler("suggest")?.execute(client, msg, suggesEmbed, args),
-        "profile": async () => await cHandler("profile")?.execute(client, msg, ProfileEmbed, args),
-        "8ball": async () => await cHandler("8ball").execute(client, msg, args),
+        "ticket": () => cHandler(client, "ticket").execute(client, msg, TickEmbed, buttonTick),
+        "suggest": () => cHandler(client, "suggest").execute(client, msg, suggesEmbed, args),
+        "profile": () => cHandler(client, "profile").execute(client, msg, ProfileEmbed, args),
+        "8ball": () => cHandler(client, "8ball").execute(client, msg, args),
     }
 
     commands[cdm]();
@@ -277,10 +277,10 @@ export const PublicCommands = (msg, client, cdm, args) => {
 
 export const configCommands = (msg, client, args, cdm) => {
     const commands = {
-        "mains": () => cHandler("mains").execute(client, msg, args),
-        "muteRole": () => cHandler("muteRole").execute(client, msg, args),
-        "setprefix": () => cHandler("setprefix").execute(client, msg, args),
-        "webHook": () => cHandler("webHook").execute(client, msg, args),
+        "mains": () => cHandler(client, "mains").execute(client, msg, args),
+        "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
+        "setprefix": () => cHandler(client, "setprefix").execute(client, msg, args),
+        "webHook": () => cHandler(client, "webHook").execute(client, msg, args),
     }
 
     commands[cdm]();
