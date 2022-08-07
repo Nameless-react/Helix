@@ -5,7 +5,7 @@ import ms from "ms";
 import moment from "moment";
 dotenv.config();
 
-const cHandler = ((client ,command) => client.application?.commands.cache.get(command));
+const cHandler = ((client, command) => client.application?.commands.cache.get(command));
 
 export const BadWords = async (msg) => {
     !msg.member && msg.delete()
@@ -252,10 +252,10 @@ export const commands = async (msg, client, cdm, args, MuteRole, sv) => {
 
 export const PublicCommands = (msg, client, cdm, args) => {
     const commands = {
-        "ticket": () => cHandler("ticket").execute(client, msg, TickEmbed, buttonTick),
-        "suggest": () => cHandler("suggest").execute(client, msg, suggesEmbed, args),
-        "profile": () => cHandler("profile").execute(client, msg, ProfileEmbed, args),
-        "8ball": () => cHandler("8ball").execute(client, msg, args),
+        "ticket": () => cHandler("ticket")?.execute(client, msg, TickEmbed, buttonTick),
+        "suggest": () => cHandler("suggest")?.execute(client, msg, suggesEmbed, args),
+        "profile": () => cHandler("profile")?.execute(client, msg, ProfileEmbed, args),
+        "8ball": () => cHandler("8ball")?.execute(client, msg, args),
     }
 
     commands[cdm]();
