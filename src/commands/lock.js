@@ -1,4 +1,3 @@
-import { Role } from "discord.js";
 export default {
     name: "lock",
     description: "lock a channel to a certain member(s) or role(s), following the next name of the channel, the type (member or role) and the role",

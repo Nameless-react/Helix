@@ -1,9 +1,9 @@
 import dontenv from "dotenv";
 import fs from "fs";
 import { Client, Intents } from "discord.js";
-import mongo from "./DB";
-import WelcomeEmbed, { commands, WebHook, searchLink, PublicCommands, BadWords, configCommands} from "./CleanId";
-import server from "./schema";
+import mongo from "./DB.js";
+import WelcomeEmbed, { commands, WebHook, searchLink, PublicCommands, BadWords, configCommands} from "./CleanId.js";
+import server from "./schema.js";
 
 
 dontenv.config();
@@ -24,7 +24,7 @@ export const client = new Client({
 const token = process.env.DISCORD_BOT_TOKEN;
 
 client.on("ready", async () => {
-    const commandFiles = fs.readdirSync("./dist/commands").filter((file) => file.endsWith(".js"))
+    const commandFiles = fs.readdirSync("src/commands").filter((file) => file.endsWith(".js"))
 
     for (const file of commandFiles) { 
         const command = require(`./commands/${file}`);

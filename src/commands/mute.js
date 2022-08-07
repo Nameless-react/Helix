@@ -1,5 +1,4 @@
-import { Role } from "discord.js";
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "mute",
     description: "Mute a member, follow the next: before the member wrtie the @ and the time in seconds(s), minutes(m), hours(h) or days",

@@ -1,4 +1,4 @@
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "mains",
     description: "Set the main(s) roles and delete it of the guild or create it. To create the role, write: create, the name of the role and the color you want in hexadecimal. Before the names of the roles write @",

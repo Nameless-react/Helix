@@ -1,4 +1,4 @@
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "censoredWord",
     description: "Specify which words you want to censor, you can delete or add it (if it is a phrase, write it without spaces), the words are going to be censored when the moderate mode is true",

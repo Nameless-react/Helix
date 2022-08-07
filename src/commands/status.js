@@ -1,4 +1,3 @@
-import { Message } from "discord.js";
 export default {
     name: "status",
     description: "Accept or deny a suggestion, to execute this command follow the next: deny or accepted, the id of the suggest and the reason",

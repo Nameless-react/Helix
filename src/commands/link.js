@@ -1,4 +1,4 @@
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "links",
     description: "Allow to looking for links in the messages and censore it, except for the links in embeds",

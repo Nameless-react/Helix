@@ -1,5 +1,5 @@
 
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "setprefix",
     description: "Change the predetermined prefix to anyone you want",

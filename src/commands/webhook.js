@@ -1,4 +1,4 @@
-import server from "../schema"
+import server from "../schema.js"
 export default {
     name: "webHook",
     description: "Create a webhook, follow the next, the name of the channel you want the webhook to send the messages, the name of the webhook and if you want the image for(the link)",

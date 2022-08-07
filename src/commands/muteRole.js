@@ -1,4 +1,4 @@
-import server from "../schema";
+import server from "../schema.js";
 export default {
     name: "muteRole",
     description: "Set the mute role of the guild or create it. To create the role, write: create, the name and the color you want in hexadecimal. Before the name of the role write @ ",

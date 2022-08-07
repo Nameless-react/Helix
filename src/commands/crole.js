@@ -1,4 +1,4 @@
-import server from "../schema"
+import server from "../schema.js"
 export default {
     name: "crole",
     description: "Assign a channel for the auto role",

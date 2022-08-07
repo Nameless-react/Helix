@@ -1,4 +1,4 @@
-import server from "../schema"
+import server from "../schema.js"
 export default {
     name: "autoRole",
     description: "Give a role to the user when he or she react with an emoji, to specify which role and which emoji, follow the next steps: write if you want to delete or add a new autoRole, next before the name of the role write the @ and the emoji you want for",

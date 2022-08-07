@@ -1,4 +1,3 @@
-import { Role } from "discord.js";
 require("../DB");
 import server from "../schema"
 export default {
