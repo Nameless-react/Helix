@@ -1,4 +1,3 @@
-require("../DB");
 import server from "../schema"
 export default {
     name: "moderate",
