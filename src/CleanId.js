@@ -1,11 +1,11 @@
-import { Client, MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
+import {  MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
 import moment from "moment";
 dotenv.config();
 
-const cHandler = (command) => client.application?.commands.cache.get(command);
+const cHandler = ((client ,command) => client.application?.commands.cache.get(command));
 
 export const BadWords = async (msg) => {
     !msg.member && msg.delete()
