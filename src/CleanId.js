@@ -1,4 +1,4 @@
-import { MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
+import { Client, MessageEmbed, WebhookClient, MessageButton, MessageActionRow } from "discord.js";
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
