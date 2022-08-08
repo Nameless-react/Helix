@@ -1,6 +1,6 @@
 export default {
     name: "lock",
-    description: "lock a channel to a certain member(s) or role(s), following the next: [name of the channel], the type (member or role) and the role",
+    description: "lock a channel to a certain member or role, following the next: [name the role or member] and the channel",
     execute(client, msg, args) {
         if (msg.member.permissions.has("MANAGE_CHANNELS")) {
             if(args.length === 0) return msg.reply("Please provide the data");
@@ -15,7 +15,7 @@ export default {
             if (!channel) return msg.reply(`The channel ${lockChannel} does not exist`)
             
             
-            const lock = msg.guild.roles.cache.find(role => role.name === roleMember) || msg.guild.members.cache.get(msg.mentions.users.first().id);
+            const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first().name) || msg.guild.members.cache.get(msg.mentions.users.first().id);
             if (!lock) return msg.reply(`${roleMember} does not exist`)
         
             // if (!roles && type === "role") {
