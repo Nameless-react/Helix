@@ -8,6 +8,7 @@ export default {
             
             
             const [option, name, color] = args
+            if(!name.startsWith("@")) return msg.reply("Please before the role use @")
             if(!name || !color) return msg.reply("Please write the role and the color");
             
             const options = {
@@ -27,7 +28,6 @@ export default {
                     msg.reply("Role(s) seted");
                 },
                 "delete": async () => {
-                    if(!msg.mentions.roles.first()) return msg.reply("Please before the role use @")
                     const roles = msg.mentions.roles.map(mention => mention.id);
                     await server.updateOne({id: String(msg.guild.id)}, {
                         $pullAll: {
@@ -37,7 +37,6 @@ export default {
                     msg.reply("Role(s) deleted")
                 },
                 "add": async () => {
-                    if(!msg.mentions.roles.first()) return msg.reply("Please before the role use @")
                     const roles = msg.mentions.roles.map(mention => mention.id);
                     await server.updateOne({id: String(msg.guild.id)}, {
                         $push: {

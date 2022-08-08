@@ -82,7 +82,7 @@ export const PublicCommands = (msg, client, cdm, args) => {
         "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
     }
 
-    commands[cdm] ? commands[cdm]() : commands["default"]();
+    // commands[cdm] ? commands[cdm]() : commands["default"]();
 } 
 
 export const configCommands = (msg, client, cdm, args) => {
@@ -94,7 +94,7 @@ export const configCommands = (msg, client, cdm, args) => {
         "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
     }
 
-    commands[cdm] ? commands[cdm]() : commands["default"]();
+    // commands[cdm] ? commands[cdm]() : commands["default"]();
 }
 
 export const WebHook = (id, token) => {
