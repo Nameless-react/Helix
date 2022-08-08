@@ -35,7 +35,7 @@ export const suggesEmbed = (content, author, img, msg) => {
 }
 
 
-const ProfileEmbed = (member, msg) => {
+export const ProfileEmbed = (member, msg) => {
     let roles = []
     
     member.roles.cache.each((role) => {
