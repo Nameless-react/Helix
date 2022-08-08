@@ -8,15 +8,15 @@ export default {
             if (args[0] !== "true" && args[0] !== "false") {
                 return msg.reply(`"${args[0]}" is not a mode`)
             }
-            if (args[0] === "false") {
+            if (Boolean(args[0])) {
                 msg.reply("The detector is off")
                 const sv = await server.updateOne({id: String(msg.guild.id)}, {
                     links: false
                 });
             } 
             const sv = await server.findOne({id: String(msg.guild.id)});
-            if (sv.mode === true) return msg.reply("The detector is already on")
-            if (args[0] === "true") {
+            if (sv.links) return msg.reply("The detector is already on")
+            if (Boolean(args[0])) {
                 msg.reply("The detector is on");
                 const sv = await server.updateOne({id: String(msg.guild.id)}, {
                     links: true

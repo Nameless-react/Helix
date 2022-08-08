@@ -132,8 +132,8 @@ client.on("interactionCreate", async (interaction) => {
                 type: "GUILD_CATEGORY"
             });
         };
-        // @ts-expect-error
-        const equal = ticket.children.find((m) => m.name === name);
+
+        const equal = ticket.children.find(m => m.name === name);
         if (equal) {
             return interaction.reply({
                 content: `You have an open ticket, here <#${equal.id}>`,
