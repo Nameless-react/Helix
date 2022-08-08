@@ -12,7 +12,7 @@ export default {
             if (!member) return msg.channel.send("The user was not found")
             
             member.ban({ reason }) 
-                .then(member => msg.channel.send(`The user ${member} has been ban, because "${!reason ? "Not given" : cause.join(" ")}"`))
+                .then(member => msg.channel.send(`The user ${member} has been ban, because "${cause.length === 0 ? "Not given" : cause.join(" ")}"`))
                 .catch(err => msg.reply("I do not have permissions"))
 
         } else {
