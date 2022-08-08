@@ -83,6 +83,7 @@ export const PublicCommands = (msg, client, cdm, args) => {
     }
 
     // commands[cdm] ? commands[cdm]() : commands["default"]();
+    commands[cdm]()
 } 
 
 export const configCommands = (msg, client, cdm, args) => {
@@ -95,6 +96,7 @@ export const configCommands = (msg, client, cdm, args) => {
     }
 
     // commands[cdm] ? commands[cdm]() : commands["default"]();
+    commands[cdm]()
 }
 
 export const WebHook = (id, token) => {
