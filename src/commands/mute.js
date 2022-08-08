@@ -8,23 +8,16 @@ export default {
                 
                 const { id } = msg.mentions.users.first();
                 const memberMute = msg.guild.members.cache.get(id); 
-                // let MainRole = []
                 const sv = await server.findOne({id: String(msg.guild.id)});
                 
                 const MainRole = sv.roles.main.flatMap(data => {
                     const role = memberMute.roles.cache.get(data);
                     return role && role.id !== MuteRole.id ? role.id : []; 
                 });
-                // sv.roles.main.forEach(data => {
-                //     let role = memberMute.roles.cache.get(data);
-                //     if (role && role.id !== MuteRole.id) MainRole.push(role.id) 
-                // });
-                if (!memberMute.roles.cache.hasAny(...sv.roles.main)) return
-                if (!memberMute.roles.cache.has(MuteRole.id)) {
+                
+                if (!memberMute.roles.cache.has(MuteRole.id) && memberMute.roles.cache.hasAny(...sv.roles.main)) {
                     if (memberMute) {
                         const time = !args[1] ? 600000 : ms(args[1]);
-                       
-                        // time = 600000;
                         memberMute.roles.remove(MainRole[0]);
                         memberMute.roles.add(MuteRole.id);
                         msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
@@ -34,20 +27,6 @@ export default {
                             memberMute.roles.add(MainRole[0]);
                         }, time);
                         return
-                        
-                        // memberMute.roles.remove(MainRole[0]);
-                        // memberMute.roles.add(MuteRole.id);
-                        // time = ms(args[1]);
-                        // if (!time) {
-                        //     time = 600000
-                        // };
-    
-                        // msg.channel.send(`The user <@${id}> has been muted for ${time} miliseconds`);
-                        // setTimeout(() => {
-                        //     if (memberMute.roles.cache.has(MainRole[0])) return
-                        //     memberMute.roles.remove(MuteRole.id);
-                        //     memberMute.roles.add(MainRole[0]);
-                        // }, time)
                     };
                 }; 
         }
