@@ -2,7 +2,7 @@ import dontenv from "dotenv";
 import fs from "fs";
 import { Client, Intents } from "discord.js";
 import mongo from "./DB.js";
-import { commands, WebHook, searchLink, BadWords } from "./CleanId.js";
+import { commands, WebHook, searchLink, BadWords } from "./utilities.js";
 import { WelcomeEmbed } from "./embeds.js";
 import server from "./schema.js";
 
@@ -57,14 +57,6 @@ client.on("messageCreate", async (msg) => {
 
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
-
-        // ["muteRole", "mains", "setprefix", "webHook"].includes(cdm) && configCommands(msg, client, cdm, args);
-        
-        // if (["ticket", "suggest", "8ball", "profile"].includes(cdm)) {
-        //     PublicCommands(msg, client, cdm, args)
-        // } else {
-        //     commands(msg, client, cdm, args, MuteRole, sv);
-        // }
         commands(msg, client, cdm, args, MuteRole, sv);
     }; 
     
