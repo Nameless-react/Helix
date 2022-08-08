@@ -12,7 +12,7 @@ export default {
             if(!name || !color) return msg.reply("Please write the role and the color");
             
             const options = {
-                "create": async () => {
+                "create": () => {
                     const user = client.users.cache.get(msg.guild.ownerId);
                     msg.guild.roles.create({
                         name,

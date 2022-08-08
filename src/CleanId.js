@@ -85,7 +85,7 @@ export const PublicCommands = (msg, client, cdm, args) => {
     commands[cdm] ? commands[cdm]() : commands["default"]();
 } 
 
-export const configCommands = (msg, client, args, cdm) => {
+export const configCommands = (msg, client, cdm, args) => {
     const commands = {
         "mains": () => cHandler(client, "mains").execute(client, msg, args),
         "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
