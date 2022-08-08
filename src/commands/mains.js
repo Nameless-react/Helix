@@ -8,7 +8,7 @@ export default {
             
             
             const [option, name, color] = args
-            if(!name.startsWith("@")) return msg.reply("Please before the role use @")
+            if(!msg.mentions.roles.first()) return msg.reply("Please before the role use @")
             
             const options = {
                 "create": () => {
