@@ -8,11 +8,9 @@ export default {
             const { id } = msg.mentions.users.first();
             const memberMute = msg.guild.members.cache.get(id);
             const sv = await server.findOne({id: String(msg.guild.id)});
-            const Main = await msg.guild.roles.cache.random(sv.roles.main)
-            console.log(Main)
             if (memberMute.roles.cache.has(MuteRole.id)) {
                 if (memberMute) {
-                    memberMute.roles.add(Main.id);
+                    memberMute.roles.add(sv.roles.main[0]);
                     memberMute.roles.remove(MuteRole.id);
                     msg.channel.send(`The user <@${id}> has been unmuted`);
                 }
