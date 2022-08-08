@@ -9,10 +9,10 @@ export default {
             
             const [option, name, color] = args
             if(!name.startsWith("@")) return msg.reply("Please before the role use @")
-            if(!name || !color) return msg.reply("Please write the role and the color");
             
             const options = {
                 "create": () => {
+                    if(!name || !color) return msg.reply("Please write the role and the color");
                     const user = client.users.cache.get(msg.guild.ownerId);
                     msg.guild.roles.create({
                         name,

@@ -217,7 +217,14 @@ client.on("guildCreate", async (guild) => {
 })
 
 client.on("guildDelete", async (guild) => {
-    await server.deleteOne({id: String(guild.id)}).then((res) => console.log("Data deleted")); 
+    await server.deleteOne({id: String(guild.id)}).then(res => console.log("Data deleted")); 
+})
+
+
+client.on("roleDelete", async (deletedRole) => {
+    await server.updateOne({id: String(deletedRole.guild.id)}, {
+        $pull: { "roles.main": deletedRole.id }
+    });
 })
 
 
