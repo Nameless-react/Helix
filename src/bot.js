@@ -58,8 +58,6 @@ client.on("messageCreate", async (msg) => {
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
 
-        // const getCommand = (cdm) => client.application?.commands.cache.get(cdm);
-
         ["muteRole", "mains", "setPrefix", "webHook"].includes(cdm) && configCommands(msg, client, cdm, args);
         
         if (["ticket", "suggest", "8ball", "profile"].includes(cdm)) {
@@ -96,12 +94,12 @@ client.on("messageReactionAdd", async (reaction, user) => {
 
 
 client.on("guildMemberAdd", async (servers) => {
-    const sv = await server.updateOne({id: String(servers.guild.id)}, {
+    await server.updateOne({id: String(servers.guild.id)}, {
         membersCount: servers.guild.memberCount
     });
-    const bsv = await server.findOne({id: String(servers.guild.id)});
-    if (bsv.webHook.id && bsv.webHook.token) {
-        const Web = WebHook(bsv.webHook.id, bsv.webHook.token)
+    const sv = await server.findOne({id: String(servers.guild.id)});
+    if (sv.webHook.id && sv.webHook.token) {
+        const Web = WebHook(sv.webHook.id, sv.webHook.token)
         Web.send({
             embeds: [WelcomeEmbed(servers)]
         });

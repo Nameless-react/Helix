@@ -12,16 +12,16 @@ export default {
             const [query, , emoji] = args;
             
             if (query === "add") {
-                const sv = await server.updateOne({id: String(msg.guild.id)}, {
+                await server.updateOne({id: String(msg.guild.id)}, {
                     $push: {"autoRole.roles": id, "autoRole.emojis": emoji}
                 })
-                msg.reply("AutoRole added");
+                return msg.reply("AutoRole added");
                 
             } else if (query === "delete") {
-                const sv = await server.updateOne({id: String(msg.guild.id)}, {
+                await server.updateOne({id: String(msg.guild.id)}, {
                     $pull: {"autoRole.roles": id, "autoRole.emojis": emoji}
                 })
-                msg.reply("AutoRole deleted");
+                return msg.reply("AutoRole deleted");
             }
         } else {
             msg.reply("You do not have permissions to execute this command");
