@@ -5,7 +5,7 @@ export default {
         if (msg.member.permissions.has("BAN_MEMBERS")) {
             const bans = await msg.guild.bans.fetch()
             console.log(bans)
-            const list = bans.map((bans, { user }) => ({username: user?.username, id: user?.id, reason: bans.reason}))
+            const list = bans.map(({ user, reason }) => ({username: user?.username, id: user?.id, reason}))
             
             
             // .then(res =>{
