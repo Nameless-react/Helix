@@ -1,4 +1,3 @@
-import {  EmbedBuilder, WebhookClient } from "discord.js";
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
