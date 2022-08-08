@@ -6,9 +6,9 @@ export default {
         if (msg.member?.permissions.has("KICK_MEMBERS") || msg.member?.permissions.has("BAN_MEMBERS")) {
             if (args.length === 0) return msg.reply("Please provide an ID");
             const { id } = msg.mentions.users.first();
-            let memberMute = msg.guild.members.cache.get(id);
-                const sv = await server.findOne({id: String(msg.guild.id)});
-                const Main = await msg.guild.roles.cache.random(sv.roles.main)
+            const memberMute = msg.guild.members.cache.get(id);
+            const sv = await server.findOne({id: String(msg.guild.id)});
+            const Main = await msg.guild.roles.cache.random(sv.roles.main)
             if (memberMute.roles.cache.has(MuteRole.id)) {
                 if (memberMute) {
                     memberMute.roles.add(Main);

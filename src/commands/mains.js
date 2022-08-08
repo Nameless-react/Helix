@@ -44,6 +44,9 @@ export default {
                         }
                     });
                     msg.reply("Role(s) seted");    
+                },
+                "show": () => {
+                    
                 }
             }
 
