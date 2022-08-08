@@ -9,14 +9,14 @@ export default {
             const [query, ...words] = args;
 
             if (query === "add") {
-                const sv = await server.updateOne({id: String(msg.guild.id)}, {
+                await server.updateOne({id: String(msg.guild.id)}, {
                     $push: {
                         censoredWord: {$each: words}
                     }
                 });
                 msg.reply("Word added");
             } else if (query === "delete") {
-                const sv = await server.updateOne({ id: String(msg.guild.id) }, {
+                await server.updateOne({ id: String(msg.guild.id) }, {
                     $pullAll: {
                         censoredWord: words
                     }
