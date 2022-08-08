@@ -2,7 +2,7 @@ import dontenv from "dotenv";
 import fs from "fs";
 import { Client, Intents } from "discord.js";
 import mongo from "./DB.js";
-import { commands, WebHook, searchLink, PublicCommands, BadWords, configCommands } from "./CleanId.js";
+import { commands, WebHook, searchLink, BadWords } from "./CleanId.js";
 import { WelcomeEmbed } from "./embeds.js";
 import server from "./schema.js";
 
