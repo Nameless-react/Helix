@@ -14,35 +14,36 @@ export const BadWords = async (msg) => {
                         .catch(err =>  console.log(err))
 
     //* Agregar los roles que tengan permiso de usar el comando !censoredWord en vez de tener que revisar si el contenido del mensaje contiene el comando
-    if (msg.author.id !== "900182160017883197" && msg.author.id !== msg.guild.ownerId) {
-        const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick|milf/ig;
-        const result = msg.content.match(regex);
-        
-        const sv = await server.findOne({id: String(msg.guild.id)});
-        const words = new RegExp(sv.censoredWord.join("|")).test(msg.content); 
-        if (result && !msg.content.startsWith("!censoredWord") || words && !msg.content.startsWith("!censoredWord")) {   
-            msg.delete()
-                .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
-                .catch((err) => console.log(err))
-        };
+    if (msg.author.id === "900182160017883197" || msg.author.id === msg.guild.ownerId) return
+    // if (msg.author.id !== "900182160017883197" && msg.author.id !== msg.guild.ownerId) {
+    const regex = /[se]+x[0o]?|f[*u]ck|hijo\s?de\s?puta|puta|nigg?a|p[e4]ne|v[a4]gina|idiota|idiot|bitch|dick|milf/ig;
+    const result = msg.content.match(regex);
+    
+    const sv = await server.findOne({id: String(msg.guild.id)});
+    const words = new RegExp(sv.censoredWord.join("|")).test(msg.content); 
+    if (result && !msg.content.startsWith("!censoredWord") || words && !msg.content.startsWith("!censoredWord")) {   
+        msg.delete()
+            .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
+            .catch((err) => console.log(err))
     };
+    // };
 };
 
 export const searchLink = (msg) => {
     !msg.member && msg.delete()
                     .then(res => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
                     .catch(err =>  console.log(err))
-    
-    if (!msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) {
+    if (msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) return 
+    // if (!msg.member?.permissions.has(["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_MESSAGES"])) {
 
-        if (msg.author.id !== msg.guild.ownerId) {
-            const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
-            const result = msg.content.match(regex);
-            result && msg.delete()
-                            .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
-                            .catch((err) => console.log(err))
-        };
+    if (msg.author.id !== msg.guild.ownerId) {
+        const regex = /(^)?(https?:\/\/|www\.|https?:\/\/www\.)[a-z0-9.-/?=&_#:]+|@everyone/ig;
+        const result = msg.content.match(regex);
+        result && msg.delete()
+                        .then((res) => msg.channel.send(`<@${msg.author.id}> the content of the message was not allow`))
+                        .catch((err) => console.log(err))
     };
+    // };
 };
 
 
