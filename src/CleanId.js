@@ -79,9 +79,10 @@ export const PublicCommands = (msg, client, cdm, args) => {
         "suggest": () => cHandler(client, "suggest").execute(client, msg, suggesEmbed, args),
         "profile": () => cHandler(client, "profile").execute(client, msg, ProfileEmbed, args),
         "8ball": () => cHandler(client, "8ball").execute(client, msg, args),
+        "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
     }
 
-    commands[cdm]();
+    commands[cdm] ? commands[cdm]() : commands["default"]();
 } 
 
 export const configCommands = (msg, client, args, cdm) => {
@@ -90,9 +91,10 @@ export const configCommands = (msg, client, args, cdm) => {
         "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
         "setprefix": () => cHandler(client, "setprefix").execute(client, msg, args),
         "webHook": () => cHandler(client, "webHook").execute(client, msg, args),
+        "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
     }
 
-    commands[cdm]();
+    commands[cdm] ? commands[cdm]() : commands["default"]();
 }
 
 export const WebHook = (id, token) => {

@@ -7,10 +7,8 @@ export default {
             const [roleMember, lockChannel] = args
 
             if (!lockChannel) return msg.reply("Please specify which channel you want to lock");
-            // else if (!type) return msg.reply("Please specify if is a role or a member");
             if (!roleMember) return msg.reply("Please specify for which role or person you want to lock the channel");
-            
-            // let roles;
+
             const channel = msg.guild.channels.cache.find(channel => channel.name === lockChannel);
             if (!channel) return msg.reply(`The channel ${lockChannel} does not exist`)
             
