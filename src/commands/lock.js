@@ -4,7 +4,7 @@ export default {
     execute(client, msg, args) {
         if (msg.member.permissions.has("MANAGE_CHANNELS")) {
             if(args.length === 0) return msg.reply("Please provide the data");
-            const [roleMember, , lockChannel] = args
+            const [roleMember, lockChannel] = args
 
             if (!lockChannel) return msg.reply("Please specify which channel you want to lock");
             // else if (!type) return msg.reply("Please specify if is a role or a member");
