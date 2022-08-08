@@ -9,6 +9,7 @@ export default {
             const memberMute = msg.guild.members.cache.get(id);
             const sv = await server.findOne({id: String(msg.guild.id)});
             const Main = await msg.guild.roles.cache.random(sv.roles.main)
+            console.log(Main)
             if (memberMute.roles.cache.has(MuteRole.id)) {
                 if (memberMute) {
                     memberMute.roles.add(Main.id);
