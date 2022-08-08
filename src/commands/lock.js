@@ -15,15 +15,9 @@ export default {
             if (!channel) return msg.reply(`The channel ${lockChannel} does not exist`)
             
             
-            const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first().name) || msg.guild.members.cache.get(msg.mentions.users.first().id);
+            const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first()?.name) || msg.guild.members.cache.get(msg.mentions.users.first()?.id);
             if (!lock) return msg.reply(`${roleMember} does not exist`)
-        
-            // if (!roles && type === "role") {
-            //     return msg.reply(`The role ${roleMember} does not exist`);
-            // } else if (!roles && type === "member") {
-            //     const { id } = msg.mentions.users.first();
-            //     roles = msg.guild.members.cache.get(id);
-            // }
+ 
             channel.permissionOverwrites.create(lock, {
                 SEND_MESSAGES: false,
                 READ_MESSAGE_HISTORY: false
