@@ -48,45 +48,7 @@ export default {
             }
 
             options[option]();
-            
-            // if (args[0] === "create") {
-            //     const user = client.users.cache.get(msg.guild.ownerId);
-            //     msg.guild.roles.create({
-            //         name,
-            //         color,
-            //     }).then(async (res) => {
-            //         user?.send(`The role ${res.name} was created`);
-            //         await server.updateOne({id: String(msg.guild.id)}, {
-            //             $push: {
-            //                 "roles.main": res.id
-            //             }
-            //         });
-            //     })
-            //     msg.reply("Role(s) seted");
-            // } else if (args[0] === "add") {
-            //     let roles = [];
-            //     msg.mentions.roles.each((mention) => {
-            //         roles.push(mention.id);
-            //     });
-            //     const sv = await server.updateOne({id: String(msg.guild.id)}, {
-            //         $push: {
-            //             "roles.main": {$each: roles}
-            //         }
-            //     });
-            //     msg.reply("Role(s) seted");
-            //     roles = [];
-            // } else if (args[0] === "delete") {
-            //     let roles = [];
-            //     msg.mentions.roles.each((mention) => {
-            //         roles.push(mention.id);
-            //     });
-            //     const sv = await server.updateOne({id: String(msg.guild.id)}, {
-            //         $pullAll: {
-            //             "roles.main": roles
-            //         }
-            //     });
-            //     msg.reply("Role(s) deleted")
-            // }
+           
         } else {
             msg.reply("You do not have permissions to set the main(s) role");  
         };

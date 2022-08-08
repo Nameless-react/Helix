@@ -7,7 +7,7 @@ export default {
             if (args.length === 0) return msg.reply("Please write true or false to execute this command");
             if (args[0] !== "true" && args[0] !== "false") return msg.reply(`"${args[0]}" is not a mode`)
 
-            if (!Boolean(args[0])) {
+            if (args[0] === "false") {
                 msg.reply("The moderation mode is off")
                 msg.channel.setRateLimitPerUser(0)
                 return await server.updateOne({id: String(msg.guild.id)}, {
@@ -19,7 +19,7 @@ export default {
             if (sv.mode) return msg.reply("The mode is already on")
             
             
-            if (Boolean(args[0])) {
+            if (args[0] === "true") {
                 msg.reply("The moderation mode is on");
                 msg.channel.setRateLimitPerUser(5)
                 return await server.updateOne({id: String(msg.guild.id)}, {
