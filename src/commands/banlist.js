@@ -3,22 +3,10 @@ export default {
     description: "Show the list of persons that are ban",
     execute: async (client, msg, BanEmbed) => {
         if (msg.member.permissions.has("BAN_MEMBERS")) {
-            const bans = await msg.guild.bans.fetch()
-            console.log(bans)
-            const list = bans.map(({ user, reason }) => ({username: user?.username, id: user?.id, reason}))
+            const bans = await msg.guild.bans.fetch();
+            const list = bans.map(({ user, reason }) => ({username: user?.username, id: user?.id, reason}));
             
             
-            // .then(res =>{
-            //     res.forEach(bans => {
-            //         const { username, id }  = bans.user;
-            //         list.push({
-            //             username,
-            //             id,
-            //             reason: bans.reason
-            //         })
-            //     });
-                
-            // });
             if (list.length === 0) return msg.reply("The list is empty") 
 
             msg.channel.send({

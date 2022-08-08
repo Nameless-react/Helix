@@ -84,7 +84,7 @@ export const BanEmbed = (list) => {
         color: "#ff0000",
         fields: []
     };
-    list.forEach(data => embed.fields.push({ name: `User ${data.username}`, value: `Id: ${data.id},\n Reason: ${data.reason}`}));
+    list.forEach(data => embed.fields.push({ name: `User ${data.username}`, value: `Id: ${data.id}\n Reason: ${data.reason}`}));
  
     return embed
 };
