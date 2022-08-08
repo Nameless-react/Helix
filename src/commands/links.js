@@ -8,7 +8,7 @@ export default {
 
             if (args[0] !== "true" && args[0] !== "false") return msg.reply(`"${args[0]}" is not a mode`)
             
-            if (Boolean(args[0])) {
+            if (!Boolean(args[0])) {
                 msg.reply("The detector is off")
                 return await server.updateOne({id: String(msg.guild.id)}, {
                     links: false
