@@ -67,37 +67,45 @@ export const commands = async (msg, client, cdm, args, MuteRole, sv) => {
         "unlock": () => cHandler(client, "unlock").execute(client, msg, args),
         "moderate": () => cHandler(client, "moderate").execute(client, msg, args),
         "links": () => cHandler(client, "links").execute(client, msg, args),
+        "ticket": () => cHandler(client, "ticket").execute(client, msg, TickEmbed, buttonTick),
+        "suggest": () => cHandler(client, "suggest").execute(client, msg, suggesEmbed, args),
+        "profile": () => cHandler(client, "profile").execute(client, msg, ProfileEmbed, args),
+        "8ball": () => cHandler(client, "8ball").execute(client, msg, args),
+        "mains": () => cHandler(client, "mains").execute(client, msg, args),
+        "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
+        "setprefix": () => cHandler(client, "setprefix").execute(client, msg, args),
+        "webHook": () => cHandler(client, "webHook").execute(client, msg, args),
         "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
     };
 
     commands[cdm] ? commands[cdm]() : commands["default"]();
 };
 
-export const PublicCommands = (msg, client, cdm, args) => {
-    const commands = {
-        "ticket": () => cHandler(client, "ticket").execute(client, msg, TickEmbed, buttonTick),
-        "suggest": () => cHandler(client, "suggest").execute(client, msg, suggesEmbed, args),
-        "profile": () => cHandler(client, "profile").execute(client, msg, ProfileEmbed, args),
-        "8ball": () => cHandler(client, "8ball").execute(client, msg, args),
-        "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
-    }
+// export const PublicCommands = (msg, client, cdm, args) => {
+//     const commands = {
+//         "ticket": () => cHandler(client, "ticket").execute(client, msg, TickEmbed, buttonTick),
+//         "suggest": () => cHandler(client, "suggest").execute(client, msg, suggesEmbed, args),
+//         "profile": () => cHandler(client, "profile").execute(client, msg, ProfileEmbed, args),
+//         "8ball": () => cHandler(client, "8ball").execute(client, msg, args),
+//         "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
+//     }
 
-    // commands[cdm] ? commands[cdm]() : commands["default"]();
-    commands[cdm]()
-} 
+//     // commands[cdm] ? commands[cdm]() : commands["default"]();
+//     commands[cdm]()
+// } 
 
-export const configCommands = (msg, client, cdm, args) => {
-    const commands = {
-        "mains": () => cHandler(client, "mains").execute(client, msg, args),
-        "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
-        "setprefix": () => cHandler(client, "setprefix").execute(client, msg, args),
-        "webHook": () => cHandler(client, "webHook").execute(client, msg, args),
-        "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
-    }
+// export const configCommands = (msg, client, cdm, args) => {
+//     const commands = {
+//         "mains": () => cHandler(client, "mains").execute(client, msg, args),
+//         "muteRole": () => cHandler(client, "muteRole").execute(client, msg, args),
+//         "setprefix": () => cHandler(client, "setprefix").execute(client, msg, args),
+//         "webHook": () => cHandler(client, "webHook").execute(client, msg, args),
+//         "default": () => msg.channel.send(`The commnad "${cdm}" does not exist`)
+//     }
 
-    // commands[cdm] ? commands[cdm]() : commands["default"]();
-    commands[cdm]()
-}
+//     // commands[cdm] ? commands[cdm]() : commands["default"]();
+//     commands[cdm]()
+// }
 
 export const WebHook = (id, token) => {
     return new WebhookClient({

@@ -58,13 +58,14 @@ client.on("messageCreate", async (msg) => {
     if (msg.content.startsWith(sv.prefix)) {
         const [cdm, ...args] = msg.content.trim().substring(sv.prefix.length).split(/\s+/);
 
-        ["muteRole", "mains", "setPrefix", "webHook"].includes(cdm) && configCommands(msg, client, cdm, args);
+        // ["muteRole", "mains", "setprefix", "webHook"].includes(cdm) && configCommands(msg, client, cdm, args);
         
-        if (["ticket", "suggest", "8ball", "profile"].includes(cdm)) {
-            PublicCommands(msg, client, cdm, args)
-        } else {
-            commands(msg, client, cdm, args, MuteRole, sv);
-        }
+        // if (["ticket", "suggest", "8ball", "profile"].includes(cdm)) {
+        //     PublicCommands(msg, client, cdm, args)
+        // } else {
+        //     commands(msg, client, cdm, args, MuteRole, sv);
+        // }
+        commands(msg, client, cdm, args, MuteRole, sv);
     }; 
     
     sv.mode && BadWords(msg);
