@@ -4,7 +4,8 @@ export default {
     execute: async (client, msg, BanEmbed) => {
         if (msg.member.permissions.has("BAN_MEMBERS")) {
             const bans = await msg.guild.bans.fetch()
-            const list = bans.map((bans, {user}) => ({username: user.username, id: user.id, reason: bans.reason}))
+
+            const list = bans.map((bans, { user }) => ({username: user?.username, id: user?.id, reason: bans.reason}))
             
             
             // .then(res =>{
