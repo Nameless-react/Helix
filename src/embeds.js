@@ -1,7 +1,7 @@
-import { EmbedBuilder, MessageActionRow } from "discord.js";
+import { MessageEmbed, MessageActionRow } from "discord.js";
 
 export const WelcomeEmbed = (server) => {
-    return new EmbedBuilder()
+    return new MessageEmbed()
         .setColor("#00ff00")
         .setTitle(`Welcome to ${server.guild.name}`)
         .setThumbnail(server.user.avatarURL({dynamic: true, size: 512}))
@@ -28,7 +28,7 @@ export const DMEmbed = (client) => {
 };
 
 export const suggesEmbed = (content, author, img, msg) => {
-    return new EmbedBuilder()
+    return new MessageEmbed()
         .setAuthor(`${author}`, img)
         .setColor("#00ff00")
         .setDescription(`Id:\n${msg.id}\nSuggestion:\n${content}`)
@@ -49,7 +49,7 @@ const ProfileEmbed = (member, msg) => {
     const status = member.presence?.status
     
     
-    const embed = new EmbedBuilder()
+    const embed = new MessageEmbed()
         .setTitle("Profile:")
         .setAuthor(member.user.username, member.user.displayAvatarURL())
         .setThumbnail(target.displayAvatarURL({dynamic: true}))
@@ -66,7 +66,7 @@ const ProfileEmbed = (member, msg) => {
 }
 
 export const StatusEmbed = (content, author, img, status, reason, color, id, staff) => {
-    return new EmbedBuilder()
+    return new MessageEmbed()
         .setAuthor(`${author}`, img)
         .setColor(color)
         .setDescription(`${content}\n
@@ -101,7 +101,7 @@ export const buttonTick = () => {
 
 
 export const TickEmbed = (msg) => {
-    return new EmbedBuilder()
+    return new MessageEmbed()
         .setTitle("Ticket 🎫")
         .setDescription(`This ticket allow you to talk with the staff in a private room`)
         .setColor("WHITE");
