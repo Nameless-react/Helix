@@ -50,7 +50,7 @@ export default {
                 "show": async () => {
                     const sv = await server.findOne({id: String(msg.guild.id)});
                     const roles = sv.roles.main.map(id => msg.guild.roles.cache.get(id).name);
-                    msg.reply(roles.join("\n"));
+                    msg.reply(`Roles:\n${roles.join("\n")}`);
                 }
             }
 
