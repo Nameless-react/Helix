@@ -14,7 +14,6 @@ export default {
            
             const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first()?.name) || msg.guild.members.cache.get(msg.mentions.users.first()?.id);
             if (!lock) return msg.reply(`${roleMember} does not exist`)
-            let roles;
 
             channel.permissionOverwrites.delete(lock).then(res => msg.reply("The channel was unlock"))
         } else {

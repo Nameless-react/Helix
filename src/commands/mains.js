@@ -45,8 +45,10 @@ export default {
                     });
                     msg.reply("Role(s) seted");    
                 },
-                "show": () => {
-                    
+                "show": async () => {
+                    const sv = await server.findOne({id: String(msg.guild.id)});
+                    const roles = sv.roles.main.map(id => msg.guild.roles.cache.get(id).name);
+                    msg.reply(roles.join("\n"));
                 }
             }
 
