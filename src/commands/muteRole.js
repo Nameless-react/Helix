@@ -47,40 +47,6 @@ export default {
             }
 
             options[option]();
-            // if (role === "create") {
-            //     const user = client.users.cache.get(msg.guild.ownerId);
-            //     msg.guild.roles.create({
-            //         name,
-            //         color,
-            //     }).then(async (res)  => {
-            //         user?.send(`The role ${res.name} was created`)
-            //         msg.guild.channels.cache.each((channel) => channel.permissionOverwrites.create(res.id, {
-            //             SEND_MESSAGES: false,
-            //             ADD_REACTIONS: false,
-            //             MUTE_MEMBERS: false,
-            //             SEND_MESSAGES_IN_THREADS: false,
-            //             READ_MESSAGE_HISTORY: false
-            //         }));
-            //         msg.guild.roles.setPositions([{
-            //             role: res.id,
-            //             position: -1
-            //         }]);
-            //         const sv = await server.updateOne({id: String(msg.guild.id)}, {
-            //             $set: {
-            //                 "roles.main": res.id
-            //             }
-            //         });
-            //     });
-            //     msg.reply("Role seted");
-            // } else {
-            //     const { id } = msg.mentions.roles.first();
-            //     const sv = await server.updateOne({id: String(msg.guild.id)}, {
-            //         $set: {
-            //             "roles.mute": id
-            //         }
-            //     });
-            //     msg.reply("Role seted");
-            // };
         } else {
             msg.reply("You do not have permissions to set the mute role");
         }
