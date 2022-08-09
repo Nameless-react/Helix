@@ -71,17 +71,6 @@ client.on("messageReactionAdd", async (reaction, user) => {
     const sv  = await server.findOne({id: reaction.message.guild.id})
     if (reaction.message.channel.name === sv.channelRole) {
         sv.autoRole.roles.forEach((role, index) => name === sv.autoRole.emojis[index] && member.roles.add(role).catch(err => reaction.message.channel.send("I do not have permissions").then(msg => setTimeout(() => msg.delete(), 3000))));
-        // for (let i = 0; i < sv.autoRole.roles.length; i++) {
-        //     switch (name) {
-        //         case sv.autoRole.emojis[i]:
-        //             member?.roles.add(sv.autoRole.roles[i])
-        //                 .catch(err => {
-        //                     reaction.message.channel.send("I do not have permissions").then((res) => setTimeout(() => {
-        //                         res.delete()
-        //                     }, 3000));
-        //                 });
-        //     };
-        // };
     };
 });
 
@@ -116,22 +105,24 @@ client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return
 
     if (interaction.customId === "Open") {
-        let ticket;
+        // let ticket;
         const name = `ticket-${interaction.user.username.toLowerCase()}${interaction.user.discriminator}`;
-        ticket = interaction.guild?.channels.cache.find((ticket) => ticket.name.match(/tickets?/ig));
-        if (!ticket) {
-            ticket = await interaction.guild.channels.create("ticket", {
-                type: "GUILD_CATEGORY"
-            });
-        };
+        const ticket = interaction.guild?.channels.cache.find(ticket => ticket.name.match(/tickets?/ig)) || await interaction.guild.channels.create("ticket", {
+            type: "GUILD_CATEGORY"
+        });
 
-        const equal = ticket.children.find(m => m.name === name);
-        if (equal) {
-            return interaction.reply({
-                content: `You have an open ticket, here <#${equal.id}>`,
-                ephemeral: true
-            });
-        }
+        // if (!ticket) {
+        //     ticket = await interaction.guild.channels.create("ticket", {
+        //         type: "GUILD_CATEGORY"
+        //     });
+        // };
+
+        // const equal = ;
+        if (ticket.children.find(m => m.name === name)) return interaction.reply({
+                                                                    content: `You have an open ticket, here <#${equal.id}>`,
+                                                                    ephemeral: true
+                                                                });
+
         const channel = await interaction.guild.channels.create(`Ticket: ${interaction.user.tag}`, {
             parent: ticket?.id,
             permissionOverwrites: [
@@ -159,14 +150,11 @@ client.on("interactionCreate", async (interaction) => {
             channel.send("Error sending emojis");
             throw err;
         };
-        const filter = ((reaction, user) => reaction.message.guild.members.cache.find((m) => m.id === user.id).permissions.any(["BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD"]))
-        const collector = MsgTicket.createReactionCollector({
-            filter
-        });
+        const filter = ((reaction, user) => reaction.message.guild.members.cache.find(m => m.id === user.id).permissions.any(["BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD"]))
+        const collector = MsgTicket.createReactionCollector({ filter });
         
         setTimeout(() => {
             collector.on("collect", (reaction, user) => {
-                // console.log(reaction.message.guild!.members.cache.find((m) => m.id === user.id).roles.cache.has(AdminRole))
                 switch(reaction.emoji.name) {
                     case "🔒":
                         channel.permissionOverwrites.create(interaction.user.id, {
@@ -205,9 +193,9 @@ client.on("guildCreate", async (guild) => {
         censoredWord: []
     });
     await Data.save()
-        .then((res) => console.log("Data saved"))
-        .catch((err) => console.log(err));
-})
+        .then(res => console.log("Data saved"))
+        .catch(err => console.log(err));
+});
 
 client.on("guildDelete", async (guild) => {
     await server.deleteOne({id: String(guild.id)}).then(res => console.log("Data deleted")); 
@@ -215,9 +203,12 @@ client.on("guildDelete", async (guild) => {
 
 
 client.on("roleDelete", async (deletedRole) => {
-    await server.updateOne({id: String(deletedRole.guild.id)}, {
-        $pull: { "roles.main": deletedRole.id }
-    });
+    const sv = await server.findOne({id: String(deletedRole.guild.id)});
+    if (sv.roles.main.includes(deletedRole.id)) {
+        await server.updateOne({id: String(deletedRole.guild.id)}, {
+            $pull: { "roles.main": deletedRole.id }
+        });
+    }
 })
 
 
