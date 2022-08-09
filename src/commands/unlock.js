@@ -4,25 +4,19 @@ export default {
     execute(client, msg, args) {
         if (msg.member.permissions.has("MANAGE_CHANNELS")) {
             if(args.length === 0) return msg.reply("Please provide the data");
-            const [roleMember, type, name] = args;
-            if (!name) {
-                return msg.reply("Please specify which channel you want to unlock");
-            } else if (!type) {
-                return msg.reply("Please specify if is a role or a member");
-            } else if (!roleMember) {
-                return msg.reply("Please specify for which role you want to unlock the channel");
-            };
+            const [roleMember, lockChannel] = args;
+
+            if (!lockChannel) return msg.reply("Please specify which channel you want to lock");
+            if (!roleMember) return msg.reply("Please specify for which role or person you want to lock the channel");
+            
+            const channel = msg.guild.channels.cache.find(channel => channel.name === lockChannel);
+            if (!channel) return msg.reply(`The channel ${lockChannel} does not exist`)
+           
+            const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first()?.name) || msg.guild.members.cache.get(msg.mentions.users.first()?.id);
+            if (!lock) return msg.reply(`${roleMember} does not exist`)
             let roles;
-            const channel = msg.guild.channels.cache.find((channel) => channel.name === name);
-            roles = msg.guild.roles.cache.find((r) => r.name === roleMember);
-            if (!channel) return msg.reply(`The channel ${name} does not exist`)
-            if (!roles && type === "role") {
-                return msg.reply(`The role ${roleMember} does not exist`);
-            } else if (!roles && type === "member") {
-                const { id } = msg.mentions.users.first();
-                roles = msg.guild.members.cache.get(id);
-            }
-            channel.permissionOverwrites.delete(roles).then(res => msg.reply("The channel was unlock"))
+
+            channel.permissionOverwrites.delete(lock).then(res => msg.reply("The channel was unlock"))
         } else {
             msg.reply("Only the administrators can execute this command");
         }

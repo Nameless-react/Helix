@@ -11,6 +11,7 @@ export default {
 
             const channel = msg.guild.channels.cache.find(channel => channel.name === lockChannel);
             if (!channel) return msg.reply(`The channel ${lockChannel} does not exist`)
+
             
             
             const lock = msg.guild.roles.cache.find(role => role.name === msg.mentions.roles.first()?.name) || msg.guild.members.cache.get(msg.mentions.users.first()?.id);
