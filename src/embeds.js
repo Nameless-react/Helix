@@ -32,7 +32,8 @@ export const suggesEmbed = (content, author, img, msg) => {
     return new MessageEmbed()
         .setAuthor(`${author}`, img)
         .setColor("#00ff00")
-        .setDescription(`Id:\n${msg.id}\nSuggestion:\n${content}`)
+        .setTitle(`Id:\n${msg.id}`)
+        .setDescription(`Suggestion:\n${content}`)
 }
 
 

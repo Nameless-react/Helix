@@ -6,12 +6,11 @@ export default {
         ?.permissions.has("MANAGE_MESSAGES")) {
             if(args.length === 0) msg.reply("Data do not provide");
             const [status, id, ...rest] = args;
-            
             if (isNaN(parseInt(id))) return msg.reply(`The id "${id}" is not valid`);
         
-            if (msg.channel.name.match(/sugerencias?|suggestions?|suggest|requests?/ig)) {
+            if (msg.channel.name.match(/sugerencias?|suggestions?|suggest/ig)) {
                 msg.channel.messages.fetch().then(res => {
-                    const message = res.find(message => new Regex(`Id:\n${id}`).test(message.embeds[0]?.description) && message.author.id === "900182160017883197");
+                    const message = res.find(message => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
                     
                     if (!message) {
                         msg.delete();
@@ -20,10 +19,10 @@ export default {
                     
                          return
                     }; 
-                    if (status !== "accepted" && status !== "denied") return msg.reply("The status is not valid");
+                    if (status !== "accepted" && status !== "deny") return msg.reply("The status is not valid");
                     
                     message.edit({
-                        embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), status === "deny" ? "#ff0000" : "ffff00", id, msg.author.username)]
+                        embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), status === "deny" ? "#ff0000" : "#ffff00", id, msg.author.username)]
                     })
                     // if (status === "deny") {
                     //     message.edit({
