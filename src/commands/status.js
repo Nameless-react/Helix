@@ -11,7 +11,7 @@ export default {
         
             if (msg.channel.name.match(/sugerencias?|suggestions?|suggest/ig)) {
                 msg.channel.messages.fetch().then(res => {
-                    const message = res.find(message => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
+                    const message = res.find(message => new Regex(`Id:${id}`).test(message.embeds[0]?.description) && message.author.id === "900182160017883197");
                     
                     if (!message) {
                         msg.delete();
