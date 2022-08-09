@@ -9,9 +9,9 @@ export default {
             
             if (isNaN(parseInt(id))) return msg.reply(`The id "${id}" is not valid`);
         
-            if (msg.channel.name.match(/sugerencias?|suggestions?|suggest/ig)) {
+            if (msg.channel.name.match(/sugerencias?|suggestions?|suggest|requests?/ig)) {
                 msg.channel.messages.fetch().then(res => {
-                    const message = res.find(message => new Regex(`Id:${id}`).test(message.embeds[0]?.description) && message.author.id === "900182160017883197");
+                    const message = res.find(message => new Regex(`Id:\n${id}`).test(message.embeds[0]?.description) && message.author.id === "900182160017883197");
                     
                     if (!message) {
                         msg.delete();
