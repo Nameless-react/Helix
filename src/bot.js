@@ -70,17 +70,18 @@ client.on("messageReactionAdd", async (reaction, user) => {
     const member =  reaction.message.guild?.members.cache.get(user.id);
     const sv  = await server.findOne({id: reaction.message.guild.id})
     if (reaction.message.channel.name === sv.channelRole) {
-        for (let i = 0; i < sv.autoRole.roles.length; i++) {
-            switch (name) {
-                case sv.autoRole.emojis[i]:
-                    member?.roles.add(sv.autoRole.roles[i])
-                        .catch(err => {
-                            reaction.message.channel.send("I do not have permissions").then((res) => setTimeout(() => {
-                                res.delete()
-                            }, 3000));
-                        });
-            };
-        };
+        sv.autoRole.roles.forEach((role, index) => name === sv.autoRole.emojis[index] && member.roles.add(role).catch(err => reaction.message.channel.send("I do not have permissions").then(msg => setTimeout(() => msg.delete(), 3000))));
+        // for (let i = 0; i < sv.autoRole.roles.length; i++) {
+        //     switch (name) {
+        //         case sv.autoRole.emojis[i]:
+        //             member?.roles.add(sv.autoRole.roles[i])
+        //                 .catch(err => {
+        //                     reaction.message.channel.send("I do not have permissions").then((res) => setTimeout(() => {
+        //                         res.delete()
+        //                     }, 3000));
+        //                 });
+        //     };
+        // };
     };
 });
 
