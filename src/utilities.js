@@ -58,7 +58,7 @@ export const commands = async (msg, client, cdm, args, MuteRole, sv) => {
         "unmute": () => cHandler(client, "unmute").execute(client, msg, args, MuteRole),
         "banlist": () => cHandler(client, "banlist").execute(client, msg, BanEmbed),
         "cc": () => cHandler(client, "cc").execute(client, msg, args),
-        "status": () => cHandler(client, "status").execute(client, msg, StatusEmbed),
+        "status": () => cHandler(client, "status").execute(client, msg, args, StatusEmbed),
         "autoRole": () => cHandler(client, "autoRole").execute(client, msg, args),
         "lock": () => cHandler(client, "lock").execute(client, msg, args),
         "unlock": () => cHandler(client, "unlock").execute(client, msg, args),

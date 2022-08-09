@@ -6,35 +6,37 @@ export default {
         ?.permissions.has("MANAGE_MESSAGES")) {
             if(args.length === 0) msg.reply("Data do not provide");
             const [status, id, ...rest] = args;
-            const reason = rest.join(" ");
+            
             if (isNaN(parseInt(id))) return msg.reply(`The id "${id}" is not valid`);
-            // @ts-expect-error
+        
             if (msg.channel.name.match(/sugerencias?|suggestions?|suggest/ig)) {
-                msg.channel.messages.fetch().then((res) => {
-                    const message = res.find((message) => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
+                msg.channel.messages.fetch().then(res => {
+                    const message = res.find(message => message.embeds[0]?.title === `Id:\n${id}` && message.author.id === "900182160017883197");
+                    
                     if (!message) {
-                    msg.delete();
+                        msg.delete();
                         msg.channel.send(`The id "${id}" does not exist`)
-                            .catch((err) => {
-                                console.log(err)
-                            });
-                    return
+                            .catch(err => console.log(err));
+                    
+                         return
                     }; 
-                    if (status === "deny") {
-                        message.edit({
-                            embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, reason, "#ff0000", id, msg.author.username)]
-                        })
-                    } else if (status === "accepted") {
-                        message.edit({
-                            embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, reason, "#ffff00", id, msg.author.username)]
-                        })
-                    } else {
-                        msg.reply("The status is not valid");
-                    }
-                })
-                .catch((err) => {
-                console.log(err)
-                });
+                    if (status !== "accepted" && status !== "denied") return msg.reply("The status is not valid");
+                    
+                    message.edit({
+                        embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), status === "deny" ? "#ff0000" : "ffff00", id, msg.author.username)]
+                    })
+                    // if (status === "deny") {
+                    //     message.edit({
+                    //         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), "#ff0000", id, msg.author.username)]
+                    //     })
+                    // } else if (status === "accepted") {
+                    //     message.edit({
+                    //         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), "#ffff00", id, msg.author.username)]
+                    //     })
+                    // } else {
+                    //     msg.reply("The status is not valid");
+                    // }
+                }).catch((err) => console.log(err));
                 msg.delete();
             }
         } else {
