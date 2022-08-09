@@ -24,17 +24,6 @@ export default {
                     message.edit({
                         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), status === "deny" ? "#ff0000" : "#ffff00", id, msg.author.username)]
                     })
-                    // if (status === "deny") {
-                    //     message.edit({
-                    //         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), "#ff0000", id, msg.author.username)]
-                    //     })
-                    // } else if (status === "accepted") {
-                    //     message.edit({
-                    //         embeds: [StatusEmbed(message.embeds[0]?.description, message.embeds[0]?.author.name, message.embeds[0]?.author.iconURL, status, rest.join(" "), "#ffff00", id, msg.author.username)]
-                    //     })
-                    // } else {
-                    //     msg.reply("The status is not valid");
-                    // }
                 }).catch((err) => console.log(err));
                 msg.delete();
             }

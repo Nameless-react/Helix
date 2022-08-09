@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import server from "./schema.js";
 import ms from "ms";
-import { DMEmbed, suggesEmbed, ProfileEmbed, StatusEmbed, BanEmbed, buttonTick } from "./embeds.js";
+import { DMEmbed, suggesEmbed, ProfileEmbed, StatusEmbed, BanEmbed, buttonTick, TickEmbed } from "./embeds.js";
 dotenv.config();
 
 const cHandler = ((client, command) => client.application?.commands.cache.get(command));
